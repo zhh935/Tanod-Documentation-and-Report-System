@@ -9,6 +9,11 @@
             background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
            background-repeat: no-repeat;
             background-attachment: fixed;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+
             }
         
 
@@ -28,8 +33,8 @@
             }
 
             .seal_container img{  /*market area logo */
-             height: 80px;
-              margin-right: 15px;
+             height: 90px;
+              margin-right: 20px;
             }
 
             .site_name{      /*website title inside span */
@@ -40,33 +45,28 @@
             .navbar ul {        /*navigation aligment*/
             list-style: none;
             display: flex;
-            margin-left: 320px;
+            margin-left: 400px;
             padding: 0;
             }
 
         .navbar li {               /*navigation per  list design*/
-            margin-left: 30px;
-            background-color:   #D0B564;
+            margin-left: 10px;
             border-radius: 50px;
-            padding: 10px 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-           transition: box-shadow 0.3s ease; /* smooth hover */
-
+            padding: 5px 20px;
         }
 
             .navbar a {       /*navigation text Dashboard, Incident report, Leave*/
             text-decoration: none;
-            color: black;
+            color: rgb(253, 253, 253);
             font-weight: bold;
             }
 
-            .navbar li:hover {       /*navigation hover*/
-                background-color:  #BD8F42;
-                color:#4B5320;
-            }
+           .navbar a:hover {
+            color: #dbeca6;
+        }
 
             .header_profile   { /*Tanod profile alignment*/
-                margin-left: 32px;
+                margin-left: 40px;
             }
 
             .header_profile img {
@@ -80,11 +80,6 @@
             .dashboard_text {                   /*dasboard text below header*/
                 display: inline-block; 
                 font-size: 25px;
-                /*background-color: #D0B564;
-                border-radius:50px;
-                border: 2px solid white;
-            padding: 10px 30px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
             margin-top: 30px;
             margin-left: 30px;
             
@@ -100,12 +95,12 @@
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 1;
-                border: 5px solid #8A9A5B;
                 border-radius: 30px;
                 display: flex;
                 align-items: center;
                 padding: 20px;
                 gap: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 
             }
 
@@ -132,51 +127,84 @@
         border-top: 1px solid  black; /* line between name and position */
         padding-top: 5px;
 }
-.text_header {
-    width:500px;
-    height: 40px;
-    background-color:  #8A9A5B;
-    color:white;
-    padding:2px;
-    border-radius: 30px;
-     position: fixed;
-   margin-top: 20px;
-    top: 330px;
-     left: 50%;
-     transform: translateX(-50%);
-     z-index: 1;
-     text-align: center;
+        .text_header {
+            width:500px;
+            height: 40px;
+            background-color:  #8A9A5B;
+            color:white;
+            padding:2px;
+            border-radius: 30px;
+            position: fixed;
+        margin-top: 20px;
+            top: 330px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            text-align: center;
 
-}
+        }
 
-/*sample boxes for the sched, announcement*/
-    .dashboard-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-   margin-top: 250px; 
-}
+.dashboard-row {
+    display: flex;
+    gap: 20px;
+  margin: 250px 30px 0 30px;
+  }
 
-.dashboard-box {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  flex: 1;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  .dashboard-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
+    min-width: 280px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+  }
 
-.dashboard-box h3 {
-  margin-top: 0;
-  font-size: 20px;
-  color: #4B5320;
-}
+  .dashboard-box h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #4B5320;
+  }
 
 .item-box {
   background-color: #f0f0f0;
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
+  position: relative;
 }
+
+.text-content {
+  max-height: 1.2em; /* height of one line */
+  line-height: 1.2em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+}
+
+.text-content.expanded {
+  max-height: none;
+  white-space: normal;
+  text-overflow: unset;
+}
+
+.see-more {
+  margin-top: 5px;
+  border: none;
+  background: none;
+  color: #777;
+  font-weight: bold;
+  padding: 0;
+  cursor: pointer;
+  display: none;
+}
+
+.see-more.visible {
+  display: inline-block;
+}
+
         
         footer{ 
              background-color:   #4B5320;
@@ -217,6 +245,7 @@
     <body>
             <span class="dashboard_text"> Dashboard </span>
 
+        <!--tanod profile place on the middle-->
             <div class="tanod_dashboard"> 
                             <img src="maloi.jpg" class="dashboard_pic">
                    <div class="tanod_info"> 
@@ -227,36 +256,91 @@
             </div>
 
             <div class="text_header">
-               <p>  YOUR DUTIES AND BARANGAY UPDATES FOR TODAY </p>
+                         <p>  YOUR DUTIES AND BARANGAY UPDATES FOR TODAY </p>
             </div>
+
         
-            <!--sample for the announcement, schedule-->
-                        <div class="dashboard-row">
-            <section class="dashboard-box">
-                <h3>Schedule</h3>
-                <div class="item-box">June 10 - Night Patrol</div>
-                <div class="item-box">June 11 - Community Watch</div>
-                <div class="item-box">June 12 - Day Duty</div>
-            </section>
+          <div class="dashboard-row">
+  <!-- Schedule -->
+  <section class="dashboard-box">
+    <h3>Schedule</h3>
+    <div class="item-box">
+      <div class="text-content">June 10, 2025 (Tuesday) - Night Patrol</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">June 11, 2025 (Wednesday) - Day Duty</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">June 12, 2025 (Thurday) - Day Duty</div>
+      <button class="see-more">See More</button>
+    </div>
+  </section>
 
-            <section class="dashboard-box">
-                <h3>Announcement</h3>
-                <div class="item-box">New ID distribution: June 15</div>
-                <div class="item-box">Barangay Hall Maintenance: June 16</div>
-                <div class="item-box">Tanod Meeting: June 18</div>
-            </section>
+  <!-- Announcement -->
+  <section class="dashboard-box">
+    <h3>Announcement</h3>
+    <div class="item-box">
+      <div class="text-content">New ID distribution: June 15</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">Barangay Hall Maintenance: June 16 with some additional notes making this longer than one line</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">Tanod Meeting: June 18</div>
+      <button class="see-more">See More</button>
+    </div>
+  </section>
 
-            <section class="dashboard-box">
-                <h3>Report Update</h3>
-                <div class="item-box">Report #123 - Resolved</div>
-                <div class="item-box">Report #124 - Under Review</div>
-                <div class="item-box">Report #125 - More Info Needed</div>
-            </section>
-            </div>
+  <!-- Report Update -->
+  <section class="dashboard-box">
+    <h3>Report Update</h3>
+    <div class="item-box">
+      <div class="text-content">Report #123 - Resolved</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">Report #124 - Under Review</div>
+      <button class="see-more">See More</button>
+    </div>
+    <div class="item-box">
+      <div class="text-content">Report #125 - Under Review</div>
+      <button class="see-more">See More</button>
+    </div>
+  </section>
+</div>
 
-       <footer>
+<script>
+  // On page load, check which .text-content overflows and show the "See More" button only for those
+  document.querySelectorAll('.item-box').forEach(box => {
+    const textDiv = box.querySelector('.text-content');
+    const btn = box.querySelector('.see-more');
 
-    </footer>
+    if (textDiv.scrollWidth > textDiv.clientWidth) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+
+    btn.addEventListener('click', () => {
+      if (textDiv.classList.contains('expanded')) {
+        textDiv.classList.remove('expanded');
+        btn.textContent = 'See More';
+      } else {
+        textDiv.classList.add('expanded');
+        btn.textContent = 'See Less';
+      }
+    });
+  });
+</script>
+
+
+
+
+
     </body>
 
 
