@@ -116,11 +116,15 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-top: -30px;
+
 }
 
-.form-main-heading .fas.fa-leaf {
-    font-size: 2em; /* Size of the leaf icon */
-    color: #4CAF50; /* Green color for the leaf */
+.form-logo {
+    height: 70px; /* Adjust as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-top: 10px; 
+    vertical-align: middle; /* Helps align with text */
 }
 
 .form-main-heading h2 {
@@ -132,11 +136,12 @@
 
 /* --- Required Fields Text --- */
 .required-fields-text {
-    font-size: 0.9em;
+    font-size: 12px;
     color: #777;
     font-style: italic;
     text-align: center;
     margin-bottom: 25px; /* Space below text */
+    margin-top: -10px;
 }
 
 /* --- General Form Group Styling (Label above Input/Select/Textarea) --- */
@@ -161,14 +166,15 @@
 .form-group textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #979191;
+   background-color: #F5F5F5;
+   border: 1px solid #bbb;
     border-radius: 5px;
     font-size: 1em;
     box-sizing: border-box;
     outline: none; /* Remove default outline on focus */
     appearance: none; /* Remove default browser styling for select */
     -webkit-appearance: none; /* For Safari */
-    background-color: white; /* Ensure consistent background */
+
 }
 
 .form-group input[type="text"]::placeholder,
@@ -290,7 +296,7 @@
 .reset-button {
     background-color: #f0f0f0;
     color: #555;
-    border: 1px solid #ccc;
+    border: 2px solid #c00707;
 }
 
 .reset-button:hover {
@@ -376,6 +382,7 @@
     font-size: 1.1em;
     color: #555;
     margin-bottom: 25px;
+      margin-top: -20px;
 }
 
 .modal-close-button {
@@ -392,6 +399,13 @@
 
 .modal-close-button:hover {
     background-color: #c02221;
+}
+.modal-image {
+    max-width: 100px; /* Adjust max-width as needed to control image size */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Makes it a block element to control margins easily */
+    margin: 0 auto 15px auto; /* Centers the image and adds space below it */
+    border-radius: 8px; /* Optional: adds slight rounded corners to the image */
 }
         
 </style>
@@ -423,7 +437,7 @@
 
         <div class="form-content-wrapper">
             <div class="form-main-heading">
-                <i class="fas fa-leaf"></i> <h2>Leave Application</h2>
+              <img src="leavelogo-removebg-preview.png" alt="Incident Logo" class="form-logo">  <h2>Leave Application</h2>
             </div>
             <p class="required-fields-text">(*) Required fields must be filled to apply for leave.</p>
 
@@ -475,7 +489,7 @@
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <div class="modal-body">
-            <i class="fas fa-thumbs-up thumbs-up-icon"></i>
+            <img src="green-thumbs-up-11246.png" alt="Success Image" class="modal-image"> 
             <h3>Great Job!</h3>
             <p>Your application would be reviewed by the admin</p>
             <button class="modal-close-button">Close</button>

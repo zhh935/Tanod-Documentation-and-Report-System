@@ -111,12 +111,14 @@
                     color: #333;
                 }
 
-                .form-title-area .fas.fa-bell {
-                    font-size: 2.2em; /* Same size as title text */
-                    margin-right: 10px; /* Space between bell and text */
-                    color: #555;
+               .form-logo {
+                    height: 30px; /* Adjust as needed */
+                    width: auto; /* Maintain aspect ratio */
+                    margin-right: 10px; /* Space between logo and text/icon */
+                    vertical-align: middle; /* Helps align with text */
                 }
 
+               
                 .title-incidentform {
                     font-size: 2.2em;
                     font-weight: bold;
@@ -125,7 +127,7 @@
 
                 /* --- Red Section Headers (e.g., "INCIDENT DETAILS") --- */
                 .section-header {
-                    background-color: #8A9A5B; /* Red color from design */
+                    background-color:#8A9A5B ; /* Red color from design */
                     color: rgb(249, 243, 243);
                     font-size: 1.1em;;
                     font-weight: bold;
@@ -166,7 +168,9 @@
                 .form-group textarea {
                     width: 100%;
                     padding: 10px;
-                    border: 1px solid #979191;
+                    border: white;
+                    background-color: #F5F5F5;
+                    border: 1px solid #bbb;
                     border-radius: 5px;
                     font-size: 1em;
                     box-sizing: border-box;
@@ -216,7 +220,7 @@
                 }
 
                 .choose-file-button {
-                    background-color: #f0f0f0; /* Light grey button */
+                    background-color:  #D0B564; /* Light grey button */
                     border: 1px solid #ccc;
                     border-radius: 5px;
                     padding: 8px 15px;
@@ -229,12 +233,13 @@
                 }
 
                 .choose-file-button:hover {
-                    background-color: #e0e0e0;
+                    background-color: #BD8F42;
+ ;
                 }
 
                 .file-name-display {
                     flex-grow: 1; /* Allows it to take up remaining space */
-                    padding: 8px 10px;
+                    padding: 5px 8px;
                     border: 1px solid #eee; /* Lighter border for display */
                     border-radius: 5px;
                     background-color: #fcfcfc;
@@ -274,6 +279,8 @@
                 .other-radio-option .other-input {
                     flex-grow: 1; /* Allow input to fill remaining space */
                     margin-left: 10px; /* Space between "Other" label and input */
+                    background-color: #F5F5F5;
+                    border: 1px solid #bbb;
                 }
 
 
@@ -284,6 +291,7 @@
                     width: 100%;
                     gap: 20px; /* Space between Name and Contact inputs */
                     margin-bottom: 15px; /* Space between person rows */
+            
                 }
 
                 .form-sub-group {
@@ -301,6 +309,8 @@
 
                 .form-sub-group input[type="text"] {
                     width: 100%; /* Fill sub-group width */
+                        background-color: #F5F5F5;
+                    border: 1px solid #bbb;
                 }
 
 
@@ -338,7 +348,7 @@
                 .reset-button {
                     background-color: #f0f0f0; /* Light grey */
                     color: #555;
-                    border: 1px solid #ccc;
+                    border: 2px solid #c00707;
                 }
 
                 .reset-button:hover {
@@ -409,22 +419,18 @@
                     padding: 20px 0;
                 }
 
-                .thumbs-up-icon {
-                    font-size: 4em; /* Large thumbs-up icon */
-                    color: #4CAF50; /* Green color, matching your submit button */
-                    margin-bottom: 15px;
-                }
-
                 .modal-body h3 {
                     margin-top: 0;
                     font-size: 1.8em;
                     color: #333;
+                
                 }
 
                 .modal-body p {
                     font-size: 1.1em;
                     color: #555;
-                    margin-bottom: 25px;
+                    margin-bottom: 30px;
+                    margin-top: -20px;
                 }
 
                 .modal-close-button {
@@ -442,6 +448,14 @@
                 .modal-close-button:hover {
                     background-color: #c02221;
                 }
+                .modal-image {
+                max-width: 100px; /* Adjust max-width as needed to control image size */
+                height: auto; /* Maintain aspect ratio */
+                display: block; /* Makes it a block element to control margins easily */
+                margin: 0 auto 15px auto; /* Centers the image and adds space below it */
+                border-radius: 8px; /* Optional: adds slight rounded corners to the image */
+            }
+        
 </style>
 
 <header>
@@ -468,7 +482,8 @@
            <div class="whole-form">
 
         <div class="form-title-area">
-            <i class="fas fa-bell"></i> <span class="title-incidentform">Incident Report</span>
+            <img src="blackbellicon.png" alt="Incident Logo" class="form-logo"> 
+             <span class="title-incidentform">Incident Report</span>
         </div>
 
         <div class="section-header">INCIDENT DETAILS</div>
@@ -575,7 +590,7 @@
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <div class="modal-body">
-            <i class="fas fa-thumbs-up thumbs-up-icon"></i>
+           <img src="green-thumbs-up-11246.png" alt="Success Image" class="modal-image"> 
             <h3>Great Job!</h3>
             <p>Your report would be reviewed by the admin</p>
             <button class="modal-close-button">Close</button>
