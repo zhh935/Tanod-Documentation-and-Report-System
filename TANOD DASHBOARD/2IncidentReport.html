@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
             overflow-y: auto;
+            
 
             }
         
@@ -84,6 +85,376 @@
             
             }
 
+            .whole-form{    /*white bg*/
+              height: auto;
+                width: 700px;
+                background-color: white;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+                border-radius: 30px;
+              margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 50px;
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                padding-top: 30px;
+            }
+
+                        /* --- Form Title Area (Bell Icon + Incident Report) --- */
+                .form-title-area {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center; /* Center horizontally within its own space */
+                    width: 100%;
+                    margin-bottom: 20px;
+                    margin-top: 10px;
+                    color: #333;
+                }
+
+               .form-logo {
+                    height: 30px; /* Adjust as needed */
+                    width: auto; /* Maintain aspect ratio */
+                    margin-right: 10px; /* Space between logo and text/icon */
+                    vertical-align: middle; /* Helps align with text */
+                }
+
+               
+                .title-incidentform {
+                    font-size: 2.2em;
+                    font-weight: bold;
+                    text-align: center;
+                }
+
+                /* --- Red Section Headers (e.g., "INCIDENT DETAILS") --- */
+                .section-header {
+                    background-color:#8A9A5B ; /* Red color from design */
+                    color: rgb(249, 243, 243);
+                    font-size: 1.1em;;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    padding: 7px; /* Vertical padding */
+                    margin-bottom: 20px; /* Space below each red header */
+                    margin-left: 40px;
+                    margin-right: 40px;
+                }
+
+                /* --- Content Areas (fields below red headers) --- */
+                .form-section-content {
+                    width: 100%;
+                    padding: 0 50px; /* Horizontal padding for content inside sections */
+                    box-sizing: border-box; /* Include padding in width */
+                    margin-bottom: 20px; /* Space between content sections */
+                }
+
+                /* --- General Form Group Styling (Label above Input) --- */
+                .form-group {
+                    width: 100%;
+                    margin-bottom: 15px; /* Space between form groups */
+                    display: flex;
+                    flex-direction: column; /* Stacks label above input */
+                    align-items: flex-start; /* Aligns label and input to the left */
+                }
+
+                .form-group label {
+                    font-weight: bold;
+                    margin-bottom: 5px; /* Space between label and input */
+                    color: #444;
+                }
+
+                /* --- Input Field Basic Styling --- */
+                .form-group input[type="text"],
+                .form-group input[type="date"],
+                .form-group input[type="time"],
+                .form-group textarea {
+                    width: 100%;
+                    padding: 10px;
+                    border: white;
+                    background-color: #F5F5F5;
+                    border: 1px solid #bbb;
+                    border-radius: 5px;
+                    font-size: 1em;
+                    box-sizing: border-box;
+                    outline: none; /* Remove default outline on focus */
+                   
+                }
+
+                .form-group input[type="text"]::placeholder,
+                .form-group textarea::placeholder {
+                    color: #bbb; /* Lighter placeholder text */
+                }
+
+                .form-group input:focus,
+                .form-group textarea:focus {
+                    border-color: #D62A29; /* Highlight border on focus */
+                    box-shadow: 0 0 0 2px rgba(214, 42, 41, 0.2);
+                }
+
+                .form-group textarea {
+                    resize: vertical; /* Allow vertical resizing only */
+                    min-height: 100px;
+                }
+
+                /* --- Date and Time Row Alignment --- */
+                .date-time-row {
+                    display: flex;
+                    justify-content: space-between; /* Pushes date to left, time to right */
+                    width: 100%;
+                    gap: 20px; /* Space between date and time inputs */
+                    margin-bottom: 15px; /* Consistent margin for this row */
+                }
+
+                .date-time-row .form-group {
+                    flex: 1; /* Makes each (date and time) take up equal space */
+                    margin-bottom: 0; /* Remove individual bottom margin */
+                }
+
+                /* --- File Upload Custom Styling --- */
+                .file-input-wrapper {
+                    display: flex;
+                    align-items: center;
+                    width: 100%; /* Take full width of parent form-group */
+                }
+
+                .hidden-file-input {
+                    display: none; /* Hides the default ugly file input */
+                }
+
+                .choose-file-button {
+                    background-color:  #D0B564; /* Light grey button */
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 8px 15px;
+                    cursor: pointer;
+                    font-size: 0.9em;
+                    color: #555;
+                    white-space: nowrap; /* Prevent text wrap */
+                    flex-shrink: 0; /* Don't let it shrink */
+                    margin-right: 10px; /* Space between button and file name display */
+                }
+
+                .choose-file-button:hover {
+                    background-color: #BD8F42;
+ ;
+                }
+
+                .file-name-display {
+                    flex-grow: 1; /* Allows it to take up remaining space */
+                    padding: 5px 8px;
+                    border: 1px solid #eee; /* Lighter border for display */
+                    border-radius: 5px;
+                    background-color: #fcfcfc;
+                    font-size: 0.9em;
+                    color: #777;
+                    cursor: default; /* Not clickable */
+                }
+
+                /* --- Radio Button Grid --- */
+                .radio-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr; /* Two columns, equal width */
+                    gap: 15px; /* Space between radio options */
+                }
+
+                .radio-option {
+                    display: flex;
+                    align-items: center; /* Vertically align radio button and text */
+                }
+
+                .radio-option input[type="radio"] {
+                    margin-right: 8px; /* Space between radio button and label */
+                    transform: scale(1.2); /* Slightly larger radio button */
+                }
+
+                .radio-option label {
+                    font-weight: normal; /* Labels are not bold here */
+                    margin-bottom: 0; /* No margin below label */
+                }
+
+                .other-radio-option {
+                    grid-column: span 2; /* Make "Other" span both columns */
+                    display: flex; /* Re-enable flex for this option */
+                    align-items: center;
+                }
+
+                .other-radio-option .other-input {
+                    flex-grow: 1; /* Allow input to fill remaining space */
+                    margin-left: 10px; /* Space between "Other" label and input */
+                    background-color: #F5F5F5;
+                    border: 1px solid #bbb;
+                }
+
+
+                /* --- Involved Persons Input Rows --- */
+                .person-input-row {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    gap: 20px; /* Space between Name and Contact inputs */
+                    margin-bottom: 15px; /* Space between person rows */
+            
+                }
+
+                .form-sub-group {
+                    flex: 1; /* Each sub-group takes equal space */
+                    display: flex;
+                    flex-direction: column; /* Label above input */
+                    align-items: flex-start;
+                }
+
+                .form-sub-group label {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    color: #444;
+                }
+
+                .form-sub-group input[type="text"] {
+                    width: 100%; /* Fill sub-group width */
+                        background-color: #F5F5F5;
+                    border: 1px solid #bbb;
+                }
+
+
+                /* --- Submit/Reset Buttons --- */
+                .button-group {
+                    display: flex;
+                    justify-content: center; /* Center buttons horizontally */
+                    gap: 20px; /* Space between buttons */
+                    width: 100%; /* Take full width of parent */
+                    padding: 20px 50px 30px 50px; /* Padding inside button section */
+                    box-sizing: border-box;
+                }
+
+                .submit-button,
+                .reset-button {
+                    padding: 12px 30px;
+                    border: none;
+                    border-radius: 20px; /* More rounded buttons */
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease, transform 0.1s ease;
+                }
+
+                .submit-button {
+                    background-color: #4CAF50; /* Green from design */
+                    color: white;
+                }
+
+                .submit-button:hover {
+                    background-color: #45a049;
+                    transform: translateY(-1px);
+                }
+
+                .reset-button {
+                    background-color: #f0f0f0; /* Light grey */
+                    color: #555;
+                    border: 2px solid #c00707;
+                }
+
+                .reset-button:hover {
+                    background-color: #e0e0e0;
+                    transform: translateY(-1px);
+                }
+
+                /* --- Modal (Pop-up) Styling --- */
+                .modal {
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1000; /* Sit on top (higher than other elements) */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                    display: flex; /* Use flexbox to center content */
+                    justify-content: center; /* Center horizontally */
+                    align-items: center; /* Center vertically */
+                    opacity: 0; /* Start invisible */
+                    transition: opacity 0.3s ease; /* Smooth fade-in */
+                    pointer-events: none; /* Allows clicks "through" when invisible */
+                }
+
+                .modal.show {
+                    opacity: 1;
+                    pointer-events: auto; /* Re-enable clicks when visible */
+                }
+
+                .modal-content {
+                    background-color: #fefefe;
+                    margin: auto; /* For browsers that don't support flex centering well, fallback */
+                    padding: 30px;
+                    border-radius: 15px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                    max-width: 400px; /* Max width of the pop-up */
+                    text-align: center;
+                    position: relative;
+                    transform: translateY(-20px); /* Start slightly above center */
+                    transition: transform 0.3s ease; /* Smooth slide-in */
+                }
+
+                .modal.show .modal-content {
+                    transform: translateY(0); /* Slide to center */
+                }
+
+                .close-button {
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    cursor: pointer;
+                }
+
+                .close-button:hover,
+                .close-button:focus {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                .modal-body {
+                    padding: 20px 0;
+                }
+
+                .modal-body h3 {
+                    margin-top: 0;
+                    font-size: 1.8em;
+                    color: #333;
+                
+                }
+
+                .modal-body p {
+                    font-size: 1.1em;
+                    color: #555;
+                    margin-bottom: 30px;
+                    margin-top: -20px;
+                }
+
+                .modal-close-button {
+                    background-color: #D62A29; /* Red close button */
+                    color: white;
+                    padding: 10px 25px;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease;
+                }
+
+                .modal-close-button:hover {
+                    background-color: #c02221;
+                }
+                .modal-image {
+                max-width: 100px; /* Adjust max-width as needed to control image size */
+                height: auto; /* Maintain aspect ratio */
+                display: block; /* Makes it a block element to control margins easily */
+                margin: 0 auto 15px auto; /* Centers the image and adds space below it */
+                border-radius: 8px; /* Optional: adds slight rounded corners to the image */
+            }
         
 </style>
 
@@ -107,11 +478,175 @@
  </header>
 
     <body>
-            <span class="incident_text"> Incident Report</span>
+         <span class="incident_text"> Incident Report </span>
+           <div class="whole-form">
+
+        <div class="form-title-area">
+            <img src="blackbellicon.png" alt="Incident Logo" class="form-logo"> 
+             <span class="title-incidentform">Incident Report</span>
+        </div>
+
+        <div class="section-header">INCIDENT DETAILS</div>
+        <div class="form-section-content">
+            <div class="date-time-row">
+                <div class="form-group">
+                    <label for="incident-date">Date:</label>
+                    <input type="date" id="incident-date" name="incident-date">
+                </div>
+                <div class="form-group">
+                    <label for="incident-time">Time:</label>
+                    <input type="time" id="incident-time" name="incident-time">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="incident-location">Location of the incident:</label>
+                <input type="text" id="incident-location" name="incident-location" placeholder="Enter location">
+            </div>
+
+            <div class="form-group">
+                <label for="incident-description">Describe the incident:</label>
+                <textarea id="incident-description" name="incident-description" rows="5" placeholder="Provide details about the incident"></textarea>
+            </div>
+
+            <div class="form-group file-upload-group">
+                <label for="attached-document">Attached Document:</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="attached-document" name="attached-document" class="hidden-file-input">
+                    <label for="attached-document" class="choose-file-button">Choose File</label>
+                    <input type="text" class="file-name-display" placeholder="No file chosen" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="section-header">TYPE OF INCIDENT</div>
+        <div class="form-section-content">
+            <div class="radio-grid">
+                <div class="radio-option">
+                    <input type="radio" id="theft" name="incident-type" value="theft">
+                    <label for="theft">Theft</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="assault" name="incident-type" value="assault">
+                    <label for="assault">Assault</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="vandalism" name="incident-type" value="vandalism">
+                    <label for="vandalism">Vandalism</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="medical-emergency" name="incident-type" value="medical-emergency">
+                    <label for="medical-emergency">Medical Emergency</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="trespassing" name="incident-type" value="trespassing">
+                    <label for="trespassing">Trespassing</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="traffic-accident" name="incident-type" value="traffic-accident">
+                    <label for="traffic-accident">Traffic Accident</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="personal-injury" name="incident-type" value="personal-injury">
+                    <label for="personal-injury">Personal Injury</label>
+                </div>
+                <div class="radio-option other-radio-option">
+                    <input type="radio" id="other-type" name="incident-type" value="other">
+                    <label for="other-type">Other</label>
+                    <input type="text" class="other-input" placeholder="(Specify)">
+                </div>
+            </div>
+        </div>
+        <div class="section-header">INVOLVED PERSON(S) DETAILS</div>
+        <div class="form-section-content">
+            <div class="person-input-row">
+                <div class="form-sub-group">
+                    <label for="filer-name">Name: (Person filling out report)</label>
+                    <input type="text" id="filer-name" name="filer-name" placeholder="Enter name">
+                </div>
+                <div class="form-sub-group">
+                    <label for="filer-contact">Contact: (Person filling out report)</label>
+                    <input type="text" id="filer-contact" name="filer-contact" placeholder="Enter contact">
+                </div>
+            </div>
+            <div class="person-input-row">
+                <div class="form-sub-group">
+                    <label for="other-name">Name: (Other person involved)</label>
+                    <input type="text" id="other-name" name="other-name" placeholder="Enter name">
+                </div>
+                <div class="form-sub-group">
+                    <label for="other-contact">Contact: (Other person involved)</label>
+                    <input type="text" id="other-contact" name="other-contact" placeholder="Enter contact">
+                </div>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="submit-button">Submit</button>
+            <button type="reset" class="reset-button">Reset</button>
+        </div>
+
+    </div>
+
+            <div id="successModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-body">
+           <img src="green-thumbs-up-11246.png" alt="Success Image" class="modal-image"> 
+            <h3>Great Job!</h3>
+            <p>Your report would be reviewed by the admin</p>
+            <button class="modal-close-button">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("successModal");
+
+    // Get ALL buttons that have the class 'submit-button'
+    // This will select the submit button on both forms if they are on the same page
+    var submitButtons = document.querySelectorAll(".submit-button"); 
+
+    // Get the <span> element that closes the modal (the 'x')
+    var closeButton = document.querySelector(".close-button");
+
+    // Get the button inside the modal that closes it
+    var modalCloseBtn = document.querySelector(".modal-close-button");
+
+    // Function to show the modal (reusable)
+    function showModal(event) {
+        // Prevent the form from actually submitting and reloading the page
+        // You'll need to remove this line if you implement actual form submission later
+        event.preventDefault(); 
+        modal.classList.add("show"); // Add 'show' class to display the modal
+    }
+
+    // Attach the click event to EACH submit button found
+    submitButtons.forEach(function(button) {
+        button.addEventListener("click", showModal);
+    });
+
+    // When the user clicks on <span> (x), close the modal
+    closeButton.addEventListener("click", function() {
+        modal.classList.remove("show");
+    });
+
+    // When the user clicks the 'Close' button inside the modal, close it
+    modalCloseBtn.addEventListener("click", function() {
+        modal.classList.remove("show");
+    });
+
+    // When the user clicks anywhere outside of the modal content, close it
+    window.addEventListener("click", function(event) {
+        if (event.target == modal) {
+            modal.classList.remove("show");
+        }
+    });
+</script>
 
     
             
     </body>
+
 
 
    
