@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #4B5320;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            margin-bottom: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .main-menu {
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .menu-heading {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-menu ul li {
+            margin-bottom: 5px;
+        }
+
+        .main-menu ul li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li.active a {
+            background-color: #8A9A5B;
+            border-left: 5px solid #FFD700;
+        }
+
+        .main-menu ul li a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .logout-section {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: #7A0A0A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #eee;
+        }
+
+        /* Main Content Styling (for Employee Management) */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Spacing between main sections */
+            background-color: #f9f9f9; /* Light background for the content area */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin: 20px; /* Adjust margin to create space around the main content area */
+            overflow-y: auto; /* Enable vertical scrolling for main content if it overflows */
+            max-height: calc(100vh - 40px); /* Limit height to prevent overall page expansion */
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 1.8em;
+        }
+
+        .add-employee-btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-employee-btn:hover {
+            background-color: #45a049;
+        }
+
+        .search-filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            position: relative;
+            flex-grow: 1; /* Allow search bar to take available space */
+            margin-right: 20px;
+        }
+
+        .search-bar input {
+            width: calc(100% - 40px); /* Adjust for padding and icon */
+            padding: 10px 15px 10px 35px; /* Left padding for icon */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        /* Employee Count Display */
+        .employee-count {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #555;
+            padding: 10px 0; /* Add some padding to match other elements */
+        }
+
+        /* Employee List Table */
+        .employee-list-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow-x: auto; /* Allow horizontal scrolling on small screens */
+            flex-grow: 1; /* Allow table container to take available space */
+        }
+
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .employee-table th,
+        .employee-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle; /* Align content vertically in middle */
+        }
+
+        .employee-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .employee-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .employee-table td.actions {
+            white-space: nowrap; /* Prevent buttons from wrapping */
+        }
+
+        .employee-table .action-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 0 5px;
+            transition: color 0.2s ease;
+        }
+
+        .employee-table .edit-btn {
+            color: #007bff; /* Blue */
+        }
+
+        .employee-table .edit-btn:hover {
+            color: #0056b3;
+        }
+
+        .employee-table .delete-btn {
+            color: #dc3545; /* Red */
+        }
+
+        .employee-table .delete-btn:hover {
+            color: #c82333;
+        }
+
+        .employee-table .view-more-btn {
+            background-color: #28a745; /* Green for view more */
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            transition: background-color 0.2s ease;
+        }
+
+        .employee-table .view-more-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Profile picture in main table (first layout) */
+        .profile-pic-small {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* --- MODAL STYLES (General) --- */
+        .modal {
+            display: none; /* Hidden by default - This is the crucial fix */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 25px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 480px; /* Adjusted: Smaller pop-out form */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            max-height: 90vh; /* Limit modal height */
+            overflow-y: auto; /* Enable scrolling within modal if content overflows */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        /* --- Employee Form Specific Styles --- */
+        .employee-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .employee-form input[type="text"],
+        .employee-form input[type="email"],
+        .employee-form input[type="tel"],
+        .employee-form input[type="date"],
+        .employee-form textarea,
+        .employee-form select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+
+        /* Style for file input */
+        .employee-form input[type="file"] {
+            /* Adjusted height to match other inputs and retain background */
+            height: 42px; /* Standard input height (padding + border + font-size) */
+            padding: 10px; /* Consistent padding */
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: normal; /* Ensures text aligns correctly */
+            background-color: white; /* Explicitly white background */
+            display: flex; /* Helps align "Choose File" text */
+            align-items: center; /* Vertically center "Choose File" text */
+        }
+
+
+        .employee-form textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .employee-form .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .employee-form .form-row > div {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        /* Ensure form inputs do not affect layout by hiding overflow */
+        /* For text inputs, apply ellipsis */
+        .employee-form input[type="text"],
+        .employee-form input[type="email"],
+        .employee-form input[type="tel"],
+        .employee-form input[type="date"],
+        .employee-form select {
+            white-space: nowrap; /* Prevent line breaks within input fields */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis */
+            max-width: 100%; /* Ensure it fits its container */
+        }
+        /* Textarea needs special handling for overflow, allow wrapping and internal scroll */
+        .employee-form textarea {
+            white-space: pre-wrap; /* Preserve formatting for address */
+            overflow-y: auto; /* Add scroll if too long */
+        }
+
+
+        .employee-form button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .employee-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- View Employee Details Modal Specific Styles (Modern, Minimalist Layout) --- */
+        #viewEmployeeModal .modal-content {
+            max-width: 600px; /* Adjusted: Balanced for content, not too wide */
+        }
+
+        .view-details-content .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: transparent; /* No background */
+            padding: 15px;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .view-details-content .profile-header img {
+            width: 80px; /* Smaller picture */
+            height: 80px; /* Smaller picture */
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #4B5320; /* Slightly thinner border */
+            box-shadow: none; /* No shadow */
+        }
+
+        .view-details-content .profile-header h3 {
+            margin: 10px 0 5px;
+            color: #333;
+            font-size: 1.5em; /* Smaller name */
+            font-weight: bold;
+        }
+        .view-details-content .profile-header p {
+            color: #777;
+            font-size: 0.9em; /* Smaller font for role */
+            margin: 0;
+        }
+
+        .view-details-content .details-section {
+            margin-bottom: 20px;
+        }
+
+        .view-details-content .details-section h4 {
+            color: #4B5320;
+            font-size: 1.1em; /* Smaller heading */
+            border-bottom: 1px solid #D0B564; /* Thinner line */
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Modern, form-like layout for info boxes */
+        .view-details-content .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Auto-fit with min width, flexible */
+            gap: 15px; /* Spacing between "form fields" */
+        }
+
+        .view-details-content .detail-item {
+            background-color: #E1EACD; /* Specified color */
+            padding: 10px 15px; /* Consistent padding */
+            border-radius: 6px; /* Rounded corners */
+            border: none; /* No border for minimalist look */
+            box-shadow: none; /* No shadow for minimalist look */
+            display: flex; /* For label and paragraph stacking */
+            flex-direction: column;
+        }
+
+        .view-details-content .detail-item label {
+            font-weight: bold;
+            color: #6A7337;
+            font-size: 0.75em;
+            display: block;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+        }
+
+        .view-details-content .detail-item p {
+            margin: 0;
+            color: #333;
+            font-size: 0.95em;
+            word-wrap: break-word; /* Allow long words to wrap */
+            white-space: pre-wrap; /* Preserve line breaks from input for addresses */
+        }
+        
+        /* For fields that should try to stay on one line if possible, with ellipsis */
+        .view-details-content .detail-item p.one-line-ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar HTML (as provided in your previous code) -->
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="Barangay Market Area Seal.png" alt="Logo" class="logo">
+                <div class="company-name">TANOD DOCUMENTATION AND REPORTING SYSTEM</div>
+            </div>
+            <div class="user-profile">
+                <img src="bini-stacey-appreciation-post-v0-6241ma2a9eld1.jpg" alt="Stacey Sevilleja" class="profile-pic">
+                <div class="user-info">
+                    <div class="user-name">Stacey Sevilleja</div>
+                    <div class="user-role">Admin</div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-heading">Main Menu</div>
+                <ul>
+                    <li><a href="1dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
+                    <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
+                    <li><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
+                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                </ul>
+            </nav>
+            <div class="logout-section">
+                <button class="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <!-- Main content area for Employee Management -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Employee Management</h2>
+                <button class="add-employee-btn" id="addEmployeeBtn">
+                    <i class="fas fa-plus"></i> Add Employee
+                </button>
+            </div>
+
+            <div class="search-filter-section">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search by name, contact, or user ID..." id="employeeSearchInput">
+                </div>
+                <div class="employee-count">
+                    Total Employees: <span id="totalEmployeeCount">0</span>
+                </div>
+            </div>
+
+            <div class="employee-list-container">
+                <table class="employee-table">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Name</th>
+                            <th>Contact Info</th>
+                            <th>User ID</th>
+                            <th>Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #777;">No employees added yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Employee Modal HTML -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeEmployeeModalBtn">&times;</span>
+            <h2 id="modalTitle">Add New Employee</h2>
+            <form id="employeeForm" class="employee-form">
+                <input type="hidden" id="employeeId">
+
+                <div class="form-row">
+                    <div>
+                        <label for="employeeName">Full Name:</label>
+                        <input type="text" id="employeeName" placeholder="Juan Dela Cruz" required>
+                    </div>
+                    <div>
+                        <label for="employeeGender">Gender:</label>
+                        <select id="employeeGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="employeeBirthday">Birthday:</label>
+                        <input type="date" id="employeeBirthday" required>
+                    </div>
+                    <div>
+                        <label for="employeeContact">Contact Info:</label>
+                        <input type="tel" id="employeeContact" placeholder="+639XXXXXXXXX" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                     <div>
+                        <label for="employeeMaritalStatus">Marital Status:</label>
+                        <select id="employeeMaritalStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                    </div>
+                    <div></div> <!-- Empty div to maintain layout of form-row -->
+                </div>
+                <div>
+                    <label for="employeeAddress">Address:</label>
+                    <textarea id="employeeAddress" rows="3" placeholder="Block, Street, City, Province, Zip Code" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="employeeEmail">Email (Optional):</label>
+                        <input type="email" id="employeeEmail" placeholder="juan.delacruz@example.com">
+                    </div>
+                    <div>
+                        <label for="employeeEmploymentDate">Employment Date:</label>
+                        <input type="date" id="employeeEmploymentDate" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="employeeUserId">User ID:</label>
+                        <input type="text" id="employeeUserId" placeholder="e.g., BRGY12345" required>
+                    </div>
+                    <div>
+                        <label for="employeeCode">Code:</label>
+                        <input type="text" id="employeeCode" placeholder="e.g., 1234" maxlength="4" pattern="\d{4}" title="Please enter a 4-digit code" required>
+                    </div>
+                </div>
+                <div>
+                    <label for="employeePhoto">Profile Photo:</label>
+                    <input type="file" id="employeePhoto" accept="image/*">
+                    <img id="currentPhotoPreview" src="#" alt="Current Photo" style="max-width: 100px; max-height: 100px; margin-top: 10px; display: none;">
+                </div>
+                <button type="submit" id="saveEmployeeBtn">Save Employee</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Employee Details Modal -->
+    <div id="viewEmployeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeViewEmployeeModalBtn">&times;</span>
+            <div class="view-details-content">
+                <div class="profile-header">
+                    <img id="viewEmployeePhoto" src="https://via.placeholder.com/120/cccccc/ffffff?text=EMP" alt="Employee Photo">
+                    <h3 id="viewEmployeeName"></h3>
+                    <p>Tanod Employee</p> <!-- Static role for now based on context -->
+                </div>
+                <div class="details-section">
+                    <h4>Personal Details</h4>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Gender:</label>
+                            <p id="viewEmployeeGender"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Birthday:</label>
+                            <p id="viewEmployeeBirthday"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Marital Status:</label>
+                            <p id="viewEmployeeMaritalStatus"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Employment Date:</label>
+                            <p id="viewEmployeeEmploymentDate"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h4>Contact Details</h4>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Contact Info:</label>
+                            <p id="viewEmployeeContact" class="one-line-ellipsis"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email:</label>
+                            <p id="viewEmployeeEmail" class="one-line-ellipsis"></p>
+                        </div>
+                        <div class="detail-item full-width">
+                            <label>Address:</label>
+                            <p id="viewEmployeeAddress"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h4>Account Details</h4>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>User ID:</label>
+                            <p id="viewEmployeeUserId" class="one-line-ellipsis"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Code:</label>
+                            <p id="viewEmployeeCode" class="one-line-ellipsis"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Sidebar Active Link Script ---
+        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+        const currentPage = window.location.pathname.split('/').pop();
+
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href').split('/').pop();
+            if (linkPage === currentPage) {
+                link.closest('li').classList.add('active');
+            } else {
+                link.closest('li').classList.remove('active');
+            }
+        });
+        // --- END Sidebar Active Link Script ---
+
+
+        // --- Employee Management Specific JavaScript ---
+
+        const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+        const employeeModal = document.getElementById('employeeModal');
+        const closeEmployeeModalBtn = document.getElementById('closeEmployeeModalBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const employeeForm = document.getElementById('employeeForm');
+        const employeeIdInput = document.getElementById('employeeId');
+        const employeeNameInput = document.getElementById('employeeName');
+        const employeeGenderInput = document.getElementById('employeeGender');
+        const employeeBirthdayInput = document.getElementById('employeeBirthday');
+        const employeeContactInput = document.getElementById('employeeContact');
+        const employeeAddressInput = document.getElementById('employeeAddress');
+        const employeeEmailInput = document.getElementById('employeeEmail');
+        const employeeEmploymentDateInput = document.getElementById('employeeEmploymentDate');
+        const employeeUserIdInput = document.getElementById('employeeUserId');
+        const employeeCodeInput = document.getElementById('employeeCode');
+        const employeeMaritalStatusInput = document.getElementById('employeeMaritalStatus'); // New Input
+        const employeePhotoInput = document.getElementById('employeePhoto');
+        const currentPhotoPreview = document.getElementById('currentPhotoPreview');
+        const saveEmployeeBtn = document.getElementById('saveEmployeeBtn');
+
+        const employeeTableBody = document.getElementById('employeeTableBody');
+        const employeeSearchInput = document.getElementById('employeeSearchInput');
+        const totalEmployeeCountSpan = document.getElementById('totalEmployeeCount');
+
+        // View Employee Details Modal Elements
+        const viewEmployeeModal = document.getElementById('viewEmployeeModal');
+        const closeViewEmployeeModalBtn = document.getElementById('closeViewEmployeeModalBtn');
+        const viewEmployeePhoto = document.getElementById('viewEmployeePhoto');
+        const viewEmployeeName = document.getElementById('viewEmployeeName');
+        const viewEmployeeUserId = document.getElementById('viewEmployeeUserId');
+        const viewEmployeeCode = document.getElementById('viewEmployeeCode');
+        const viewEmployeeGender = document.getElementById('viewEmployeeGender');
+        const viewEmployeeBirthday = document.getElementById('viewEmployeeBirthday');
+        const viewEmployeeContact = document.getElementById('viewEmployeeContact');
+        const viewEmployeeEmail = document.getElementById('viewEmployeeEmail');
+        const viewEmployeeAddress = document.getElementById('viewEmployeeAddress');
+        const viewEmployeeEmploymentDate = document.getElementById('viewEmployeeEmploymentDate');
+        const viewEmployeeMaritalStatus = document.getElementById('viewEmployeeMaritalStatus'); // New Display Element
+
+
+        // Client-side storage for employees (resets on page refresh, consider localStorage for persistence)
+        let employees = [];
+
+        // Helper function to format date to Month Day, Year
+        function formatDateToMonthDayYear(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        // Function to render employees in the table
+        function renderEmployees() {
+            employeeTableBody.innerHTML = ''; // Clear existing rows
+
+            // Apply search
+            const searchTerm = employeeSearchInput.value.toLowerCase();
+
+            const filteredEmployees = employees.filter(employee => {
+                return employee.name.toLowerCase().includes(searchTerm) ||
+                       employee.contact.toLowerCase().includes(searchTerm) ||
+                       employee.userId.toLowerCase().includes(searchTerm);
+            });
+
+            if (filteredEmployees.length === 0) {
+                employeeTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #777;">No employees added yet.</td></tr>';
+            } else {
+                filteredEmployees.forEach((employee) => {
+                    const row = employeeTableBody.insertRow();
+                    row.setAttribute('data-id', employee.id);
+
+                    // Profile picture cell (as requested, sticking to first layout)
+                    const profileCell = row.insertCell();
+                    const profileImg = document.createElement('img');
+                    profileImg.src = employee.photo || 'https://via.placeholder.com/30/cccccc/ffffff?text=JP';
+                    profileImg.alt = employee.name;
+                    profileImg.classList.add('profile-pic-small');
+                    profileCell.appendChild(profileImg);
+
+                    // Name cell (constrained for layout)
+                    const nameCell = row.insertCell();
+                    nameCell.textContent = employee.name;
+                    nameCell.style.maxWidth = '150px'; /* Limit width */
+                    nameCell.style.whiteSpace = 'nowrap';
+                    nameCell.style.overflow = 'hidden';
+                    nameCell.style.textOverflow = 'ellipsis';
+
+                    // Contact Info cell (constrained for layout)
+                    const contactCell = row.insertCell();
+                    contactCell.textContent = employee.contact;
+                    contactCell.style.maxWidth = '120px'; /* Limit width */
+                    contactCell.style.whiteSpace = 'nowrap';
+                    contactCell.style.overflow = 'hidden';
+                    contactCell.style.textOverflow = 'ellipsis';
+                    
+                    // User ID cell (constrained for layout)
+                    const userIdCell = row.insertCell();
+                    userIdCell.textContent = employee.userId;
+                    userIdCell.style.maxWidth = '100px'; /* Limit width */
+                    userIdCell.style.whiteSpace = 'nowrap';
+                    userIdCell.style.overflow = 'hidden';
+                    userIdCell.style.textOverflow = 'ellipsis';
+
+                    // Code cell (constrained for layout)
+                    const codeCell = row.insertCell();
+                    codeCell.textContent = employee.code;
+                    codeCell.style.maxWidth = '70px'; /* Limit width */
+                    codeCell.style.whiteSpace = 'nowrap';
+                    codeCell.style.overflow = 'hidden';
+                    codeCell.style.textOverflow = 'ellipsis';
+
+                    const actionsCell = row.insertCell();
+                    actionsCell.classList.add('actions');
+
+                    const viewMoreBtn = document.createElement('button');
+                    viewMoreBtn.classList.add('action-btn', 'view-more-btn');
+                    viewMoreBtn.textContent = 'View More';
+                    viewMoreBtn.title = 'View Full Details';
+                    viewMoreBtn.addEventListener('click', () => viewEmployeeDetails(employee.id));
+
+                    const editBtn = document.createElement('button');
+                    editBtn.classList.add('action-btn', 'edit-btn');
+                    editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                    editBtn.title = 'Edit Employee';
+                    editBtn.addEventListener('click', () => editEmployee(employee.id));
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.classList.add('action-btn', 'delete-btn');
+                    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    deleteBtn.title = 'Delete Employee';
+                    deleteBtn.addEventListener('click', () => deleteEmployee(employee.id));
+
+                    actionsCell.appendChild(viewMoreBtn);
+                    actionsCell.appendChild(editBtn);
+                    actionsCell.appendChild(deleteBtn);
+                });
+            }
+            updateTotalEmployeeCount(); // Update the count after rendering
+        }
+
+        // Update total employee count
+        function updateTotalEmployeeCount() {
+            totalEmployeeCountSpan.textContent = employees.length;
+        }
+
+        // Open modal for adding new employee
+        addEmployeeBtn.addEventListener('click', () => {
+            modalTitle.textContent = 'Add New Employee';
+            saveEmployeeBtn.textContent = 'Save Employee';
+            employeeIdInput.value = ''; // Clear ID for new employee
+            employeeForm.reset(); // Clear form
+            currentPhotoPreview.style.display = 'none'; // Hide preview
+            currentPhotoPreview.src = '#'; // Clear image src
+            employeeModal.style.display = 'flex';
+            employeeUserIdInput.readOnly = false; // Make editable for new entry
+            employeeCodeInput.readOnly = false; // Make editable for new entry
+        });
+
+        // Close add/edit modal
+        closeEmployeeModalBtn.addEventListener('click', () => {
+            employeeModal.style.display = 'none';
+            employeeForm.reset();
+            currentPhotoPreview.style.display = 'none';
+            currentPhotoPreview.src = '#';
+        });
+
+        // Close view details modal
+        closeViewEmployeeModalBtn.addEventListener('click', () => {
+            viewEmployeeModal.style.display = 'none';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target == employeeModal) {
+                employeeModal.style.display = 'none';
+                employeeForm.reset();
+                currentPhotoPreview.style.display = 'none';
+                currentPhotoPreview.src = '#';
+            }
+            if (event.target == viewEmployeeModal) {
+                viewEmployeeModal.style.display = 'none';
+            }
+        });
+
+        // Edit employee function
+        function editEmployee(idToEdit) {
+            const employee = employees.find(emp => emp.id === idToEdit);
+            if (employee) {
+                modalTitle.textContent = 'Edit Employee';
+                saveEmployeeBtn.textContent = 'Update Employee';
+                employeeIdInput.value = employee.id; // Set ID for editing
+                employeeNameInput.value = employee.name;
+                employeeGenderInput.value = employee.gender;
+                employeeBirthdayInput.value = employee.birthday;
+                employeeContactInput.value = employee.contact;
+                employeeMaritalStatusInput.value = employee.maritalStatus; // Set Marital Status
+                employeeAddressInput.value = employee.address;
+                employeeEmailInput.value = employee.email;
+                employeeEmploymentDateInput.value = employee.employmentDate;
+                employeeUserIdInput.value = employee.userId;
+                employeeCodeInput.value = employee.code;
+                
+                // User ID and Code fields can be edited by admin
+                employeeUserIdInput.readOnly = false; 
+                employeeCodeInput.readOnly = false;
+
+                // Display current photo for editing
+                if (employee.photo) {
+                    currentPhotoPreview.src = employee.photo;
+                    currentPhotoPreview.style.display = 'block';
+                } else {
+                    currentPhotoPreview.style.display = 'none';
+                    currentPhotoPreview.src = '#';
+                }
+
+                employeeModal.style.display = 'flex';
+            }
+        }
+
+        // View employee details function
+        function viewEmployeeDetails(idToView) {
+            const employee = employees.find(emp => emp.id === idToView);
+            if (employee) {
+                viewEmployeePhoto.src = employee.photo || 'https://via.placeholder.com/120/cccccc/ffffff?text=EMP';
+                viewEmployeeName.textContent = employee.name;
+                // viewEmployeeRole.textContent = employee.role; // If you had a role property, set it here
+
+                viewEmployeeUserId.textContent = employee.userId;
+                viewEmployeeCode.textContent = employee.code;
+                viewEmployeeGender.textContent = employee.gender;
+                viewEmployeeBirthday.textContent = formatDateToMonthDayYear(employee.birthday); // Format birthday
+                viewEmployeeContact.textContent = employee.contact;
+                viewEmployeeEmail.textContent = employee.email || 'N/A';
+                viewEmployeeAddress.textContent = employee.address;
+                viewEmployeeEmploymentDate.textContent = formatDateToMonthDayYear(employee.employmentDate); // Format employment date
+                viewEmployeeMaritalStatus.textContent = employee.maritalStatus || 'N/A'; // Display Marital Status
+
+                viewEmployeeModal.style.display = 'flex';
+            }
+        }
+
+        // Handle form submission (Add or Edit)
+        employeeForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const employeeId = employeeIdInput.value;
+            const photoFile = employeePhotoInput.files[0];
+            let photoURL = currentPhotoPreview.src;
+
+            if (photoFile) {
+                if (photoURL && photoURL.startsWith('blob:')) {
+                    URL.revokeObjectURL(photoURL);
+                }
+                photoURL = URL.createObjectURL(photoFile);
+            } else if (employeeId && currentPhotoPreview.src && !currentPhotoPreview.src.startsWith('blob:')) {
+                // If editing and no new file, and current photo is not a blob URL, keep it
+                photoURL = currentPhotoPreview.src;
+            } else {
+                // If adding and no file, or editing and no file and no previous photo, default to placeholder
+                photoURL = 'https://via.placeholder.com/30/cccccc/ffffff?text=JP';
+            }
+            
+            // Validate 4-digit code
+            const codeValue = employeeCodeInput.value;
+            if (!/^\d{4}$/.test(codeValue)) {
+                // Using a custom modal/message box instead of alert()
+                displayCustomAlert('Error: Code must be exactly 4 digits.');
+                return; // Stop form submission
+            }
+
+
+            const employeeData = {
+                id: employeeId ? parseInt(employeeId) : Date.now(),
+                name: employeeNameInput.value,
+                gender: employeeGenderInput.value,
+                birthday: employeeBirthdayInput.value,
+                address: employeeAddressInput.value,
+                contact: employeeContactInput.value,
+                email: employeeEmailInput.value,
+                employmentDate: employeeEmploymentDateInput.value,
+                userId: employeeUserIdInput.value,
+                code: employeeCodeInput.value,
+                maritalStatus: employeeMaritalStatusInput.value, // New field
+                photo: photoURL
+            };
+
+            if (employeeId) {
+                const index = employees.findIndex(emp => emp.id === parseInt(employeeId));
+                if (index !== -1) {
+                    employees[index] = employeeData;
+                }
+            } else {
+                employees.push(employeeData);
+            }
+
+            renderEmployees();
+
+            employeeModal.style.display = 'none';
+            employeeForm.reset();
+            currentPhotoPreview.style.display = 'none';
+            currentPhotoPreview.src = '#';
+        });
+
+        // Delete employee function
+        function deleteEmployee(idToDelete) {
+            // Using a custom confirm dialog instead of default confirm()
+            displayCustomConfirm('Are you sure you want to delete this employee record?', () => {
+                const employeeToDelete = employees.find(emp => emp.id === idToDelete);
+                if (employeeToDelete && employeeToDelete.photo && employeeToDelete.photo.startsWith('blob:')) {
+                    URL.revokeObjectURL(employeeToDelete.photo);
+                }
+
+                employees = employees.filter(employee => employee.id !== idToDelete);
+                renderEmployees();
+            });
+        }
+
+        // Custom Alert Function (replaces alert())
+        function displayCustomAlert(message) {
+            const alertModal = document.createElement('div');
+            alertModal.classList.add('modal');
+            alertModal.innerHTML = `
+                <div class="modal-content" style="max-width: 350px; text-align: center;">
+                    <span class="close-button">&times;</span>
+                    <h2>Alert</h2>
+                    <p>${message}</p>
+                    <button class="submit-announcement-btn" style="background-color: #007bff;">OK</button>
+                </div>
+            `;
+            document.body.appendChild(alertModal);
+            alertModal.style.display = 'flex';
+
+            const closeBtn = alertModal.querySelector('.close-button');
+            const okBtn = alertModal.querySelector('button');
+
+            const closeModal = () => {
+                alertModal.style.display = 'none';
+                alertModal.remove();
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            okBtn.addEventListener('click', closeModal);
+            alertModal.addEventListener('click', (event) => {
+                if (event.target === alertModal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Custom Confirm Function (replaces confirm())
+        function displayCustomConfirm(message, onConfirm) {
+            const confirmModal = document.createElement('div');
+            confirmModal.classList.add('modal');
+            confirmModal.innerHTML = `
+                <div class="modal-content" style="max-width: 400px; text-align: center;">
+                    <span class="close-button">&times;</span>
+                    <h2>Confirm Action</h2>
+                    <p>${message}</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+                        <button class="confirm-yes-btn" style="background-color: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Yes</button>
+                        <button class="confirm-no-btn" style="background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">No</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmModal);
+            confirmModal.style.display = 'flex'; /* Fixed: Changed alertModal to confirmModal */
+
+            const closeBtn = confirmModal.querySelector('.close-button');
+            const yesBtn = confirmModal.querySelector('.confirm-yes-btn');
+            const noBtn = confirmModal.querySelector('.confirm-no-btn');
+
+            const closeModal = () => {
+                confirmModal.style.display = 'none';
+                confirmModal.remove();
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            noBtn.addEventListener('click', closeModal);
+            yesBtn.addEventListener('click', () => {
+                onConfirm();
+                closeModal();
+            });
+            confirmModal.addEventListener('click', (event) => {
+                if (event.target === confirmModal) {
+                    closeModal();
+                }
+            });
+        }
+
+
+        // Search Event Listener
+        employeeSearchInput.addEventListener('input', renderEmployees);
+
+        // Initial render when the page loads
+        renderEmployees();
+
+        // --- END Employee Management Specific JavaScript ---
+    </script>
+</body>
+</html>
