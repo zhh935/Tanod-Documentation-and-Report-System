@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            margin: 0;
+            font-family:  sans-serif;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            display: flex;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px; 
+            background-color: #4B5320; 
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .logo {
+            width: 60px; /* Adjust logo size */
+            height: 60px;
+            border-radius: 50%;
+            background-color: white; /* Placeholder for your actual logo */
+            margin-bottom: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd; /* Placeholder */
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .main-menu {
+            width: 100%;
+            flex-grow: 1; /* Allows menu to take available space */
+        }
+
+        .menu-heading {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-menu ul li {
+            margin-bottom: 5px;
+        }
+
+      .main-menu ul li a {
+            display: flex;
+            align-items: center;
+            /* Keep initial padding as it is, which is 12px 20px */
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            /* Transition only background-color */
+            transition: background-color 0.3s ease;
+            /* IMPORTANT: Add this to create space for the "border" without shifting content */
+            border-left: 5px solid transparent; /* Start with a transparent border */
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li.active a {
+            background-color: #8A9A5B; /* The background color you want on hover/active */
+            /* CHANGE THIS: Only change the border-left color, padding-left stays the same */
+            border-left: 5px solid #FFD700; /* Gold-like border for active state */
+            /* REMOVE THIS LINE: padding-left no longer needs to be adjusted */
+            /* padding-left: 15px; */
+        }
+
+        .main-menu ul li a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .logout-section {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: #7A0A0A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #eee;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex-grow: 1; /* Allows content to take remaining space */
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between sections */
+        }
+
+        .schedule-header h2 {
+            margin: 0;
+            color: #333;
+        }
+          </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="Barangay Market Area Seal.png" alt="Logo" class="logo">
+                <div class="company-name">TANOD DOCUMENTATION AND REPORTING SYSTEM</div>
+            </div>
+            <div class="user-profile">
+                <img src="bini-stacey-appreciation-post-v0-6241ma2a9eld1.jpg" alt="Stacey Sevilleja" class="profile-pic">
+                <div class="user-info">
+                    <div class="user-name">Stacey Sevilleja</div>
+                    <div class="user-role">Admin</div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-heading">Main Menu</div>
+                <ul>
+                    <li ><a href="1dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
+                    <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
+                    <li><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
+                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                </ul>
+            </nav>
+            <div class="logout-section">
+                <button class="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="schedule-header">
+                <h2>Schedule Management</h2>
+            </div>
+
+
+             <script>
+        // Get all sidebar links
+        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+
+        // Get the current page's filename
+        const currentPage = window.location.pathname.split('/').pop();
+
+        // Loop through each link and check if its href matches the current page
+        sidebarLinks.forEach(link => {
+            // Get the filename from the link's href
+            const linkPage = link.getAttribute('href').split('/').pop();
+
+            if (linkPage === currentPage) {
+                // Add the 'active' class to the parent <li> element
+                link.closest('li').classList.add('active');
+            } else {
+                // Ensure no other links have the active class if navigating back/forth
+                link.closest('li').classList.remove('active');
+            }
+        });
+    </script>
+
+        </body>

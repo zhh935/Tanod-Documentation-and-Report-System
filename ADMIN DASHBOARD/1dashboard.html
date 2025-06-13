@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            display: flex;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #4B5320;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .logo {
+            width: 60px; /* Adjust logo size */
+            height: 60px;
+            border-radius: 50%;
+            background-color: white; /* Placeholder for your actual logo */
+            margin-bottom: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd; /* Placeholder */
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .main-menu {
+            width: 100%;
+            flex-grow: 1; /* Allows menu to take available space */
+        }
+
+        .menu-heading {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-menu ul li {
+            margin-bottom: 5px;
+        }
+
+        /* --- MODIFIED for no menu item movement on hover --- */
+        .main-menu ul li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-left: 5px solid transparent; /* Start with a transparent border to reserve space */
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li.active a {
+            background-color: #8A9A5B; /* Slightly lighter red on hover/active */
+            border-left: 5px solid #FFD700; /* Gold-like border for active state */
+            /* REMOVED: padding-left adjustment to prevent movement */
+        }
+        /* --- END MODIFIED --- */
+
+        .main-menu ul li a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .logout-section {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: #7A0A0A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #eee;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex-grow: 1; /* Allows content to take remaining space */
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between sections */
+        }
+
+        .dashboard-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px; /* Ensure cards have a minimum height */
+        }
+
+        /* Specific card background colors as per your prototype */
+        .dashboard-cards .card:nth-child(1) { background-color: #D0B564; } /* Orange */
+        .dashboard-cards .card:nth-child(2) { background-color: #8A9A5B; } /* Yellow */
+        .dashboard-cards .card:nth-child(3) { background-color: #BD8F42; } /* Reddish */
+        .dashboard-cards .card:nth-child(4) { background-color: #6A7337; } /* Light Blue */
+
+
+        .card-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #ffffff; /* Darker color for values */
+            margin-bottom: 5px;
+        }
+
+        .card-title {
+            font-size: 0.9em;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .more-info-btn {
+            background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent for a subtle look */
+            color: #ffffff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background-color 0.3s ease;
+        }
+
+        .more-info-btn:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .announcement-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .announcement-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        /* --- MODIFIED for announcement list and add button --- */
+        #announcementsList {
+            margin-top: 15px; /* Space above the first announcement */
+            max-height: 300px; /* Limit height to allow scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-right: 10px; /* Prevent scrollbar from overlapping content */
+            margin-bottom: 20px; /* Space between announcements and add icon */
+        }
+
+        .posted-announcement {
+            background-color: #f8f8f8; /* Lighter background for individual announcements */
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-bottom: 10px; /* Space between each announcement */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Subtle shadow */
+        }
+
+        .announcement-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .announcement-item-header h4 {
+            margin: 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .delete-announcement-btn {
+            background-color: transparent;
+            color: #dc3545; /* Red color for delete icon/text */
+            border: none;
+            font-size: 1.5em; /* Larger 'x' */
+            cursor: pointer;
+            padding: 0;
+            line-height: 1; /* Align 'x' nicely */
+            transition: color 0.2s ease;
+        }
+
+        .delete-announcement-btn:hover {
+            color: #c82333;
+        }
+
+        .posted-announcement p {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px; /* Space above date */
+        }
+
+        .announcement-date {
+            font-size: 0.85em;
+            color: #888;
+            text-align: right;
+            display: block;
+        }
+
+        .announcement-content { /* Adjust the original announcement-content to be more flexible */
+            display: flex;
+            justify-content: flex-end; /* Push the + icon to the right */
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid #eee; /* A subtle separator */
+            margin-top: 15px; /* Space between list and add button */
+        }
+        /* --- END MODIFIED --- */
+
+        .add-announcement-icon i {
+            font-size: 2em;
+            color: #007bff; /* Blue for the plus icon */
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .add-announcement-icon i:hover {
+            color: #0056b3;
+        }
+
+        /* --- NEW MODAL STYLES --- */
+        .modal {
+            display: none; /* CHANGED: This should be 'none' initially */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            /* REMOVED: display: flex; from here */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+        
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto; /* Auto margin for centering */
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 80%; /* Could be responsive */
+            max-width: 500px; /* Max width for larger screens */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease-out; /* Simple fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right; /* Positions it to the top right */
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .modal-content form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .modal-content form input[type="text"],
+        .modal-content form textarea {
+            width: calc(100% - 22px); /* Full width minus padding and border */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding in width */
+            font-family: sans-serif; /* Consistent font */
+        }
+
+        .modal-content form textarea {
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        .submit-announcement-btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-announcement-btn:hover {
+            background-color: #45a049;
+        }
+        /* --- END NEW MODAL STYLES --- */
+
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="Barangay Market Area Seal.png" alt="Logo" class="logo">
+                <div class="company-name">TANOD DOCUMENTATION AND REPORTING SYSTEM</div>
+            </div>
+            <div class="user-profile">
+                <img src="bini-stacey-appreciation-post-v0-6241ma2a9eld1.jpg" alt="Stacey Sevilleja" class="profile-pic">
+                <div class="user-info">
+                    <div class="user-name">Stacey Sevilleja</div>
+                    <div class="user-role">Admin</div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-heading">Main Menu</div>
+                <ul>
+                    <li><a href="1dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
+                    <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
+                    <li><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
+                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                </ul>
+            </nav>
+            <div class="logout-section">
+                <button class="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-value">25</div>
+                    <div class="card-title">Total Employee</div>
+                    <button class="more-info-btn" onclick="window.location.href='2Employee.html'">More Info</button>
+                </div>
+                <div class="card">
+                    <div class="card-value">10</div>
+                    <div class="card-title">Schedule Today</div>
+                    <button class="more-info-btn" onclick="window.location.href='3schedule.html'">More Info</button>
+                </div>
+                <div class="card">
+                    <div class="card-value">5</div>
+                    <div class="card-title">Incident Report</div>
+                    <button class="more-info-btn" onclick="window.location.href='4incident.html'">More Info</button>
+                </div>
+                <div class="card">
+                    <div class="card-value">2</div>
+                    <div class="card-title">Leave Application</div>
+                    <button class="more-info-btn" onclick="window.location.href='5leave.html'">More Info</button>
+                </div>
+            </div>
+
+            <div class="announcement-section">
+                <div class="announcement-header">
+                    <h3>ANNOUNCEMENT</h3>
+                </div>
+                <div id="announcementsList">
+                    <p>No announcements yet. Click + to add one.</p>
+                </div>
+                <div class="announcement-content">
+                    <div class="add-announcement-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="announcementModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Add New Announcement</h2>
+            <form id="announcementForm">
+                <label for="announcementTitle">Title:</label>
+                <input type="text" id="announcementTitle" required>
+
+                <label for="announcementText">Announcement:</label>
+                <textarea id="announcementText" rows="5" required></textarea>
+
+                <button type="submit" class="submit-announcement-btn">Post Announcement</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get all sidebar links
+        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+
+        // Get the current page's filename
+        const currentPage = window.location.pathname.split('/').pop();
+
+        // Loop through each link and check if its href matches the current page
+        sidebarLinks.forEach(link => {
+            // Get the filename from the link's href
+            const linkPage = link.getAttribute('href').split('/').pop();
+
+            if (linkPage === currentPage) {
+                // Add the 'active' class to the parent <li> element
+                link.closest('li').classList.add('active');
+            } else {
+                // Ensure no other links have the active class if navigating back/forth
+                link.closest('li').classList.remove('active');
+            }
+        });
+
+        // --- JAVASCRIPT FOR ANNOUNCEMENT MODAL AND LIST ---
+        const addAnnouncementIcon = document.querySelector('.add-announcement-icon i');
+        const announcementModal = document.getElementById('announcementModal');
+        const closeButton = document.querySelector('.close-button');
+        const announcementForm = document.getElementById('announcementForm');
+        const announcementsListDiv = document.getElementById('announcementsList'); // The new container
+
+        // Array to hold announcements (client-side only, clears on refresh)
+        let announcements = [];
+
+        // Function to render/update the announcements list
+        function renderAnnouncements() {
+            announcementsListDiv.innerHTML = ''; // Clear existing content
+
+            if (announcements.length === 0) {
+                announcementsListDiv.innerHTML = '<p>No announcements yet. Click + to add one.</p>';
+                return;
+            }
+
+            announcements.forEach((ann, index) => {
+                const announcementDiv = document.createElement('div');
+                announcementDiv.classList.add('posted-announcement'); // Re-using existing style
+                announcementDiv.setAttribute('data-index', index); // Store index for deletion
+
+                announcementDiv.innerHTML = `
+                    <div class="announcement-item-header">
+                        <h4>${ann.title}</h4>
+                        <button class="delete-announcement-btn" data-index="${index}">&times;</button>
+                    </div>
+                    <p>${ann.text}</p>
+                    <span class="announcement-date">${ann.date}</span>
+                `;
+                announcementsListDiv.appendChild(announcementDiv);
+            });
+
+            // Attach event listeners to new delete buttons
+            // (Re-attaching every render ensures newly added elements get listeners)
+            document.querySelectorAll('.delete-announcement-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const indexToDelete = parseInt(event.target.dataset.index);
+                    deleteAnnouncement(indexToDelete);
+                });
+            });
+        }
+
+        // Function to delete an announcement
+        function deleteAnnouncement(index) {
+            if (confirm('Are you sure you want to delete this announcement?')) {
+                announcements.splice(index, 1); // Remove 1 element at the given index
+                renderAnnouncements(); // Re-render the list
+            }
+        }
+
+        // Open modal when plus icon is clicked
+        addAnnouncementIcon.addEventListener('click', () => {
+            announcementModal.style.display = 'flex'; // Use flex to center the modal
+        });
+
+        // Close modal when 'x' is clicked
+        closeButton.addEventListener('click', () => {
+            announcementModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target == announcementModal) {
+                announcementModal.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        announcementForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission (page reload)
+
+            const title = document.getElementById('announcementTitle').value;
+            const text = document.getElementById('announcementText').value;
+            const date = new Date().toLocaleDateString(); // Get current date
+
+            const newAnnouncement = {
+                title: title,
+                text: text,
+                date: date
+            };
+
+            announcements.push(newAnnouncement); // Add new announcement to array
+            renderAnnouncements(); // Re-render the list with the new announcement
+
+            // Clear the form
+            announcementForm.reset();
+            // Close the modal
+            announcementModal.style.display = 'none';
+        });
+
+        // Initial render when the page loads (to show "No announcements yet" or any pre-existing)
+        renderAnnouncements();
+    </script>
+</body>
+</html>
