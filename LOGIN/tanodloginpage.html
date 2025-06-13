@@ -149,30 +149,35 @@
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="ID Number" required>
 
-        <div class="login button">
-          <button type="submit">Login</button>
-        </div>
-      </form>
+      
+     <div class="login button">
+  <button type="submit">Login</button>
+</div>
+
 
       <p class="terms">By using this service, you understood and agree to the <a href="#">Terms and Conditions</a></p>
     </div>
   </div>
 
+ 
   <!-- JavaScript to handle form submission -->
   <script>
     document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent default form submission
+  e.preventDefault(); // Prevent default form submission
 
-      const username = e.target.username.value.trim();
-      const idNumber = e.target.idNumber.value.trim();
+  const username = e.target.username.value.trim();
+  const password = e.target.password.value.trim(); // Use 'password', not 'idNumber'
 
-      if (username && idNumber) {
-        alert(`Logging in as:\nUsername: ${username}\nID Number: ${idNumber}`);
-        // Here, you can redirect or send data to server via fetch/AJAX
-      } else {
-        alert("Please enter both username and ID number.");
-      }
-    });
+  if (username && password) {
+    // Optional: show an alert or perform login logic here
+    // alert(`Logging in as:\nUsername: ${username}\nID Number: ${password}`);
+
+    // ✅ Redirect to the dashboard page
+    window.location.href = "1Dasboard.html";
+  } else {
+    alert("Please enter both username and ID number.");
+  }
+});
   </script>
 </body>
 </html>
