@@ -39,7 +39,7 @@
 
     .overlay {
       position: absolute;
-      top: 30%;
+      top: 35%;
       left: 50%;
       transform: translateX(-50%);
       color: #B92D2D;
@@ -99,7 +99,7 @@
     }
 
     button {
-      margin-top: 10px;
+      margin-top: 20px;
       padding: 10px;
       border-radius: 20px;
       width: 150px; /* Set a smaller width */
@@ -131,6 +131,7 @@
 
 </head>
 <body>
+  
   <div class="container">
     <div class="left-section">
       <div class="overlay">
@@ -141,43 +142,27 @@
 
     <div class="right-section">
       <img src= "Barangay Market Area Seal.png" alt="Barangay Market Area Logo" class="logo">
-  
 
-      <!-- Form starts here -->
-      <form class="login-box" id="loginForm">
-        <h3>LOG IN TO YOUR ACCOUNT</h3>
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="ID Number" required>
 
-      
-     <div class="login button">
+    <!-- Form starts here -->
+<form class="login-box" id="loginForm" onsubmit="return redirectToPage()">
+  <h3>LOG IN TO YOUR ACCOUNT</h3>
+  <input type="text" name="username" placeholder="Username" required>
+  <input type="password" name="password" placeholder="ID Number" required>
   <button type="submit">Login</button>
-</div>
-
+</form>
 
       <p class="terms">By using this service, you understood and agree to the <a href="#">Terms and Conditions</a></p>
     </div>
   </div>
 
- 
-  <!-- JavaScript to handle form submission -->
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault(); // Prevent default form submission
-
-  const username = e.target.username.value.trim();
-  const password = e.target.password.value.trim(); // Use 'password', not 'idNumber'
-
-  if (username && password) {
-    // Optional: show an alert or perform login logic here
-    // alert(`Logging in as:\nUsername: ${username}\nID Number: ${password}`);
-
-    // ✅ Redirect to the dashboard page
-    window.location.href = "1Dasboard.html";
-  } else {
-    alert("Please enter both username and ID number.");
+  function redirectToPage() {
+    // You can also add validation logic here before redirecting
+    window.location.href = "2Employee.html";
+    return false; // Prevent form from submitting the traditional way
   }
-});
-  </script>
+</script>
+
 </body>
 </html>

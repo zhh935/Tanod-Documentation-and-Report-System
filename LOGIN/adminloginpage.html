@@ -39,7 +39,7 @@
 
     .overlay {
       position: absolute;
-      top: 30%;
+      top: 35%;
       left: 50%;
       transform: translateX(-50%);
       color: #B92D2D;
@@ -82,7 +82,7 @@
     gap: 15px;
 }
 
-  h2 {
+    h2 {
       font-size: 1rem;
       margin-bottom: 10px;
       text-align: center;
@@ -90,7 +90,7 @@
       font-weight: bold;
     }
 
-  input {
+    input {
       padding: 12px; /* Adjust padding */
       border-radius: 20px;
       border: none;
@@ -98,11 +98,11 @@
       width: 100%;
     }
 
-  button {
-      margin-top: 10px;
+    button {
+      margin-top: 20px;
       padding: 10px;
       border-radius: 20px;
-      width: 150px; 
+      width: 150px; /* Set a smaller width */
       border: none;
       background-color: #b10b0b;
       color: white;
@@ -110,10 +110,12 @@
       font-weight: bold;
 }
 
-  button:hover {
+    button:hover {
       background: #d41e0e;
       text-align:center
-  }     
+      
+ }
+
     .terms {
       font-size: 0.8rem;
       position: absolute;
@@ -140,37 +142,26 @@
 
     <div class="right-section">
       <img src= "Barangay Market Area Seal.png" alt="Barangay Market Area Logo" class="logo">
-      
-      <!-- Form starts here -->
-      <form class="login-box" id="loginForm">
-        <h3>WELCOME BACK ADMIN!</h3>
-        <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="ID Number" required>
 
-        <div class="login button">
-          <button type="submit">Login</button>
-        </div>
-      </form>
+      <!-- Form starts here -->
+    <form class="login-box" id="loginForm" onsubmit="return redirectToPage()">
+  <h3>WELCOME BACK ADMIN!</h3>
+  <input type="text" name="username" placeholder="Username" required>
+  <input type="password" name="password" placeholder="ID Number" required>
+  <button type="submit">Login</button>
+</form>
 
       <p class="terms">By using this service, you understood and agree to the <a href="#">Terms and Conditions</a></p>
     </div>
   </div>
 
-  <!-- JavaScript to handle form submission -->
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent default form submission
+<script>
+  function redirectToPage() {
+    // You can also add validation logic here before redirecting
+    window.location.href = "1dashboard.html";
+    return false; // Prevent form from submitting the traditional way
+  }
+</script>
 
-      const username = e.target.username.value.trim();
-      const idNumber = e.target.idNumber.value.trim();
-
-      if (username && idNumber) {
-        alert(`Logging in as:\nUsername: ${username}\nID Number: ${idNumber}`);
-        // Here, you can redirect or send data to server via fetch/AJAX
-      } else {
-        alert("Please enter both username and ID number.");
-      }
-    });
-  </script>
 </body>
 </html>
