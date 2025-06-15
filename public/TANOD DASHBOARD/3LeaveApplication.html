@@ -69,14 +69,21 @@
                 margin-left: 40px;
             }
 
-            .header_profile img {
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-                border: 2px solid white;
-            }
+          .header_profile img {
+            border-radius: 50%; /* Make it round */
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 2px solid white;
+            cursor: pointer; /* Indicate it's clickable */
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
 
+        .header_profile img:hover{
+            border-color: #F0F3D9;
+            box-shadow: 0 0 0 2px white;
+
+        }
             .leave_text {                   /*dasboard text below header*/
                 display: inline-block; 
                 font-size: 25px;
@@ -428,8 +435,10 @@
             </ul>
        </nav>
 
-        <div class="header_profile"> 
+       <div class="header_profile"> 
+              <a href="4profile.html" class="profile-link">
                     <img src="maloi.jpg">
+              </a>
          </div>
  </header>
 
