@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tanod Documentation and Reporting System</title>
+  <link rel="icon" href="/images/Barangay-Market-Area-Seal.png" type="image/png">
   <link rel="stylesheet" href="styles.css" />
   <style>
     * {
@@ -139,20 +140,22 @@
     </div>
 
     <div class="right-section">
-      <img src="/ADMIN DASHBOARD/Barangay Market Area Seal.png" alt="Barangay Market Area Logo" class="logo" />
+      <img src="/images/Barangay-Market-Area-Seal.png" alt="Barangay Market Area Logo" class="logo" />
 
       <!-- Form starts here -->
+      <!-- Form starts here -->
       <form class="login-box" id="loginForm" onsubmit="return redirectToPage()">
-        <h3>LOG IN TO YOUR ACCOUNT</h3>
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="ID Number" required />
-        <button type="submit">Login</button>
+        <h2>LOG IN TO YOUR ACCOUNT</h2>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="ID Number" required>
+        <a href="/public/TANOD_DASHBOARD/1Dasboard.html">
+          <button type="button">Login</button>
+        </a>
+        <p class="terms">
+          By using this service, you understood and agree to the 
+          <a href="#">Terms and Conditions</a>
+        </p>
       </form>
-
-      <p class="terms">
-        By using this service, you understood and agree to the
-        <a href="#">Terms and Conditions</a>
-      </p>
     </div>
   </div>
 </body>
