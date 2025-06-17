@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tanod Dashboard</title>
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <!-- Embedded CSS for styling the calendar and overall layout -->
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100%;
+            padding: 0;
+            overflow-y: auto;
+            margin-bottom: 30px;
+        }
+
+        header {
+            background-color: #4B5320;
+            height: 80px;
+            padding: 20px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .seal_container { /*market area logo alignment */
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+
+        .seal_container img { /*market area logo */
+            height: 90px;
+            margin-right: 20px;
+        }
+
+        .site_name { /*website title inside span */
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar ul { /*navigation aligment*/
+            list-style: none;
+            display: flex;
+            margin-left: 400px;
+            padding: 0;
+        }
+
+        .navbar li { /*navigation per  list design*/
+            margin-left: 10px;
+            border-radius: 50px;
+            padding: 5px 20px;
+        }
+
+        .navbar a { /*navigation text Dashboard, Incident report, Leave*/
+            text-decoration: none;
+            color: rgb(253, 253, 253);
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #dbeca6;
+        }
+
+        .header_profile { /*Tanod profile alignment*/
+            margin-left: 40px;
+        }
+
+        .header_profile img {
+            border-radius: 50%; /* Make it round */
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 2px solid white;
+            cursor: pointer; /* Indicate it's clickable */
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .header_profile img:hover {
+            border-color: #F0F3D9;
+            box-shadow: 0 0 0 2px white;
+        }
+
+        /* NEW STYLES FOR LAYOUT ALIGNMENT */
+        .dashboard-main-content {
+            display: flex; /* Enable Flexbox for side-by-side layout */
+            flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+            justify-content: center; 
+            align-items: flex-start; /* Align items to the top vertically */
+            gap: 30px; 
+            padding: 20px; /* General padding around this main content area */
+            width: 100%; 
+            box-sizing: border-box;
+          
+            margin-right: 50px;
+        }
+
+        .dashboard-left-area {
+            display: flex;
+            flex-direction: column; /* Stack dashboard elements vertically */
+            align-items: flex-start; /* Align contents to the left within this area */
+
+        }
+        /* END NEW STYLES */
+
+        .dashboard_text { /*dashboard text below header*/
+            display: inline-block;
+            font-size: 25px;
+            margin-top: 30px;
+            margin-left: 30px; /* Existing margin retained */
+        }
+
+        /* Dashboard with tanod profile and name */
+        .tanod_dashboard {
+            width: 340px;
+            height: 250px; /* Increased height to accommodate vertical stacking better */
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+          margin-top: 20px;
+        }
+
+        /* Styles for the profile picture */
+        .dashboard_pic {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-bottom: 15px; /* Add space below the picture */
+        }
+
+        /* Styles for the container holding name and position */
+        .tanod_info {
+            display: flex; /* Make this a flex container */
+            flex-direction: column; /* Stack name and position vertically */
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Styles for the name */
+        .tanod_dashboard .tanod_name {
+            font-size: 25px;
+            font-weight: bold;
+            color: #333;
+            margin: 0; /* Reset default paragraph margin */
+        }
+
+        /* Styles for the position */
+        .tanod_dashboard .tanod_position {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0 0; /* Add a small space above the position */
+        }
+
+        .dashboard-box {
+            background-color: white;
+            width: 300px;
+            height: 250px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .dashboard-box h3 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #4B5320;
+        }
+
+        .item-box {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .text-content {
+            max-height: 1.2em; /* height of one line */
+            line-height: 1.2em;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            transition: all 0.3s ease;
+        }
+
+        .text-content.expanded {
+            max-height: none;
+            white-space: normal;
+            text-overflow: unset;
+        }
+
+        .see-more {
+            margin-top: 5px;
+            border: none;
+            background: none;
+            color: #777;
+            font-weight: bold;
+            padding: 0;
+            cursor: pointer;
+            display: none;
+        }
+
+        .see-more.visible {
+            display: inline-block;
+        }
+
+        /* Calendar container styles - adjustments for flex context */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px; /* Calendar's maximum width */
+            text-align: center;
+            box-sizing: border-box;
+            margin: 0; /* Resetting any conflicting external margins */
+            margin-top: 80px;
+        }
+
+        h1 {
+            color:  #4B5320; /* Updated heading color */
+            margin-bottom: 20px;
+       
+            font-size: 30px;
+        }
+
+
+        /* Calendar navigation styling */
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color:#ebf0e6; /* Lighter shade of the new color for nav background */
+            padding: 10px 15px;
+            border-radius: 8px; /* Rounded corners for nav */
+        }
+
+        .calendar-nav h2 {
+            margin: 0;
+            color: #8A9A5B; /* Updated nav heading color */
+            font-size: 1.6em;
+        }
+
+        .calendar-nav button {
+            background-color: transparent; /* Removed background */
+            color: #8A9A5B; /* Text color for buttons */
+            border: none; /* Removed border */
+            padding: 10px 18px;
+            border-radius: 20px; /* More rounded buttons */
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            box-shadow: none; /* Removed box shadow */
+        }
+
+        .calendar-nav button:hover {
+            background-color: rgba(138, 154, 91, 0.1); /* Slight background on hover */
+            color: #8A9A5B; /* Maintain text color on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        .calendar-nav button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Calendar table styling */
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed; /* Ensures equal column widths */
+        }
+
+        .calendar-table th,
+        .calendar-table td {
+            border: 1px solid #e0e0e0;
+            padding: 15px 5px;
+            text-align: center;
+            vertical-align: top;
+            min-height: 90px; /* Ensure a consistent height for cells */
+            box-sizing: border-box;
+            position: relative;
+            border-radius: 5px; /* Slightly rounded cell corners */
+        }
+
+        .calendar-table th {
+            background-color: #ebf0e6; /* Lighter shade of the new color for headers */
+            color: #3c4043;
+            font-weight: bold;
+            padding: 12px 5px;
+            text-transform: uppercase;
+            font-size: 0.95em;
+        }
+
+        .calendar-table td {
+            background-color: #ffffff;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar-table td:hover:not(.empty) {
+            background-color: #f0f8ff; /* Light hover effect for cells */
+        }
+
+        .calendar-table td.today {
+            background-color: #fff8e1; /* Light yellow for today's date */
+            border: 2px solid #fbbc05; /* Yellow border for today */
+            box-shadow: 0 0 8px rgba(251, 188, 5, 0.4);
+            z-index: 1; /* Ensure today's cell is on top */
+        }
+
+        /* Day number positioning */
+        .calendar-table td .day-number {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #777;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Schedule text styling */
+        .calendar-table td .schedule-text {
+            display: flex; /* Use flexbox to center content */
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Take full height of cell for centering */
+            font-weight: bold;
+            font-size: 1.15em;
+            padding-top: 25px; /* Adjust padding to make space for day number */
+            box-sizing: border-box;
+        }
+
+        .calendar-table td.duty .schedule-text {
+            color: #34a853; /* Google green for DUTY */
+        }
+
+        .calendar-table td.dayoff .schedule-text {
+            color: #ea4335; /* Google red for DAYOFF */
+        }
+
+        /* Styling for empty days (before 1st and after last day of month) */
+        .calendar-table td.empty {
+            background-color: #f8f8f8;
+            border: 1px dashed #e0e0e0; /* Dashed border for empty cells */
+            cursor: default;
+        }
+
+        .calendar-table td.empty:hover {
+            background-color: #f8f8f8; /* No hover effect on empty cells */
+        }
+
+        /* Styling for weekend cells (Sunday and Saturday) - blanked out per request */
+        .calendar-table td:nth-child(1), /* Sunday */
+        .calendar-table td:nth-child(7) { /* Saturday */
+            background-color: #f0f0f0; /* Slightly different background for weekend cells */
+            color: #aaa; /* Lighter text color */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dashboard-main-content {
+                flex-direction: column; /* Stack vertically on smaller screens */
+                align-items: center; /* Center items when stacked */
+                padding: 10px;
+            }
+            .dashboard-left-area {
+                width: 100%; /* Take full width when stacked */
+                align-items: center; /* Center content within the left area when stacked */
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .calendar-nav h2 {
+                font-size: 1.4em;
+            }
+            .calendar-nav button {
+                padding: 8px 12px;
+                font-size: 0.95em;
+            }
+            .calendar-table th,
+            .calendar-table td {
+                padding: 10px 3px;
+                min-height: 75px;
+                font-size: 0.85em;
+            }
+            .calendar-table td .day-number {
+                font-size: 0.9em;
+                top: 5px;
+                left: 5px;
+                padding: 1px 4px;
+            }
+            .calendar-table td .schedule-text {
+                font-size: 1em;
+                padding-top: 20px;
+            }
+            /* Adjust margins for left-aligned elements when stacked */
+            .dashboard_text,
+            .tanod_dashboard,
+            .dashboard-box {
+                margin-left: 0 !important; /* Override specific margin-left to center */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.4em;
+            }
+            p {
+                font-size: 0.85em;
+            }
+            .calendar-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .calendar-nav h2 {
+                font-size: 1.2em;
+            }
+            .calendar-nav button {
+                width: 100%;
+                max-width: 150px;
+                font-size: 0.9em;
+            }
+            .calendar-table th,
+            .calendar-table td {
+                padding: 7px 2px;
+                min-height: 60px;
+                font-size: 0.75em;
+            }
+            .calendar-table td .day-number {
+                font-size: 0.8em;
+                top: 3px;
+                left: 3px;
+                padding: 1px 3px;
+            }
+            .calendar-table td .schedule-text {
+                font-size: 0.9em;
+                padding-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="seal_container">
+            <img src="../images/Barangay-Market-Area-Seal.png">
+            <span class="site_name">Tanod Documentation <br> and Reporting System</span>
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li> <a href="1Dasboard.html"> Dashboard</a></li>
+                <li> <a href="2IncidentReport.html"> Incident Report</a></li>
+                <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+            </ul>
+        </nav>
+
+        <div class="header_profile">
+            <a href="4profile.html" class="profile-link">
+                <img src="../images/maloi.jpg">
+            </a>
+        </div>
+    </header>
+
+    <div class="dashboard-main-content"> <!-- New container for main dashboard content -->
+        <div class="dashboard-left-area"> <!-- New wrapper for left-side dashboard elements -->
+            <span class="dashboard_text"> Dashboard </span>
+
+            <!--tanod profile place on the middle-->
+            <div class="tanod_dashboard">
+                <img src="../images/maloi.jpg" class="dashboard_pic">
+                <div class="tanod_info">
+                    <p class="tanod_name"> Name</p>
+                    <p class="tanod_position"> Barangay Tanod</p>
+                </div>
+            </div>
+
+            <!-- Announcement -->
+            <div class="dashboard-box">
+                <h3>Announcement</h3>
+                <div class="item-box">
+                    <div class="text-content">New ID distribution: June 15</div>
+                    <button class="see-more">See More</button>
+                </div>
+
+                <div class="item-box">
+                    <div class="text-content">Barangay Hall Maintenance: June 16 with some additional notes making this longer than one line</div>
+                    <button class="see-more">See More</button>
+                </div>
+
+                <div class="item-box">
+                    <div class="text-content">Tanod Meeting: June 18</div>
+                    <button class="see-more">See More</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container"> <!-- Calendar container -->
+            <h1>Your Work Schedule</h1>
+
+            <div class="calendar-nav">
+                <button id="prevMonth">&lt; Previous</button>
+                <h2 id="currentMonthYear"></h2>
+                <button id="nextMonth">Next &gt;</button>
+            </div>
+
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody">
+                    <!-- Calendar days and schedule (DUTY/DAYOFF) will be dynamically inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Embedded JavaScript for calendar functionality -->
+    <script>
+        // On page load, check which .text-content overflows and show the "See More" button only for those
+        document.querySelectorAll('.item-box').forEach(box => {
+            const textDiv = box.querySelector('.text-content');
+            const btn = box.querySelector('.see-more');
+
+            if (textDiv.scrollWidth > textDiv.clientWidth) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+
+            btn.addEventListener('click', () => {
+                if (textDiv.classList.contains('expanded')) {
+                    textDiv.classList.remove('expanded');
+                    btn.textContent = 'See More';
+                } else {
+                    textDiv.classList.add('expanded');
+                    btn.textContent = 'See Less';
+                }
+            });
+        });
+
+        // Embedded JavaScript for calendar functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get references to DOM elements
+            const calendarBody = document.getElementById('calendarBody');
+            const currentMonthYearHeader = document.getElementById('currentMonthYear');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+
+            // Initialize current month and year to today's date
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+
+            /**
+             * Helper function to get the current date in Santa Rosa, Calabarzon, Philippines (UTC+8).
+             * This ensures 'today' highlights correctly for the target timezone.
+             */
+            function getPhilippineDate() {
+                const now = new Date();
+                const philippineOffset = 8 * 60; // 8 hours in minutes
+                // Get UTC milliseconds
+                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+                // Add Philippine offset to get local time in Philippines
+                return new Date(utc + (philippineOffset * 60000));
+            }
+
+            /**
+             * Determines the schedule (DUTY, DAYOFF, or blank) for a given date.
+             * This is the crucial part that would be connected to the admin's organization.
+             *
+             * @param {Date} date The date for which to determine the schedule.
+             * @returns {string} 'DUTY', 'DAYOFF', or an empty string for blank days.
+             */
+            const getScheduleForDay = (date) => {
+                const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+                const month = date.getMonth();
+                const year = date.getFullYear();
+
+                // Only show schedule for June of the current year
+                // June is month 5 (0-indexed)
+                if (month !== 5 || year !== currentYear) {
+                    return ''; // Blank for any month other than June of the current year
+                }
+
+                // Saturdays (6) and Sundays (0) are intentionally blank as per your requirement
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    return ''; // Blank for weekends
+                }
+
+                // --- ADMIN-ORGANIZED SCHEDULE LOGIC HERE ---
+                // For demonstration, here's a simple, recurring pattern for June:
+                // Mon, Tue, Thu, Fri are DUTY; Wed is DAYOFF.
+                switch (dayOfWeek) {
+                    case 1: // Monday
+                    case 2: // Tuesday
+                    case 4: // Thursday
+                    case 5: // Friday
+                        return 'DUTY';
+                    case 3: // Wednesday
+                        return 'DAYOFF';
+                    default:
+                        return ''; // Should not be reached for weekdays with this logic
+                }
+                // --- END ADMIN-ORGANIZED SCHEDULE LOGIC ---
+            };
+
+            /**
+             * Renders the calendar for the currently selected month and year.
+             */
+            const renderCalendar = () => {
+                calendarBody.innerHTML = ''; // Clear existing calendar days to re-render
+                const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                const startDayIndex = firstDayOfMonth.getDay(); // Day of the week for the 1st of the month (0=Sun, 6=Sat)
+
+                // Update the header with the current month and year (e.g., "June 2025")
+                currentMonthYearHeader.textContent = `${new Date(currentYear, currentMonth).toLocaleString('en-US', { month: 'long' })} ${currentYear}`;
+
+                let dateCounter = 1; // Start counting days from 1 for the calendar
+                const todayPhilippine = getPhilippineDate();
+                // Check if the calendar currently being displayed is for the actual current month and year
+                const isCurrentMonthView = todayPhilippine.getMonth() === currentMonth && todayPhilippine.getFullYear() === currentYear;
+
+                // Loop to create rows (weeks) for the calendar
+                for (let i = 0; i < 6; i++) { // A maximum of 6 rows is typically needed for any month
+                    const row = document.createElement('tr');
+                    // Loop to create cells (days) within each row
+                    for (let j = 0; j < 7; j++) { // 7 days in a week (Sun-Sat)
+                        const cell = document.createElement('td');
+
+                        if (i === 0 && j < startDayIndex) {
+                            // These are empty cells before the 1st day of the month
+                            cell.classList.add('empty');
+                        } else if (dateCounter > daysInMonth) {
+                            // These are empty cells after the last day of the month
+                            cell.classList.add('empty');
+                        } else {
+                            // This is a valid day within the current month
+                            const cellDate = new Date(currentYear, currentMonth, dateCounter);
+
+                            // Add the day number to the cell
+                            const dayNumberSpan = document.createElement('span');
+                            dayNumberSpan.classList.add('day-number');
+                            dayNumberSpan.textContent = dateCounter;
+                            cell.appendChild(dayNumberSpan);
+
+                            // Determine and add the schedule text (DUTY/DAYOFF/blank)
+                            const scheduleTextSpan = document.createElement('span');
+                            scheduleTextSpan.classList.add('schedule-text');
+                            const schedule = getScheduleForDay(cellDate); // Get the schedule from your defined logic
+                            scheduleTextSpan.textContent = schedule;
+
+                            // Add specific classes for styling based on the schedule type
+                            if (schedule === 'DUTY') {
+                                cell.classList.add('duty');
+                            } else if (schedule === 'DAYOFF') {
+                                cell.classList.add('dayoff');
+                            }
+
+                            // Highlight today's date if it's the current date in the current calendar view
+                            if (isCurrentMonthView && dateCounter === todayPhilippine.getDate()) {
+                                cell.classList.add('today');
+                            }
+
+                            cell.appendChild(scheduleTextSpan);
+                            dateCounter++; // Move to the next day
+                        }
+                        row.appendChild(cell);
+                    }
+                    // Append the row to the calendar body if it contains any valid dates or leading empty cells.
+                    // This prevents adding empty rows at the very end of the month if not needed.
+                    if (dateCounter <= daysInMonth + startDayIndex || i === 0) {
+                        calendarBody.appendChild(row);
+                    }
+                }
+            };
+
+            // Event listener for the 'Previous Month' button
+            prevMonthBtn.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) { // If month goes below January, cycle to December of previous year
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar(); // Re-render the calendar for the new month
+            });
+
+            // Event listener for the 'Next Month' button
+            nextMonthBtn.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) { // If month goes above December, cycle to January of next year
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar(); // Re-render the calendar for the new month
+            });
+
+            // Initial render of the calendar when the page first loads
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>

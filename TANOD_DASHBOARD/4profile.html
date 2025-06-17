@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        header {
+            background-color: #4B5320;
+            height: 80px;
+            padding: 20px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .seal_container {
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+
+        .seal_container img {
+            height: 90px;
+            margin-right: 20px;
+        }
+
+        .site_name {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin-left: 400px; /* Adjust as needed for alignment */
+            padding: 0;
+        }
+
+        .navbar li {
+            margin-left: 10px;
+            border-radius: 50px;
+            padding: 5px 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: rgb(253, 253, 253);
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            color: #dbeca6;
+        }
+
+        .header_profile {
+            margin-left: 40px; /* Space for the profile picture */
+        }
+
+        .header_profile img {
+            border-radius: 50%; /* Make it round */
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 2px solid white;
+            cursor: pointer; /* Indicate it's clickable */
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .header_profile img:hover{
+            border-color: #F0F3D9;
+            box-shadow: 0 0 0 2px white;
+
+        }
+
+        .profile_text {             /*profile  text below header*/
+            display: inline-block; 
+            font-size: 25px;
+            margin-top: 30px;
+            margin-left: 30px;
+        
+        }
+
+
+        /* --- Profile Page Specific Styles --- */
+        .profile-page-container {
+            max-width: 550px;
+            height: auto;
+            /* Margin is now controlled by .profile_text and this container's top margin */
+            margin: 0 auto 20px auto; /* No top margin here, handled by .profile_text */
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.5);
+            padding: 30px; /* Increased padding */
+            text-align: center; /* Center content within this container */
+        }
+
+        .profile-header-section {
+            display: flex;          /* Make it a flex container */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center;    /* Center children horizontally */
+            margin-bottom: 5px; /* Reduced space after this section */
+        }
+
+        .profile-header-section .profile-photo-large {
+            width: 120px; /* Size for profile pic on profile page */
+            height: 120px;
+            border-radius: 50%; /* Make it round */
+            object-fit: cover;
+            border: 3px solid #4B5320; /* Color matching your header */
+            margin-bottom: 10px; /* Space below image */
+        }
+
+        /* Reduced space for name and email */
+        .profile-page-container h3.fullname { /* Targeted specifically for name */
+            color: #4B5320;
+            margin-top: 0;
+            margin-bottom: -10px; /* Reduced margin-bottom for name */
+            font-size: 1.2em; /* Ensure readability */
+        }
+
+        .profile-page-container .user-email {
+            margin-bottom: 5px; /* Reduced space below email */
+            color: #555;
+            font-size: 1.0em; /* Ensure readability */
+        }
+
+        .spacer {
+            height: 10px; /* Reduced space between email and info fields */
+            width: 100%; /* Ensure spacer takes full width for consistent spacing */
+        }
+
+        .user-details-grid {
+            display: grid;
+            /* Adjusted to show 2 items per line on larger screens */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; /* Space between info items */
+            margin-top: 20px; /* Space above the grid */
+        }
+
+        /* New structure: label is outside, box is for value */
+        .grid-item-wrapper { /* This wrapper holds both the label and the value box */
+            display: flex;
+            flex-direction: column; /* Stack label above the value box */
+            align-items: flex-start; /* Align label to the left */
+            text-align: left; /* Ensure content within label aligns left */
+        }
+
+        .grid-item-wrapper .info-label {
+            font-weight: bold;
+            color: #4B5320;
+            margin-bottom: 5px; /* Space between label and the value box below it */
+            font-size: 0.9em;
+            padding-left: 5px; /* Small padding to align label visually with box content */
+        }
+
+        .info-value-box { /* This div will now get the 'box' styling */
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px; /* Smaller padding for smaller boxes */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            width: 100%; /* Take full width of its grid column */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            display: flex; /* Ensures value content inside is aligned */
+            align-items: center; /* Vertically center content */
+            min-height: 45px; /* Ensure a minimum height for consistent appearance */
+        }
+
+        .info-value-box .info-value {
+            color: #333;
+            font-size: 1.0em; /* Slightly adjusted font size */
+            word-wrap: break-word; /* Ensure long words break to prevent overflow */
+            flex-grow: 1; /* Allows value to take up available space */
+        }
+
+        /* For items that should take full width on smaller screens, or always */
+        .grid-item-wrapper.full-width {
+            grid-column: 1 / -1; /* Spans all columns in the grid */
+        }
+
+        @media (max-width: 768px) {
+            .navbar ul {
+                margin-left: auto;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .header_profile {
+                margin-left: 10px;
+            }
+            .site_name {
+                font-size: 18px;
+            }
+            .seal_container img {
+                height: 70px;
+            }
+            .profile-page-container {
+                width: 95%;
+                padding: 20px;
+                margin-top: 20px;
+            }
+            .user-details-grid {
+                grid-template-columns: 1fr; /* Stack items on very small screens */
+            }
+            /* Adjust profile_text for smaller screens */
+            .profile_text {
+                padding-left: 20px; /* Adjust padding for smaller screens */
+                margin-left: 0; /* Remove auto margins to align left */
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+            .seal_container {
+                padding-left: 0;
+                margin-bottom: 10px;
+            }
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+                margin-left: 0;
+                width: 100%;
+            }
+            .navbar li {
+                margin-left: 0;
+                margin-bottom: 5px;
+            }
+            /* .profile_text will be handled by the 768px media query if needed */
+        }
+    </style>
+</head>
+    <header>
+        <div class="seal_container">
+            <img src="../images/Barangay-Market-Area-Seal.png" alt="Barangay Market Area Seal">
+            <span class="site_name">Tanod Documentation <br> and Reporting System </span>
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li> <a href="1Dasboard.html"> Dashboard</a></li>
+                <li> <a href="2IncidentReport.html"> Incident Report</a></li>
+                <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+            </ul>
+        </nav>
+
+        <div class="header_profile">
+            <!-- On the profile page itself, the profile pic could link back to dashboard or be non-clickable -->
+            <img src="../images/maloi.jpg" alt="User Profile Picture">
+        </div>
+    </header>
+
+    <body>
+  <span class="profile_text"> User Profile </span>
+
+    <main class="profile-page-container">
+        <div class="profile-header-section">
+            <img src="../images/maloi.jpg" alt="User Profile Picture" class="profile-photo-large">
+            <h3 class="fullname">Maloi Ricalde</h3>
+            <p class="user-email">maloi.ricalde@example.com</p>
+            <div class="spacer"></div>
+        </div>
+
+        <div class="user-details-grid">
+            <!-- Each item is now wrapped in 'grid-item-wrapper' -->
+            <div class="grid-item-wrapper">
+                <span class="info-label">User ID:</span>
+                <div class="info-value-box">
+                    <span class="info-value">TANOD-001</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Gender:</span>
+                <div class="info-value-box">
+                    <span class="info-value">Female</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Age:</span>
+                <div class="info-value-box">
+                    <span class="info-value">25</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Birthday:</span>
+                <div class="info-value-box">
+                    <span class="info-value">January 15, 1999</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Contact Info:</span>
+                <div class="info-value-box">
+                    <span class="info-value">0912-345-6789</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Martial Status:</span>
+                <div class="info-value-box">
+                    <span class="info-value">Single</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper">
+                <span class="info-label">Employment Date:</span>
+                <div class="info-value-box">
+                    <span class="info-value">March 1, 2023</span>
+                </div>
+            </div>
+            <div class="grid-item-wrapper full-width">
+                <span class="info-label">Address:</span>
+                <div class="info-value-box">
+                    <span class="info-value">123 Main St, Barangay Market Area, Santa Rosa, Calabarzon, Philippines</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
