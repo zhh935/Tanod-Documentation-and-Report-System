@@ -848,6 +848,14 @@
         // Client-side storage for employees (resets on page refresh, consider localStorage for persistence)
         let employees = [];
 
+        // Load saved employees from localStorage
+        const savedEmployees = localStorage.getItem("employees");   
+        if (savedEmployees) {
+        employees = JSON.parse(savedEmployees);
+        renderEmployees();
+}
+
+
         // Helper function to format date to Month Day, Year
         function formatDateToMonthDayYear(dateString) {
             if (!dateString) return 'N/A';
@@ -1101,6 +1109,8 @@
             }
 
             renderEmployees();
+            localStorage.setItem("employees", JSON.stringify(employees));
+
 
             employeeModal.style.display = 'none';
             employeeForm.reset();

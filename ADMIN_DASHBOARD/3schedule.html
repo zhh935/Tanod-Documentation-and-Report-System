@@ -6,6 +6,9 @@
     <title>Admin Dashboard</title>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.js'></script>
+
 
     <style>
         /* Basic Reset & Body Styling */
@@ -162,17 +165,53 @@
 
         /* Main Content Styling */
         .main-content {
-            flex-grow: 1; /* Allows content to take remaining space */
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px; /* Space between sections */
+            flex-grow: 1;
+              padding: 30px;
+              display: flex;
+                flex-direction: column;
+    gap: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
         }
 
         .schedule-header h2 {
             margin: 0;
             color: #333;
         }
+/* Schedule Management - Styled Select */
+        .styled-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-size: 0.95em;
+    background-color: white;
+    color: #333;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
+}
+
+        .styled-select:focus {
+    border-color: #8A9A5B;
+    outline: none;
+}
+
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: sans-serif;
+            font-size: 0.9em;
+            box-sizing: border-box;
+}
           </style>
 </head>
 <body>
@@ -208,6 +247,17 @@
             <div class="schedule-header">
                 <h2>Schedule Management</h2>
             </div>
+            <!-- Employee Selection -->
+        <label for="employeeSelect">Assign to:</label>
+        <select id="employeeSelect">
+         <option value="">-- Select Employee --</option>
+        </select>
+
+            <!-- Calendar Container -->
+            <div id="calendar"></div>
+
+        </div>
+            
 
 
              <script>
@@ -231,5 +281,65 @@
             }
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Load employees from localStorage
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const employeeSelect = document.getElementById("employeeSelect");
+
+    // Populate dropdown
+    employees.forEach(emp => {
+        const option = document.createElement("option");
+        option.value = emp.id;
+        option.textContent = emp.name;
+        employeeSelect.appendChild(option);
+    });
+
+    // Load saved schedule
+    const savedSchedules = JSON.parse(localStorage.getItem("schedules")) || [];
+
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: true,
+        height: 'auto',
+        dateClick: function(info) {
+               const selectedEmpId = employeeSelect.value;
+        
+    if (!selectedEmpId) {
+        alert("Please select an employee to assign a schedule.");
+        return;
+    }
+
+    const selectedEmployee = employees.find(e => e.id == selectedEmpId);
+    if (!selectedEmployee) return;
+
+    // Ask for work type
+    const workType = prompt(`What kind of work is ${selectedEmployee.name} assigned to on ${info.dateStr}?`, "Patrol");
+
+    if (!workType) return; // Cancelled
+
+    const newEvent = {
+        title: `${selectedEmployee.name} - ${workType}`,
+        start: info.dateStr,
+        allDay: true,
+        empId: selectedEmpId,
+        workType: workType // Save work type as metadata
+    };
+
+    calendar.addEvent(newEvent);
+
+    // Save to localStorage
+    savedSchedules.push(newEvent);
+    localStorage.setItem("schedules", JSON.stringify(savedSchedules));
+}
+    });
+
+    // Render saved events
+    savedSchedules.forEach(event => calendar.addEvent(event));
+    calendar.render();
+});
+</script>
+
 
         </body>
