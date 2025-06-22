@@ -1,0 +1,268 @@
+/* === General Body === */
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 100%;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* === Header === */
+header {
+    background-color: #4B5320;
+    height: 80px;
+    padding: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.seal_container {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.seal_container img {
+    height: 90px;
+    margin-right: 20px;
+}
+
+.site_name {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin-left: 400px;
+    padding: 0;
+}
+
+.navbar li {
+    margin-left: 10px;
+    border-radius: 50px;
+    padding: 5px 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(253, 253, 253);
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #dbeca6;
+}
+
+/* === Header Profile === */
+.header_profile {
+    margin-left: 40px;
+}
+
+.header_profile img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.header_profile img:hover {
+    border-color: #F0F3D9;
+    box-shadow: 0 0 0 2px white;
+}
+
+.title_text {                   /*incident text below header*/
+    display: inline-block; 
+    font-size: 25px;
+    margin-top: 30px;
+    margin-left: 30px;
+    
+    }
+/* === File Upload Wrapper (Common) === */
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.choose-file-button {
+    background-color: #D0B564;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.choose-file-button:hover {
+    background-color: #e0e0e0;
+}
+
+.file-name-display {
+    flex-grow: 1;
+    padding: 5px 8px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    font-size: 0.9em;
+    color: #777;
+    cursor: default;
+}
+
+/* === Submit / Reset Buttons === */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 50px 30px 50px;
+    box-sizing: border-box;
+}
+
+.submit-button,
+.reset-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.reset-button {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 2px solid #c00707;
+}
+
+.reset-button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-1px);
+}
+
+/* === Modal Styling (Shared) === */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.modal-body h3 {
+    margin-top: 0;
+    font-size: 1.8em;
+    color: #333;
+}
+
+.modal-body p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 25px;
+    margin-top: -20px;
+}
+
+.modal-close-button {
+    background-color: #D62A29;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close-button:hover {
+    background-color: #c02221;
+}
+
+.modal-image {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px auto;
+    border-radius: 8px;
+}

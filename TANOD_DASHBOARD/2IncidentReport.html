@@ -3,96 +3,8 @@
     <head> <title> </title> 
     </head>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link rel="stylesheet" href="tanod.css"/>
     <style>
-            body{
-            margin: 0;
-            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
-           background-repeat: no-repeat;
-            background-attachment: fixed;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow-y: auto;
-            
-
-            }
-        
-            header{
-           background-color:   #4B5320;
-             height: 80px;
-             padding: 20px;
-             display: flex;
-             justify-content: start;
-             align-items: center;
-            }
- 
-            .seal_container{   /*market area logo alignment */
-            display: flex;
-             align-items: center;
-             padding-left:10px;
-            }
-
-             .seal_container img{  /*market area logo */
-             height: 90px;
-              margin-right: 20px;
-            }
-
-            .site_name{      /*website title inside span */
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            }
-            .navbar ul {        /*navigation aligment*/
-            list-style: none;
-            display: flex;
-            margin-left: 400px;
-            padding: 0;
-            }
-
-        .navbar li {               /*navigation per  list design*/
-            margin-left: 10px;
-            border-radius: 50px;
-            padding: 5px 20px;
-        }
-
-            .navbar a {       /*navigation text Dashboard, Incident report, Leave*/
-            text-decoration: none;
-            color: rgb(253, 253, 253);
-            font-weight: bold;
-            }
-
-           .navbar a:hover {
-            color: #dbeca6;
-        }
-
-            .header_profile   { /*Tanod profile alignment*/
-                margin-left: 40px;
-            }
-
-           .header_profile img {
-            border-radius: 50%; /* Make it round */
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border: 2px solid white;
-            cursor: pointer; /* Indicate it's clickable */
-            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .header_profile img:hover{
-            border-color: #F0F3D9;
-            box-shadow: 0 0 0 2px white;
-
-        }
-
-            .incident_text {                   /*incident text below header*/
-                display: inline-block; 
-                font-size: 25px;
-            margin-top: 30px;
-            margin-left: 30px;
-            
-            }
-
             .whole-form{    /*white bg*/
               height: auto;
                 width: 700px;
@@ -220,43 +132,13 @@
                 }
 
                 /* --- File Upload Custom Styling --- */
-                .file-input-wrapper {
-                    display: flex;
-                    align-items: center;
-                    width: 100%; /* Take full width of parent form-group */
-                }
-
                 .hidden-file-input {
                     display: none; /* Hides the default ugly file input */
                 }
 
-                .choose-file-button {
-                    background-color:  #D0B564; /* Light grey button */
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    padding: 8px 15px;
-                    cursor: pointer;
-                    font-size: 0.9em;
-                    color: #555;
-                    white-space: nowrap; /* Prevent text wrap */
-                    flex-shrink: 0; /* Don't let it shrink */
-                    margin-right: 10px; /* Space between button and file name display */
-                }
-
                 .choose-file-button:hover {
                     background-color: #BD8F42;
- ;
-                }
-
-                .file-name-display {
-                    flex-grow: 1; /* Allows it to take up remaining space */
-                    padding: 5px 8px;
-                    border: 1px solid #eee; /* Lighter border for display */
-                    border-radius: 5px;
-                    background-color: #fcfcfc;
-                    font-size: 0.9em;
-                    color: #777;
-                    cursor: default; /* Not clickable */
+                    
                 }
 
                 /* --- Radio Button Grid --- */
@@ -323,157 +205,13 @@
                     background-color: #F5F5F5;
                     border: 1px solid #bbb;
                 }
-
-
-                /* --- Submit/Reset Buttons --- */
-                .button-group {
-                    display: flex;
-                    justify-content: center; /* Center buttons horizontally */
-                    gap: 20px; /* Space between buttons */
-                    width: 100%; /* Take full width of parent */
-                    padding: 20px 50px 30px 50px; /* Padding inside button section */
-                    box-sizing: border-box;
-                }
-
-                .submit-button,
-                .reset-button {
-                    padding: 12px 30px;
-                    border: none;
-                    border-radius: 20px; /* More rounded buttons */
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease, transform 0.1s ease;
-                }
-
-                .submit-button {
-                    background-color: #4CAF50; /* Green from design */
-                    color: white;
-                }
-
-                .submit-button:hover {
-                    background-color: #45a049;
-                    transform: translateY(-1px);
-                }
-
-                .reset-button {
-                    background-color: #f0f0f0; /* Light grey */
-                    color: #555;
-                    border: 2px solid #c00707;
-                }
-
-                .reset-button:hover {
-                    background-color: #e0e0e0;
-                    transform: translateY(-1px);
-                }
-
-                /* --- Modal (Pop-up) Styling --- */
-                .modal {
-                    display: none; /* Hidden by default */
-                    position: fixed; /* Stay in place */
-                    z-index: 1000; /* Sit on top (higher than other elements) */
-                    left: 0;
-                    top: 0;
-                    width: 100%; /* Full width */
-                    height: 100%; /* Full height */
-                    overflow: auto; /* Enable scroll if needed */
-                    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-                    display: flex; /* Use flexbox to center content */
-                    justify-content: center; /* Center horizontally */
-                    align-items: center; /* Center vertically */
-                    opacity: 0; /* Start invisible */
-                    transition: opacity 0.3s ease; /* Smooth fade-in */
-                    pointer-events: none; /* Allows clicks "through" when invisible */
-                }
-
-                .modal.show {
-                    opacity: 1;
-                    pointer-events: auto; /* Re-enable clicks when visible */
-                }
-
-                .modal-content {
-                    background-color: #fefefe;
-                    margin: auto; /* For browsers that don't support flex centering well, fallback */
-                    padding: 30px;
-                    border-radius: 15px;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                    max-width: 400px; /* Max width of the pop-up */
-                    text-align: center;
-                    position: relative;
-                    transform: translateY(-20px); /* Start slightly above center */
-                    transition: transform 0.3s ease; /* Smooth slide-in */
-                }
-
-                .modal.show .modal-content {
-                    transform: translateY(0); /* Slide to center */
-                }
-
-                .close-button {
-                    color: #aaa;
-                    float: right;
-                    font-size: 28px;
-                    font-weight: bold;
-                    position: absolute;
-                    top: 10px;
-                    right: 15px;
-                    cursor: pointer;
-                }
-
-                .close-button:hover,
-                .close-button:focus {
-                    color: #000;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-
-                .modal-body {
-                    padding: 20px 0;
-                }
-
-                .modal-body h3 {
-                    margin-top: 0;
-                    font-size: 1.8em;
-                    color: #333;
-                
-                }
-
-                .modal-body p {
-                    font-size: 1.1em;
-                    color: #555;
-                    margin-bottom: 30px;
-                    margin-top: -20px;
-                }
-
-                .modal-close-button {
-                    background-color: #D62A29; /* Red close button */
-                    color: white;
-                    padding: 10px 25px;
-                    border: none;
-                    border-radius: 20px;
-                    cursor: pointer;
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    transition: background-color 0.3s ease;
-                }
-
-                .modal-close-button:hover {
-                    background-color: #c02221;
-                }
-                .modal-image {
-                max-width: 100px; /* Adjust max-width as needed to control image size */
-                height: auto; /* Maintain aspect ratio */
-                display: block; /* Makes it a block element to control margins easily */
-                margin: 0 auto 15px auto; /* Centers the image and adds space below it */
-                border-radius: 8px; /* Optional: adds slight rounded corners to the image */
-            }
-        
 </style>
 
 <header>
-          <div class="seal_container">
-                    <img src="Barangay Market Area Seal.png">
-                    <span class="site_name">Tanod Documentation <br> and Reporting System </span>
-         </div>
+        <div class="seal_container">
+            <img src="../images/Barangay-Market-Area-Seal.png">
+            <span class="site_name">Tanod Documentation <br> and Reporting System</span>
+        </div>
 
         <nav class="navbar"> 
             <ul>
@@ -491,7 +229,7 @@
  </header>
 
     <body>
-         <span class="incident_text"> Incident Report </span>
+         <span class="title_text"> Incident Report </span>
            <div class="whole-form">
 
         <div class="form-title-area">
@@ -603,9 +341,9 @@
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <div class="modal-body">
-           <img src="green-thumbs-up-11246.png" alt="Success Image" class="modal-image"> 
-            <h3>Great Job!</h3>
-            <p>Your report would be reviewed by the admin</p>
+           <img src="../images/thumbs-up.png" alt="Success Image" class="modal-image"> 
+            <h3>Upload Successful!</h3>
+            <p>Your report will be reviewed by the Admin.</p>
             <button class="modal-close-button">Close</button>
         </div>
     </div>
