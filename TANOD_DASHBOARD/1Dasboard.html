@@ -7,6 +7,11 @@
     <!-- Embedded CSS for styling the calendar and overall layout -->
     <style>
         
+        body::before {
+            background-image: url(../images/imagebackground.jpg);
+            opacity: 0.2;
+        }
+        
         /* NEW STYLES FOR LAYOUT ALIGNMENT */
         .dashboard-main-content {
             display: flex; /* Enable Flexbox for side-by-side layout */
@@ -395,24 +400,27 @@
 </head>
 <body>
     <header>
+        <!-- Left: Logo + Title -->
         <div class="seal_container">
+            <a href="../index.html" onclick="return confirmLeave();">
             <img src="../images/Barangay-Market-Area-Seal.png">
+            </a>
             <span class="site_name">Tanod Documentation <br> and Reporting System</span>
         </div>
 
+        <!-- Right: Nav with Profile Icon included -->
         <nav class="navbar">
             <ul>
-                <li> <a href="1Dasboard.html"> Dashboard</a></li>
-                <li> <a href="2IncidentReport.html"> Incident Report</a></li>
-                <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+                <li><a href="1Dasboard.html">Dashboard</a></li>
+                <li><a href="2IncidentReport.html">Incident Report</a></li>
+                <li><a href="3LeaveApplication.html">Leave Application</a></li>
+                <li class="profile-li">
+                    <a href="4profile.html" class="profile-link">
+                    <img src="../images/maloi.jpg" alt="Profile">
+                    </a>
+                </li>
             </ul>
         </nav>
-
-        <div class="header_profile">
-            <a href="4profile.html" class="profile-link">
-                <img src="../images/maloi.jpg">
-            </a>
-        </div>
     </header>
 
     <div class="dashboard-main-content"> <!-- New container for main dashboard content -->
@@ -479,6 +487,11 @@
     <!-- Embedded JavaScript for calendar functionality -->
 <!-- Start of changes -->
 <script>
+    //"Do you want to leave?" notification
+    function confirmLeave() {
+    const title = document.title;
+    return confirm(`Do you want to leave "${title}"?`);
+    }
     document.addEventListener('DOMContentLoaded', () => {
         const calendarBody = document.getElementById('calendarBody');
         const currentMonthYearHeader = document.getElementById('currentMonthYear');

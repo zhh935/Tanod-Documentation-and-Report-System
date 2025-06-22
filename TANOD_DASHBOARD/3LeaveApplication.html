@@ -150,26 +150,29 @@
 
     </style>
 
-<header>
+    <header>
+        <!-- Left: Logo + Title -->
         <div class="seal_container">
+            <a href="../index.html" onclick="return confirmLeave();">
             <img src="../images/Barangay-Market-Area-Seal.png">
+            </a>
             <span class="site_name">Tanod Documentation <br> and Reporting System</span>
         </div>
 
-        <nav class="navbar"> 
+        <!-- Right: Nav with Profile Icon included -->
+        <nav class="navbar">
             <ul>
-                    <li> <a href="1Dasboard.html"> Dashboard</a></li>
-                    <li> <a href="2IncidentReport.html"> Incident Report</a></li>
-                    <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+                <li><a href="1Dasboard.html">Dashboard</a></li>
+                <li><a href="2IncidentReport.html">Incident Report</a></li>
+                <li><a href="3LeaveApplication.html">Leave Application</a></li>
+                <li class="profile-li">
+                    <a href="4profile.html" class="profile-link">
+                    <img src="../images/maloi.jpg" alt="Profile">
+                    </a>
+                </li>
             </ul>
-       </nav>
-
-       <div class="header_profile"> 
-              <a href="4profile.html" class="profile-link">
-                    <img src="../images/maloi.jpg">
-              </a>
-         </div>
- </header>
+        </nav>
+    </header>
 
     <body>
             <span class="title_text"> Leave Application</span>
@@ -240,6 +243,12 @@
 </div>
 
 <script>
+    //"Do you want to leave?" notification
+    function confirmLeave() {
+    const title = document.title;
+    return confirm(`Do you want to leave "${title}"?`);
+    }
+
     // Get the modal
     var modal = document.getElementById("successModal");
 

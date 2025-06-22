@@ -166,25 +166,36 @@
             /* .profile_text will be handled by the 768px media query if needed */
         }
     </style>
+    <script>
+        //"Do you want to leave?" notification
+        function confirmLeave() {
+        const title = document.title;
+        return confirm(`Do you want to leave "${title}"?`);
+    }
+    </script>
 </head>
-    <header>
+        <header>
+        <!-- Left: Logo + Title -->
         <div class="seal_container">
+            <a href="../index.html" onclick="return confirmLeave();">
             <img src="../images/Barangay-Market-Area-Seal.png">
+            </a>
             <span class="site_name">Tanod Documentation <br> and Reporting System</span>
         </div>
 
+        <!-- Right: Nav with Profile Icon included -->
         <nav class="navbar">
             <ul>
-                <li> <a href="1Dasboard.html"> Dashboard</a></li>
-                <li> <a href="2IncidentReport.html"> Incident Report</a></li>
-                <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+                <li><a href="1Dasboard.html">Dashboard</a></li>
+                <li><a href="2IncidentReport.html">Incident Report</a></li>
+                <li><a href="3LeaveApplication.html">Leave Application</a></li>
+                <li class="profile-li">
+                    <a href="4profile.html" class="profile-link">
+                    <img src="../images/maloi.jpg" alt="Profile">
+                    </a>
+                </li>
             </ul>
         </nav>
-
-        <div class="header_profile">
-            <!-- On the profile page itself, the profile pic could link back to dashboard or be non-clickable -->
-            <img src="../images/maloi.jpg" alt="User Profile Picture">
-        </div>
     </header>
 
     <body>
