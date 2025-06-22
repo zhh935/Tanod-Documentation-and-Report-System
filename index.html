@@ -8,35 +8,42 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
       * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
 
+      html, body {
+        height: 100%;
+        width: 100%;
       }
-      .background-color {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgb(61, 61, 61);
-      z-index: 1;
-      opacity: 80%;
-      }
+
       .background-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('images/imagebackground.jpg') no-repeat center
-      center/cover;
-      filter: blur(5px);
-
-      opacity: 0.4;
-      z-index: 0;
+        position: fixed; /* Fixed ensures it fills screen even on scroll */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('images/imagebackground.jpg');
+        background-size: cover;         /* fills the screen */
+        background-position: center;    /* keeps center visible */
+        background-repeat: no-repeat;
+        filter: blur(5px);
+        opacity: 0.4;
+        z-index: -1;
       }
+
+      .background-color {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(61, 61, 61, 0.8); /* shorthand for opacity */
+        z-index: 0;
+      }
+
       .container {
       position: relative;
       height: 100vh;
