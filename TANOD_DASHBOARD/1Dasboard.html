@@ -921,6 +921,19 @@
 
         isMenuOpen = !isMenuOpen;
     }
+    document.addEventListener('click', function (event) {
+        const nav = document.getElementById('navMenu');
+        const hamburger = document.querySelector('.hamburger');
+
+        const isClickInside = nav.contains(event.target) || hamburger.contains(event.target);
+
+        if (!isClickInside && nav.classList.contains('show')) {
+            nav.classList.remove('show');
+            hamburger.classList.remove('rotate-open');
+            hamburger.classList.add('rotate-close');
+            isMenuOpen = false;
+        }
+    });
     document.addEventListener('DOMContentLoaded', () => {
         const calendarBody = document.getElementById('calendarBody');
         const currentMonthYearHeader = document.getElementById('currentMonthYear');

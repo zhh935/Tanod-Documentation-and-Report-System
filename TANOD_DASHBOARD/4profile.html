@@ -464,29 +464,45 @@
     </main>
 </body>
 <script>
-        function confirmLogout() {
-            return confirm("Are you sure you want to Log Out?");
+    function confirmLogout() {
+        return confirm("Are you sure you want to Log Out?");
+    }
+
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        const nav = document.getElementById("navMenu");
+        const icon = document.querySelector(".hamburger");
+
+        nav.classList.toggle("show");
+
+        // Remove both rotation classes first
+        icon.classList.remove("rotate-open", "rotate-close");
+
+        // Trigger rotation direction
+        if (!isMenuOpen) {
+        icon.classList.add("rotate-open");
+        } else {
+        icon.classList.add("rotate-close");
         }
 
-        let isMenuOpen = false;
+        isMenuOpen = !isMenuOpen;
+    }
 
-        function toggleMenu() {
-            const nav = document.getElementById("navMenu");
-            const icon = document.querySelector(".hamburger");
+    
+    document.addEventListener('click', function (event) {
+        const nav = document.getElementById('navMenu');
+        const hamburger = document.querySelector('.hamburger');
 
-            nav.classList.toggle("show");
+        const isClickInside = nav.contains(event.target) || hamburger.contains(event.target);
 
-            // Remove both rotation classes first
-            icon.classList.remove("rotate-open", "rotate-close");
-
-            // Trigger rotation direction
-            if (!isMenuOpen) {
-            icon.classList.add("rotate-open");
-            } else {
-            icon.classList.add("rotate-close");
-            }
-
-            isMenuOpen = !isMenuOpen;
+        if (!isClickInside && nav.classList.contains('show')) {
+            nav.classList.remove('show');
+            hamburger.classList.remove('rotate-open');
+            hamburger.classList.add('rotate-close');
+            isMenuOpen = false;
         }
+    });
+ 
 </script>
 </html>

@@ -478,8 +478,9 @@
 
         /* --- "Leave Application" Heading (inside the white form) --- */
         .form-main-heading {
-            display: flex;
             align-items: center;
+            display: flex;
+            justify-content: center;
             gap: 10px;
             margin-top: -30px;
             font-size: 15px;
@@ -487,14 +488,15 @@
         }
 
         .form-logo {
-            height: 70px; /* Adjust as needed */
+            height: clamp(40px,6vw,70px); /* Adjust as needed */
             width: auto; /* Maintain aspect ratio */
             margin-top: 10px; 
             vertical-align: middle; /* Helps align with text */
         }
 
         .form-main-heading h2 {
-            font-size: 2em;
+            text-align: center;
+            font-size: clamp(1.2em, 4vw, 2em);
             font-weight: bold;
             color: #333;
             margin: 0; /* Remove default h2 margin */
@@ -513,8 +515,7 @@
         /* --- General Form Group Styling (Label above Input/Select/Textarea) --- */
         .form-group {
             width: 100%;
-            height: auto;
-            margin-bottom: 15px; /* Space between form groups */
+            height: auto; /* Space between form groups */
             display: flex;
             flex-direction: column; /* Stacks label above input */
             align-items: flex-start; /* Aligns label and input to the left */
@@ -595,6 +596,16 @@
             font-size: 150px;
             color: #57a045;
             margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) or (orientation: portrait) {
+            .start-end-date-row {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: 15px;
+            }
         }
 
     </style>
@@ -715,6 +726,21 @@
 
         isMenuOpen = !isMenuOpen;
     }
+    
+    document.addEventListener('click', function (event) {
+        const nav = document.getElementById('navMenu');
+        const hamburger = document.querySelector('.hamburger');
+
+        const isClickInside = nav.contains(event.target) || hamburger.contains(event.target);
+
+        if (!isClickInside && nav.classList.contains('show')) {
+            nav.classList.remove('show');
+            hamburger.classList.remove('rotate-open');
+            hamburger.classList.add('rotate-close');
+            isMenuOpen = false;
+        }
+    });
+ 
     // Get the modal
     var modal = document.getElementById("successModal");
 
