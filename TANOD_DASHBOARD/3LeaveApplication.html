@@ -12,6 +12,12 @@
         }
 
         /* === General Body === */
+
+        html {
+            overflow-x: hidden;
+        }
+
+
         body {
         overflow-x: hidden;
         margin: 0;
@@ -607,9 +613,10 @@
         <!-- Hidden menu below -->
         <nav class="navbar" id="navMenu">
             <ul>
-            <li><a href="1Dasboard.html">DASHBOARD</a></li>
-            <li><a href="2IncidentReport.html">INCIDENT REPORT</a></li>
-            <li><a href="3LeaveApplication.html">LEAVE APPLICATION</a></li>
+                <li><a href="1Dasboard.html">DASHBOARD</a></li>
+                <li><a href="2IncidentReport.html">INCIDENT REPORT</a></li>
+                <li><a href="3LeaveApplication.html">LEAVE APPLICATION</a></li>
+                <li><a href="../index.html" onclick="return confirmLogout()">LOG OUT</a></li>
             </ul>
         </nav>
     </header>
@@ -680,6 +687,10 @@
 </div>
 
 <script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to Log Out?");
+    }
+    
     let isMenuOpen = false;
 
     function toggleMenu() {
