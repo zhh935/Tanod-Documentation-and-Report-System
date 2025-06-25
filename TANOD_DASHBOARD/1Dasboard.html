@@ -1,244 +1,231 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Tanod Dashboard</title>
+    <head> 
+    <title>DASHBOARD</title> 
+    </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-    <link rel="stylesheet" href="1Dashboard.css" />
-    <!-- Embedded CSS for styling the calendar and overall layout -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-            :root {
-    --size: 20px;
-    }
+        :root {
+        --size: 20px;
+        }
 
-    /* === General Body === */
-    body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: block;
-    place-items: center;
-    background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    overflow-y: auto;
-    }
+        /* === General Body === */
+        body {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: block;
+        place-items: center;
+        background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        overflow-y: auto;
+        }
 
-    .el {
-    background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
-    width: 100%;
-    height: 100%;
-    mask:
-        radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
-        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
-    mask-composite: intersect;
-    animation: flicker 20s infinite linear;
-    position: fixed;
-    z-index: -1;
-    }
+        .el {
+        background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
+        width: 100%;
+        height: 100%;
+        mask:
+            radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+            url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+        mask-composite: intersect;
+        animation: flicker 20s infinite linear;
+        position: fixed;
+        z-index: -1;
+        }
 
-    header {
-    height: 110px;
-    width: 90vw;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    margin: 20px;
-    gap: 10px;
-    padding: 0;
-    background-color: #7c9e89;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
-    border-radius: 25px;
-    overflow: hidden;
-    min-width: 0;
-    flex-shrink: 1; 
-    }
+        header {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        width: 90vw;
+        height: 100px;
+        padding: 0 20px;
+        background-color: #7c9e89;
+        border-radius: 25px;
+        box-sizing: border-box;
+        }
 
-    .header-item {
-        min-width: 0;
-        flex-shrink: 1; 
-    }
+        .header-item {
+            min-width: 0;
+            flex-shrink: 1; 
+        }
 
-    header::before {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: -50%;
-    width: 200%;
-    height: 300%;
-    background: linear-gradient(270deg, #DEDEAD, #C7DEED);
-    background-size: 200% 200%;
-    filter: blur(80px);
-    z-index: -1;
-    animation: animateHeaderGlow 10s ease infinite;
-    opacity: 0.4;
-    pointer-events: none;
-    }
+        header::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -50%;
+        width: 200%;
+        height: 300%;
+        background: linear-gradient(270deg, #DEDEAD, #C7DEED);
+        background-size: 200% 200%;
+        filter: blur(80px);
+        z-index: -1;
+        animation: animateHeaderGlow 10s ease infinite;
+        opacity: 0.4;
+        pointer-events: none;
+        }
 
-    @keyframes animateHeaderGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-    }
+        @keyframes animateHeaderGlow {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+        }
 
-    .seal_container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    flex: 0 0 auto;
-    }
-
-    .seal_container img {
-    padding: 15px 20px 20px 20px;
-    height: 80px;
-    margin-right: 20px;
-    align-self: center;
-    }
-
-    .site_name {
-    color: white;
-    font-size: clamp(16px,2vw,20px);
-    font-weight: bold;
-    }
-
-    .navbar ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    }
-
-    .navbar {
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    }
-
-    .navbar li {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .navbar a {
-    text-decoration: none;
-    color: rgb(253, 253, 253);
-    font-weight: bold;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 0 20px;
-    line-height: 1;
-    border-bottom: 3px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-
-    }
-
-    .navbar a:hover {
-    color: #dbeca6;
-    text-shadow: 0 0 1px white;
-    border-bottom: 8px solid yellow;
-    background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .profile-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    flex: 0 0 auto;
-    margin-right: 20px;
-    }
-
-    .profile-link:hover {
-    background-color: transparent;
-    border-bottom: none;
-    }
-
-    .profile-link img {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border: 2px solid white;
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    pointer-events: none;
-    }
-
-    .profile-link:hover img {
-    border-color: #F0F3D9;
-    box-shadow: 0 0 0 2px white;
-    }
-
-    .title_text {
-    display: inline-block;
-    font-size: 25px;
-    margin-top: 30px;
-    margin-left: 30px;
-    }
-
-
-    @media (max-width: 768px) or (orientation: portrait) {
-            .seal_container img {
-                height: 60px;
-                padding: 20px;
-                margin-right: 10px;
+            /* Hamburger icon */
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            transition: transform 0.5s ease;
             }
+
+            /* Rotate clockwise when opening */
+        .hamburger.rotate-open {
+            transform: rotate(180deg);
+        }
+
+        .hamburger.rotate-close {
+            transform: rotate(-180deg);
+        }
+
+        /* Seal + Title (centered) */
+        .seal_container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .seal_container img {
+            height: 60px;
+        }
+
+        .site_name {
+            color: white;
+            font-weight: bold;
+            font-size: clamp(16px, 2vw, 20px);
+            text-align: center;
+        }
+
+        /* Profile image (far right) */
+        .profile-link {
+            flex: 0 0 auto;
+        }
+
+        .profile-link img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        /* NAVBAR dropdown */
+        .navbar {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #6a8f7c;
+            z-index: 999;
+            flex-direction: column;
+            margin-top: 0.5vw;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 10px 0;
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+            
+        }
+
+        .navbar.show {
+            display: flex;
+            max-height: 300px; /* Adjust based on content height */
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar li {
+            width: 100%;
+            height: 60px; /* fixed height per nav item */
+            padding: 0; /* remove extra padding */
+            margin: 0; /* remove spacing between buttons */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 0; /* no padding so highlight fills completely */
+            margin: 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 0; /* remove rounding unless needed */
+            line-height: 1;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.08); /* full highlight */
+            color: #fff59a;
+        }
+
+        @media (max-width: 768px) {
 
             .site_name {
-                display: none; /* Optional: hide text if too tight */
-            }
+            font-size: 14px;
+        }
 
+        .seal_container img {
+            height: 50px;
+        }
 
-            .navbar a {
-                padding: 0 10px;
-                font-size: 13px;
-            }
+        .profile-link img {
+            width: 40px;
+            height: 40px;
+        }
 
-            .profile-link {
-                padding: 0 10px;
-            }
-
-            .profile-link img {
-                width: 40px;
-                height: 40px;
-            }
-
-            .navbar a:hover {
-                color: #dbeca6;
-                text-shadow: 0 0 1px white;
-                border-bottom: 4px solid yellow;
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-
-            header {
-                height: auto;
-                gap: 5px;
-            }
+        .hamburger {
+            font-size: 26px;
+        }
         }
         @media (max-width: 480px) or (orientation: portrait) {
             .site_name {
                 display: none; /* Optional: hide text if too tight */
-            }
-
-            .navbar a {
-                font-size: 12px;
-                padding: 0 6px;
             }
 
             .seal_container img {
@@ -252,8 +239,15 @@
             body {
                 padding: 5px;
             }
-        }
+        } 
 /*------------------EXCLUSIVE FOR 1DASHBOARD.HTML-----------------*/
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         h1 {
         position: fixed;
         top: 50%;
@@ -276,19 +270,24 @@
         }
         }
         /* NEW STYLES FOR LAYOUT ALIGNMENT */
+        
         .dashboard-main-content {
+            flex: 1;
             display: flex; /* Enable Flexbox for side-by-side layout */
             flex-wrap: nowrap; /* Allow items to wrap to the next line on smaller screens */
             justify-content: space-between; 
-            align-items: flex-start; /* Align items to the top vertically */
+            align-items: stretch; /* Align items to the top vertically */
             gap: 30px; 
             padding-top: 20px; /* General padding around this main content area */
             width: 90vw;
+            height: auto;
+            min-height: calc(100vh - 100px);
             box-sizing: border-box;
         }
 
         .dashboard-left-area {
             width: 30vw;
+            height: 100%;
             display: flex;
             flex-direction: column; /* Stack dashboard elements vertically */
         }
@@ -350,31 +349,35 @@
 
         .dashboard-box {
             width: 30vw;
+            max-width: 30vw;
             background-color: white;
-            height: 250px;
+            height: auto; /* allow it to grow with content */
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             margin-top: 20px;
+            padding: 20px 0; /* optional spacing inside box */
+            box-sizing: border-box;
+            align-items: center;
         }
 
         .dashboard-box h3 {
-            
-            padding: 20px 20px;
-            margin-top: 0;
+            padding-left: 20px;
+            margin: 0 0 10px;
             font-size: 20px;
             color: #2b4f3c;
+            align-self: flex-start;
         }
-
         .item-box {
             background-color: #f0f0f0;
             border-radius: 8px;
             padding: 10px;
-            margin-left: 1.5vw;                
-            margin-bottom: 10px;
-            position: relative;
-            width: 25vw;
+            margin: 10px 0; /* only top/bottom spacing */
+            width: 90%; /* or use 100% with max */
+            max-width: 25vw;
+            align-self: center;
+            box-sizing: border-box;
         }
 
         .text-content {
@@ -568,35 +571,6 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) or (orientation: portrait) {
-            .seal_container img {
-                height: 60px;
-                padding: 20px;
-                margin-right: 10px;
-            }
-
-            .site_name {
-                display: none; /* Optional: hide text if too tight */
-            }
-
-
-            .navbar a {
-                padding: 0 10px;
-                font-size: 13px;
-            }
-
-            .profile-link {
-                padding: 0 10px;
-            }
-
-            .profile-link img {
-                width: 40px;
-                height: 40px;
-            }
-
-            header {
-                height: auto;
-                gap: 5px;
-            }
     
             .dashboard-main-content {
                 height: auto;
@@ -625,7 +599,55 @@
                 max-width: 100%;
             }
 
+            .dashboard-box {
+                width: 90vw;
+                max-width: 90vw;
+                padding: 10px 0;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
+            .dashboard-box h3 {
+                padding-left: 4vw; /* left-aligned with responsive space */
+                margin: 0 0 10px;
+                font-size: 4vw;
+                color: #2b4f3c;
+                align-self: flex-start;
+            }
+
+.item-box {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 2vw;
+  margin: 2vw 0;
+  width: 90%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ensures left-alignment */
+}
+
+/* TEXT CONTENT */
+.text-content {
+  width: 100%; /* FULL width of item-box */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-height: 1.4em;
+  line-height: 1.4em;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* EXPANDED VERSION */
+.text-content.expanded {
+  max-height: none;
+  white-space: normal;
+  text-overflow: unset;
+}
             h1 {
                 font-size: 1.8em;
             }
@@ -678,7 +700,7 @@
         .dashboard-box {
             width: 30vw;
             background-color: white;
-            height: 220px;
+            height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -696,21 +718,25 @@
         .item-box {
             background-color: #f0f0f0;
             border-radius: 8px;
-            padding: 10px;
-            margin-left: 4vw;                
-            margin-bottom: 10px;
-            position: relative;
-            width: 75vw;
+            padding: 10px 1.5vw;
+            margin: 10px 0; /* consistent vertical spacing */
+            width: 90%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8vw;
         }
 
         .text-content {
-            width: 75vw;
-            max-height: 1.6em; /* height of one line */
-            line-height: 1.2em;
+            width: 100%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            transition: all 0.3s ease;
+            line-height: 1.4em;
+            transition: all 0.1s ease;
+            box-sizing: border-box;
+            font-size: 1rem;
         }
 
         .text-content.expanded {
@@ -719,14 +745,16 @@
             text-overflow: unset;
         }
 
+            /* 🟢 Keep See More inside and aligned */
         .see-more {
-            margin-top: 5px;
+            align-self: flex-start; /* align button to left */
+            font-size: 0.9rem;
             border: none;
             background: none;
             color: #777;
             font-weight: bold;
-            padding: 0;
             cursor: pointer;
+            padding: 0;
             display: none;
         }
 
@@ -742,29 +770,7 @@
         }
 
         @media (max-width: 480px) or (orientation: portrait) {
-            .site_name {
-                display: none; /* Optional: hide text if too tight */
-            }
 
-            .navbar a {
-                font-size: 12px;
-                padding: 0 6px;
-            }
-
-            .seal_container img {
-                height: 60px;
-            }
-
-            .profile-link img {
-                width: 40px;
-                height: 40px;
-            }
-            body {
-                padding: 5px;
-            }
-            .container {
-                padding: 15px;
-            }
             h1 {
                 font-size: 1.4em;
             }
@@ -804,25 +810,28 @@
 </head>
 <body>
     <header>
-        
+        <!-- Left: Hamburger -->
+        <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+
+        <!-- Center: Logo + Title -->
         <div class="seal_container">
             <img src="../images/Barangay-Market-Area-Seal.png">
             <span class="site_name">Tanod Documentation <br> and Reporting System</span>
         </div>
 
-        <nav class="navbar">
+        <!-- Right: Profile -->
+        <a href="4profile.html" class="profile-link">
+            <img src="../images/maloi.jpg">
+        </a>
+
+        <!-- Hidden menu below -->
+        <nav class="navbar" id="navMenu">
             <ul>
-                <li> <a href="1Dasboard.html"> Dashboard</a></li>
-                <li> <a href="2IncidentReport.html"> Incident Report</a></li>
-                <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
+            <li><a href="1Dasboard.html">Dashboard</a></li>
+            <li><a href="2IncidentReport.html">Incident Report</a></li>
+            <li><a href="3LeaveApplication.html">Leave Application</a></li>
             </ul>
         </nav>
-
-        <div class="header_profile">
-            <a href="4profile.html" class="profile-link">
-                <img src="../images/maloi.jpg">
-            </a>
-        </div>
     </header>
     <div class="dashboard-main-content"> <!-- New container for main dashboard content -->
         <div class="dashboard-left-area"> <!-- New wrapper for left-side dashboard elements -->
@@ -885,6 +894,26 @@
     <!-- Embedded JavaScript for calendar functionality -->
 <!-- Start of changes -->
 <script>
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        const nav = document.getElementById("navMenu");
+        const icon = document.querySelector(".hamburger");
+
+        nav.classList.toggle("show");
+
+        // Remove both rotation classes first
+        icon.classList.remove("rotate-open", "rotate-close");
+
+        // Trigger rotation direction
+        if (!isMenuOpen) {
+        icon.classList.add("rotate-open");
+        } else {
+        icon.classList.add("rotate-close");
+        }
+
+        isMenuOpen = !isMenuOpen;
+    }
     document.addEventListener('DOMContentLoaded', () => {
         const calendarBody = document.getElementById('calendarBody');
         const currentMonthYearHeader = document.getElementById('currentMonthYear');

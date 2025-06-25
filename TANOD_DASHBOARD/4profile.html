@@ -1,244 +1,231 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>User Profile</title>
+    <head> 
+    <title>User Profile</title> 
+    </head>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    :root {
-    --size: 20px;
-    }
+        :root {
+        --size: 20px;
+        }
 
-    /* === General Body === */
-    body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: block;
-    place-items: center;
-    background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    overflow-y: auto;
-    }
+        /* === General Body === */
+        body {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: block;
+        place-items: center;
+        background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        overflow-y: auto;
+        }
 
-    .el {
-    background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
-    width: 100%;
-    height: 100%;
-    mask:
-        radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
-        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
-    mask-composite: intersect;
-    animation: flicker 20s infinite linear;
-    position: fixed;
-    z-index: -1;
-    }
+        .el {
+        background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
+        width: 100%;
+        height: 100%;
+        mask:
+            radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+            url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+        mask-composite: intersect;
+        animation: flicker 20s infinite linear;
+        position: fixed;
+        z-index: -1;
+        }
 
-    header {
-    height: 110px;
-    width: 90vw;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    margin: 20px;
-    gap: 10px;
-    padding: 0;
-    background-color: #7c9e89;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
-    border-radius: 25px;
-    overflow: hidden;
-    min-width: 0;
-    flex-shrink: 1; 
-    }
+        header {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        width: 90vw;
+        height: 100px;
+        padding: 0 20px;
+        background-color: #7c9e89;
+        border-radius: 25px;
+        box-sizing: border-box;
+        }
 
-    .header-item {
-        min-width: 0;
-        flex-shrink: 1; 
-    }
+        .header-item {
+            min-width: 0;
+            flex-shrink: 1; 
+        }
 
-    header::before {
-    content: "";
-    position: absolute;
-    top: -100%;
-    left: -50%;
-    width: 200%;
-    height: 300%;
-    background: linear-gradient(270deg, #DEDEAD, #C7DEED);
-    background-size: 200% 200%;
-    filter: blur(80px);
-    z-index: -1;
-    animation: animateHeaderGlow 10s ease infinite;
-    opacity: 0.4;
-    pointer-events: none;
-    }
+        header::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -50%;
+        width: 200%;
+        height: 300%;
+        background: linear-gradient(270deg, #DEDEAD, #C7DEED);
+        background-size: 200% 200%;
+        filter: blur(80px);
+        z-index: -1;
+        animation: animateHeaderGlow 10s ease infinite;
+        opacity: 0.4;
+        pointer-events: none;
+        }
 
-    @keyframes animateHeaderGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-    }
+        @keyframes animateHeaderGlow {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+        }
 
-    .seal_container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    flex: 0 0 auto;
-    }
-
-    .seal_container img {
-    padding: 15px 20px 20px 20px;
-    height: 80px;
-    margin-right: 20px;
-    align-self: center;
-    }
-
-    .site_name {
-    color: white;
-    font-size: clamp(16px,2vw,20px);
-    font-weight: bold;
-    }
-
-    .navbar ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    }
-
-    .navbar {
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    }
-
-    .navbar li {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .navbar a {
-    text-decoration: none;
-    color: rgb(253, 253, 253);
-    font-weight: bold;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 0 20px;
-    line-height: 1;
-    border-bottom: 3px solid transparent;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-
-    }
-
-    .navbar a:hover {
-    color: #dbeca6;
-    text-shadow: 0 0 1px white;
-    border-bottom: 8px solid yellow;
-    background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .profile-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    flex: 0 0 auto;
-    margin-right: 20px;
-    }
-
-    .profile-link:hover {
-    background-color: transparent;
-    border-bottom: none;
-    }
-
-    .profile-link img {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border: 2px solid white;
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    pointer-events: none;
-    }
-
-    .profile-link:hover img {
-    border-color: #F0F3D9;
-    box-shadow: 0 0 0 2px white;
-    }
-
-    .title_text {
-    display: inline-block;
-    font-size: 25px;
-    margin-top: 30px;
-    margin-left: 30px;
-    }
-
-
-    @media (max-width: 768px) or (orientation: portrait) {
-            .seal_container img {
-                height: 60px;
-                padding: 20px;
-                margin-right: 10px;
+            /* Hamburger icon */
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            transition: transform 0.5s ease;
             }
+
+            /* Rotate clockwise when opening */
+        .hamburger.rotate-open {
+            transform: rotate(180deg);
+        }
+
+        .hamburger.rotate-close {
+            transform: rotate(-180deg);
+        }
+
+        /* Seal + Title (centered) */
+        .seal_container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .seal_container img {
+            height: 60px;
+        }
+
+        .site_name {
+            color: white;
+            font-weight: bold;
+            font-size: clamp(16px, 2vw, 20px);
+            text-align: center;
+        }
+
+        /* Profile image (far right) */
+        .profile-link {
+            flex: 0 0 auto;
+        }
+
+        .profile-link img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        /* NAVBAR dropdown */
+        .navbar {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #6a8f7c;
+            z-index: 999;
+            flex-direction: column;
+            margin-top: 0.5vw;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 10px 0;
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+            
+        }
+
+        .navbar.show {
+            display: flex;
+            max-height: 300px; /* Adjust based on content height */
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar li {
+            width: 100%;
+            height: 60px; /* fixed height per nav item */
+            padding: 0; /* remove extra padding */
+            margin: 0; /* remove spacing between buttons */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 0; /* no padding so highlight fills completely */
+            margin: 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 0; /* remove rounding unless needed */
+            line-height: 1;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.08); /* full highlight */
+            color: #fff59a;
+        }
+
+        @media (max-width: 768px) {
 
             .site_name {
-                display: none; /* Optional: hide text if too tight */
-            }
+            font-size: 14px;
+        }
 
+        .seal_container img {
+            height: 50px;
+        }
 
-            .navbar a {
-                padding: 0 10px;
-                font-size: 13px;
-            }
+        .profile-link img {
+            width: 40px;
+            height: 40px;
+        }
 
-            .profile-link {
-                padding: 0 10px;
-            }
-
-            .profile-link img {
-                width: 40px;
-                height: 40px;
-            }
-
-            .navbar a:hover {
-                color: #dbeca6;
-                text-shadow: 0 0 1px white;
-                border-bottom: 4px solid yellow;
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-
-            header {
-                height: auto;
-                gap: 5px;
-            }
+        .hamburger {
+            font-size: 26px;
+        }
         }
         @media (max-width: 480px) or (orientation: portrait) {
             .site_name {
                 display: none; /* Optional: hide text if too tight */
-            }
-
-            .navbar a {
-                font-size: 12px;
-                padding: 0 6px;
             }
 
             .seal_container img {
@@ -252,8 +239,17 @@
             body {
                 padding: 5px;
             }
-        }
+        } 
         /* --- Profile Page Specific Styles --- */
+        .title_text {
+            display: inline-block;
+            font-size: 25px;
+            margin-top: 30px;
+            margin-left: 30px;
+            font-weight: bolder;
+        }
+
+
         .profile-page-container {
             width: 80vw;
             height: auto;
@@ -367,26 +363,32 @@
         }
     </style>
 </head>
+
     <header>
+        <!-- Left: Hamburger -->
+        <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+
+        <!-- Center: Logo + Title -->
         <div class="seal_container">
             <img src="../images/Barangay-Market-Area-Seal.png">
             <span class="site_name">Tanod Documentation <br> and Reporting System</span>
         </div>
 
-        <nav class="navbar"> 
-            <ul>
-                    <li> <a href="1Dasboard.html"> Dashboard</a></li>
-                    <li> <a href="2IncidentReport.html"> Incident Report</a></li>
-                    <li> <a href="3LeaveApplication.html"> Leave Application </a></li>
-            </ul>
-       </nav>
+        <!-- Right: Profile -->
+        <a href="4profile.html" class="profile-link">
+            <img src="../images/maloi.jpg">
+        </a>
 
-       <div class="header_profile"> 
-              <a href="4profile.html" class="profile-link">
-                    <img src="../images/maloi.jpg">
-              </a>
-         </div>
- </header>
+        <!-- Hidden menu below -->
+        <nav class="navbar" id="navMenu">
+            <ul>
+            <li><a href="1Dasboard.html">Dashboard</a></li>
+            <li><a href="2IncidentReport.html">Incident Report</a></li>
+            <li><a href="3LeaveApplication.html">Leave Application</a></li>
+            </ul>
+        </nav>
+    </header>
+
 
     <body>
   <span class="title_text"> User Profile </span>
@@ -452,4 +454,26 @@
         </div>
     </main>
 </body>
+<script>
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            const nav = document.getElementById("navMenu");
+            const icon = document.querySelector(".hamburger");
+
+            nav.classList.toggle("show");
+
+            // Remove both rotation classes first
+            icon.classList.remove("rotate-open", "rotate-close");
+
+            // Trigger rotation direction
+            if (!isMenuOpen) {
+            icon.classList.add("rotate-open");
+            } else {
+            icon.classList.add("rotate-close");
+            }
+
+            isMenuOpen = !isMenuOpen;
+        }
+</script>
 </html>
