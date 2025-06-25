@@ -18,8 +18,7 @@
         min-height: 100vh;
         display: block;
         place-items: center;
-        background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background: radial-gradient(circle, rgba(238,247,220,1) 0%, rgba(194,210,161,1) 100%);        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         overflow-y: auto;
         }
 
@@ -45,7 +44,7 @@
         width: 90vw;
         height: 100px;
         padding: 0 20px;
-        background-color: #7c9e89;
+        background-color: #556B2F;
         border-radius: 25px;
         box-sizing: border-box;
         }
@@ -140,7 +139,7 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: #6a8f7c;
+            background-color: #556B2F;
             z-index: 999;
             flex-direction: column;
             margin-top: 0.5vw;
@@ -205,7 +204,7 @@
 
         @media (max-width: 768px) {
 
-            .site_name {
+        .site_name {
             font-size: 14px;
         }
 
@@ -469,6 +468,15 @@
                     text-align: center;
                 }
 
+                .required-fields-text {
+                    font-size: 10px;
+                    color: #777;
+                    font-style: italic;
+                    text-align: center;
+                    margin-bottom: 25px; /* Space below text */
+                    margin-top: -10px;
+                }
+
                 /* --- Red Section Headers (e.g., "INCIDENT DETAILS") --- */
                 .section-header {
                     background-color:#e2dfdf ; /* Red color from design */
@@ -627,11 +635,19 @@
                     background-color: #F5F5F5;
                     border: 1px solid #bbb;
                 }
-    @media (max-width: 768px), (orientation: portrait) {
-        .date-time-row {
-            flex-direction: column;
-        }
-    }
+
+                
+                .check {
+                    font-size: 150px;
+                    color: #57a045;
+                    margin-bottom: 20px;
+                }
+
+                @media (max-width: 768px), (orientation: portrait) {
+                    .date-time-row {
+                        flex-direction: column;
+                    }
+                }
 </style>
 
     <header>
@@ -652,9 +668,9 @@
         <!-- Hidden menu below -->
         <nav class="navbar" id="navMenu">
             <ul>
-            <li><a href="1Dasboard.html">Dashboard</a></li>
-            <li><a href="2IncidentReport.html">Incident Report</a></li>
-            <li><a href="3LeaveApplication.html">Leave Application</a></li>
+            <li><a href="1Dasboard.html">DASHBOARD</a></li>
+            <li><a href="2IncidentReport.html">INCIDENT REPORT</a></li>
+            <li><a href="3LeaveApplication.html">LEAVE APPLICATION</a></li>
             </ul>
         </nav>
     </header>
@@ -664,8 +680,9 @@
 
         <div class="form-title-area">
             <img src="../images/blackbellicon.png" alt="Incident Logo" class="form-logo"> 
-             <span class="title-incidentform">Incident Report</span>
+             <span class="title-incidentform">INCIDENT REPORT</span>
         </div>
+        <p class="required-fields-text">(*) Required fields must be filled to apply for leave.</p>
 
         <div class="section-header">INCIDENT DETAILS</div>
         <div class="form-section-content">
@@ -771,7 +788,7 @@
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <div class="modal-body">
-           <img src="../images/thumbs-up.png" alt="Success Image" class="modal-image"> 
+            <div class="check"><i class="fa-solid fa-check"></i></div> 
             <h3>Upload Successful!</h3>
             <p>Your report will be reviewed by the Admin.</p>
             <button class="modal-close-button">Close</button>
