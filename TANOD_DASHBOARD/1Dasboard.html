@@ -3,50 +3,294 @@
 <head>
     <title>Tanod Dashboard</title>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-    <link rel="stylesheet" href="tanod.css"/>
+    <link rel="stylesheet" href="1Dashboard.css" />
     <!-- Embedded CSS for styling the calendar and overall layout -->
     <style>
+            :root {
+    --size: 20px;
+    }
 
-h1 {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  margin: 0;
-  font-size: clamp(6rem, 8vw + 1rem, 14rem);
-  font-family: "Geist", sans-serif;
-  font-weight: 140;
-  color: hsl(0 0% 2%);
-  mix-blend-mode: soft-light;
-/*   -webkit-text-stroke: 2px hsl(0 0% 100% / 0.95); */
-  filter: drop-shadow(0 0 2px white);
-  text-shadow: 2px 2px white;
-}
+    /* === General Body === */
+    body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: block;
+    place-items: center;
+    background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow-y: auto;
+    }
 
-@keyframes flicker {
-  to {
-    mask-position: 50% 50%, 0 50%;
-  }
-}
+    .el {
+    background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
+    width: 100%;
+    height: 100%;
+    mask:
+        radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+    mask-composite: intersect;
+    animation: flicker 20s infinite linear;
+    position: fixed;
+    z-index: -1;
+    }
+
+    header {
+    height: 110px;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    margin: 20px;
+    gap: 10px;
+    padding: 0;
+    background-color: #7c9e89;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    min-width: 0;
+    flex-shrink: 1; 
+    }
+
+    .header-item {
+        min-width: 0;
+        flex-shrink: 1; 
+    }
+
+    header::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+    background: linear-gradient(270deg, #DEDEAD, #C7DEED);
+    background-size: 200% 200%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: animateHeaderGlow 10s ease infinite;
+    opacity: 0.4;
+    pointer-events: none;
+    }
+
+    @keyframes animateHeaderGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+    }
+
+    .seal_container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    flex: 0 0 auto;
+    }
+
+    .seal_container img {
+    padding: 15px 20px 20px 20px;
+    height: 80px;
+    margin-right: 20px;
+    align-self: center;
+    }
+
+    .site_name {
+    color: white;
+    font-size: clamp(16px,2vw,20px);
+    font-weight: bold;
+    }
+
+    .navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    }
+
+    .navbar {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    }
+
+    .navbar li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .navbar a {
+    text-decoration: none;
+    color: rgb(253, 253, 253);
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px;
+    line-height: 1;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+
+    }
+
+    .navbar a:hover {
+    color: #dbeca6;
+    text-shadow: 0 0 1px white;
+    border-bottom: 8px solid yellow;
+    background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    flex: 0 0 auto;
+    margin-right: 20px;
+    }
+
+    .profile-link:hover {
+    background-color: transparent;
+    border-bottom: none;
+    }
+
+    .profile-link img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    pointer-events: none;
+    }
+
+    .profile-link:hover img {
+    border-color: #F0F3D9;
+    box-shadow: 0 0 0 2px white;
+    }
+
+    .title_text {
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 30px;
+    margin-left: 30px;
+    }
+
+
+    @media (max-width: 768px) {
+            .seal_container img {
+                height: 60px;
+                padding: 20px;
+                margin-right: 10px;
+            }
+
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+
+            .navbar a {
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+            .profile-link {
+                padding: 0 10px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .navbar a:hover {
+                color: #dbeca6;
+                text-shadow: 0 0 1px white;
+                border-bottom: 4px solid yellow;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            header {
+                height: auto;
+                gap: 5px;
+            }
+        }
+        @media (max-width: 480px) {
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 0 6px;
+            }
+
+            .seal_container img {
+                height: 60px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+            body {
+                padding: 5px;
+            }
+        }
+/*------------------EXCLUSIVE FOR 1DASHBOARD.HTML-----------------*/
+        h1 {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        margin: 0;
+        font-size: clamp(6rem, 8vw + 1rem, 14rem);
+        font-family: "Geist", sans-serif;
+        font-weight: 140;
+        color: hsl(0 0% 2%);
+        mix-blend-mode: soft-light;
+        /*   -webkit-text-stroke: 2px hsl(0 0% 100% / 0.95); */
+        filter: drop-shadow(0 0 2px white);
+        text-shadow: 2px 2px white;
+        }
+
+        @keyframes flicker {
+        to {
+            mask-position: 50% 50%, 0 50%;
+        }
+        }
         /* NEW STYLES FOR LAYOUT ALIGNMENT */
         .dashboard-main-content {
             display: flex; /* Enable Flexbox for side-by-side layout */
-            flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
-            justify-content: center; 
+            flex-wrap: nowrap; /* Allow items to wrap to the next line on smaller screens */
+            justify-content: space-between; 
             align-items: flex-start; /* Align items to the top vertically */
             gap: 30px; 
-            padding: 20px; /* General padding around this main content area */
-            width: 100%; 
+            padding-top: 20px; /* General padding around this main content area */
+            width: 90vw;
             box-sizing: border-box;
-          
-            margin-right: 50px;
         }
 
         .dashboard-left-area {
+            width: 30vw;
             display: flex;
             flex-direction: column; /* Stack dashboard elements vertically */
-            align-items: flex-start; /* Align contents to the left within this area */
-
         }
         /* END NEW STYLES */
 
@@ -59,7 +303,7 @@ h1 {
 
         /* Dashboard with tanod profile and name */
         .tanod_dashboard {
-            width: 340px;
+            width: 30vw;
             height: 250px; /* Increased height to accommodate vertical stacking better */
             background-color: #FFFFFF;
             border-radius: 12px;
@@ -68,9 +312,7 @@ h1 {
             flex-direction: column; /* Stack children vertically */
             justify-content: center; /* Center items vertically */
             align-items: center;
-            padding: 20px;
             box-sizing: border-box;
-          margin-top: 20px;
         }
 
         /* Styles for the profile picture */
@@ -107,11 +349,10 @@ h1 {
         }
 
         .dashboard-box {
+            width: 30vw;
             background-color: white;
-            width: 300px;
             height: 250px;
             border-radius: 12px;
-            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
@@ -119,6 +360,8 @@ h1 {
         }
 
         .dashboard-box h3 {
+            
+            padding: 20px 20px;
             margin-top: 0;
             font-size: 20px;
             color: #2b4f3c;
@@ -128,8 +371,10 @@ h1 {
             background-color: #f0f0f0;
             border-radius: 8px;
             padding: 10px;
+            margin-left: 1.5vw;                
             margin-bottom: 10px;
             position: relative;
+            width: 25vw;
         }
 
         .text-content {
@@ -164,22 +409,21 @@ h1 {
 
         /* Calendar container styles - adjustments for flex context */
         .container {
+            height: 520px;
             background-color: #fff;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 800px; /* Calendar's maximum width */
+            width: 65vw;
             text-align: center;
             box-sizing: border-box;
             margin: 0; /* Resetting any conflicting external margins */
-            margin-top: 80px;
         }
 
         h1 {
             color:  #4B5320; /* Updated heading color */
             margin-bottom: 20px;
-       
+    
             font-size: 30px;
         }
 
@@ -324,18 +568,64 @@ h1 {
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .seal_container img {
+                height: 60px;
+                padding: 20px;
+                margin-right: 10px;
+            }
+
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+
+            .navbar a {
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+            .profile-link {
+                padding: 0 10px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+
+            header {
+                height: auto;
+                gap: 5px;
+            }
+    
             .dashboard-main-content {
+                height: auto;
                 flex-direction: column; /* Stack vertically on smaller screens */
                 align-items: center; /* Center items when stacked */
+                max-width: 100%;
                 padding: 10px;
             }
             .dashboard-left-area {
-                width: 100%; /* Take full width when stacked */
                 align-items: center; /* Center content within the left area when stacked */
+                margin: 0;
+                max-width: 100%;
             }
             .container {
                 padding: 20px;
+                height: auto;
+                margin: 0 auto;
+                max-width: 100%;
             }
+
+            .dashboard-left-area,
+            .container,
+            .tanod_dashboard,
+            .dashboard-box {
+                width: 100% !important; /* Force it to full width */
+                max-width: 100%;
+            }
+
+
             h1 {
                 font-size: 1.8em;
             }
@@ -362,6 +652,87 @@ h1 {
                 font-size: 1em;
                 padding-top: 20px;
             }
+
+                    .tanod_info {
+            display: flex; /* Make this a flex container */
+            flex-direction: column; /* Stack name and position vertically */
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Styles for the name */
+        .tanod_dashboard .tanod_name {
+            font-size: 25px;
+            font-weight: bold;
+            color: #333;
+            margin: 0; /* Reset default paragraph margin */
+        }
+
+        /* Styles for the position */
+        .tanod_dashboard .tanod_position {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0 0; /* Add a small space above the position */
+        }
+
+        .dashboard-box {
+            width: 30vw;
+            background-color: white;
+            height: 220px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .dashboard-box h3 {
+            padding: 20px 0 0 20px;
+            margin-top: 0;
+            font-size: 20px;
+            color: #2b4f3c;
+        }
+
+        .item-box {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 10px;
+            margin-left: 4vw;                
+            margin-bottom: 10px;
+            position: relative;
+            width: 75vw;
+        }
+
+        .text-content {
+            width: 75vw;
+            max-height: 1.6em; /* height of one line */
+            line-height: 1.2em;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            transition: all 0.3s ease;
+        }
+
+        .text-content.expanded {
+            max-height: none;
+            white-space: normal;
+            text-overflow: unset;
+        }
+
+        .see-more {
+            margin-top: 5px;
+            border: none;
+            background: none;
+            color: #777;
+            font-weight: bold;
+            padding: 0;
+            cursor: pointer;
+            display: none;
+        }
+
+        .see-more.visible {
+            display: inline-block;
+        }
             /* Adjust margins for left-aligned elements when stacked */
             .dashboard_text,
             .tanod_dashboard,
@@ -371,6 +742,23 @@ h1 {
         }
 
         @media (max-width: 480px) {
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 0 6px;
+            }
+
+            .seal_container img {
+                height: 60px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
             body {
                 padding: 5px;
             }

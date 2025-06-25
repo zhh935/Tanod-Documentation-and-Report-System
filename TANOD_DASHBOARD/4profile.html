@@ -3,28 +3,266 @@
 <head>
     <title>User Profile</title>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-    <link rel="stylesheet" href="tanod.css"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .profile_text {             /*profile  text below header*/
-            display: inline-block; 
-            font-size: 25px;
-            margin-top: 30px;
-            margin-left: 30px;
-        
+    :root {
+    --size: 20px;
+    }
+
+    /* === General Body === */
+    body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: block;
+    place-items: center;
+    background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow-y: auto;
+    }
+
+    .el {
+    background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
+    width: 100%;
+    height: 100%;
+    mask:
+        radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+    mask-composite: intersect;
+    animation: flicker 20s infinite linear;
+    position: fixed;
+    z-index: -1;
+    }
+
+    header {
+    height: 110px;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    margin: 20px;
+    gap: 10px;
+    padding: 0;
+    background-color: #7c9e89;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    min-width: 0;
+    flex-shrink: 1; 
+    }
+
+    .header-item {
+        min-width: 0;
+        flex-shrink: 1; 
+    }
+
+    header::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+    background: linear-gradient(270deg, #DEDEAD, #C7DEED);
+    background-size: 200% 200%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: animateHeaderGlow 10s ease infinite;
+    opacity: 0.4;
+    pointer-events: none;
+    }
+
+    @keyframes animateHeaderGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+    }
+
+    .seal_container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    flex: 0 0 auto;
+    }
+
+    .seal_container img {
+    padding: 15px 20px 20px 20px;
+    height: 80px;
+    margin-right: 20px;
+    align-self: center;
+    }
+
+    .site_name {
+    color: white;
+    font-size: clamp(16px,2vw,20px);
+    font-weight: bold;
+    }
+
+    .navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    }
+
+    .navbar {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    }
+
+    .navbar li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .navbar a {
+    text-decoration: none;
+    color: rgb(253, 253, 253);
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px;
+    line-height: 1;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+
+    }
+
+    .navbar a:hover {
+    color: #dbeca6;
+    text-shadow: 0 0 1px white;
+    border-bottom: 8px solid yellow;
+    background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    flex: 0 0 auto;
+    margin-right: 20px;
+    }
+
+    .profile-link:hover {
+    background-color: transparent;
+    border-bottom: none;
+    }
+
+    .profile-link img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    pointer-events: none;
+    }
+
+    .profile-link:hover img {
+    border-color: #F0F3D9;
+    box-shadow: 0 0 0 2px white;
+    }
+
+    .title_text {
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 30px;
+    margin-left: 30px;
+    }
+
+
+    @media (max-width: 768px) {
+            .seal_container img {
+                height: 60px;
+                padding: 20px;
+                margin-right: 10px;
+            }
+
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+
+            .navbar a {
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+            .profile-link {
+                padding: 0 10px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .navbar a:hover {
+                color: #dbeca6;
+                text-shadow: 0 0 1px white;
+                border-bottom: 4px solid yellow;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            header {
+                height: auto;
+                gap: 5px;
+            }
         }
+        @media (max-width: 480px) {
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
 
+            .navbar a {
+                font-size: 12px;
+                padding: 0 6px;
+            }
 
+            .seal_container img {
+                height: 60px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+            body {
+                padding: 5px;
+            }
+        }
         /* --- Profile Page Specific Styles --- */
         .profile-page-container {
-            max-width: 550px;
+            width: 80vw;
             height: auto;
             /* Margin is now controlled by .profile_text and this container's top margin */
-            margin: 0 auto 20px auto; /* No top margin here, handled by .profile_text */
+            margin: 10px auto 20px auto; /* No top margin here, handled by .profile_text */
             background-color: white;
             border-radius: 30px;
+            padding: 5vw;
             box-shadow: 0px 4px 8px rgba(0,0,0,0.5);
-            padding: 30px; /* Increased padding */
             text-align: center; /* Center content within this container */
         }
 
@@ -67,8 +305,9 @@
             display: grid;
             /* Adjusted to show 2 items per line on larger screens */
             grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; /* Space between info items */
+            gap: 10px; /* Space between info items */
             margin-top: 20px; /* Space above the grid */
+
         }
 
         /* New structure: label is outside, box is for value */
@@ -91,7 +330,7 @@
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 10px 15px; /* Smaller padding for smaller boxes */
+            padding: 10px 10px; /* Smaller padding for smaller boxes */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             width: 100%; /* Take full width of its grid column */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -113,57 +352,18 @@
         }
 
         @media (max-width: 768px) {
-            .navbar ul {
-                margin-left: auto;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .header_profile {
-                margin-left: 10px;
-            }
-            .site_name {
-                font-size: 18px;
-            }
-            .seal_container img {
-                height: 70px;
-            }
             .profile-page-container {
-                width: 95%;
-                padding: 20px;
+                padding: 5vw;
                 margin-top: 20px;
             }
             .user-details-grid {
                 grid-template-columns: 1fr; /* Stack items on very small screens */
             }
             /* Adjust profile_text for smaller screens */
-            .profile_text {
-                padding-left: 20px; /* Adjust padding for smaller screens */
+            .title_text {
                 margin-left: 0; /* Remove auto margins to align left */
                 margin-right: 0;
             }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                flex-direction: column;
-                height: auto;
-                padding: 10px;
-            }
-            .seal_container {
-                padding-left: 0;
-                margin-bottom: 10px;
-            }
-            .navbar ul {
-                flex-direction: column;
-                align-items: center;
-                margin-left: 0;
-                width: 100%;
-            }
-            .navbar li {
-                margin-left: 0;
-                margin-bottom: 5px;
-            }
-            /* .profile_text will be handled by the 768px media query if needed */
         }
     </style>
 </head>
@@ -189,7 +389,7 @@
  </header>
 
     <body>
-  <span class="profile_text"> User Profile </span>
+  <span class="title_text"> User Profile </span>
 
     <main class="profile-page-container">
         <div class="profile-header-section">

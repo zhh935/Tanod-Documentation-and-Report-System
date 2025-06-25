@@ -3,35 +3,442 @@
     <head> <title> </title> 
     </head>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-    <link rel="stylesheet" href="tanod.css"/>
-    <style>
-        body {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  background: #f5ffe6;
-  background: radial-gradient(circle,rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
-}
 
-.el {
-  background: conic-gradient(from 180deg at 50% 70%,hsla(0,0%,98%,1) 0deg,#ffffff 72.0000010728836deg,#fff6ae 144.0000021457672deg,#adfffc 216.00000858306885deg,#4dffbf 288.0000042915344deg,rgba(250, 250, 250, 0.505) 1turn);
-  width: 100%;
-  height: 100%;
-  mask:
-    radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
-    url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
-  mask-composite: intersect;
-  animation: flicker 20s infinite linear;
-  position:fixed;
-  z-index: -1;
-}
+    <style>
+    :root {
+    --size: 20px;
+    }
+
+    /* === General Body === */
+    body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: block;
+    place-items: center;
+    background: radial-gradient(circle, rgba(245, 255, 230, 1) 0%, rgba(183, 196, 181, 1) 100%);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    overflow-y: auto;
+    }
+
+    .el {
+    background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg, #ffffff 72deg, #fff6ae 144deg, #adfffc 216deg, #4dffbf 288deg, rgba(250, 250, 250, 0.505) 1turn);
+    width: 100%;
+    height: 100%;
+    mask:
+        radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
+        url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+    mask-composite: intersect;
+    animation: flicker 20s infinite linear;
+    position: fixed;
+    z-index: -1;
+    }
+
+    header {
+    height: 110px;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    margin: 20px;
+    gap: 10px;
+    padding: 0;
+    background-color: #7c9e89;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    min-width: 0;
+    flex-shrink: 1; 
+    }
+
+    .header-item {
+        min-width: 0;
+        flex-shrink: 1; 
+    }
+
+    header::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+    background: linear-gradient(270deg, #DEDEAD, #C7DEED);
+    background-size: 200% 200%;
+    filter: blur(80px);
+    z-index: -1;
+    animation: animateHeaderGlow 10s ease infinite;
+    opacity: 0.4;
+    pointer-events: none;
+    }
+
+    @keyframes animateHeaderGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+    }
+
+    .seal_container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    flex: 0 0 auto;
+    }
+
+    .seal_container img {
+    padding: 15px 20px 20px 20px;
+    height: 80px;
+    margin-right: 20px;
+    align-self: center;
+    }
+
+    .site_name {
+    color: white;
+    font-size: clamp(16px,2vw,20px);
+    font-weight: bold;
+    }
+
+    .navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    }
+
+    .navbar {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    }
+
+    .navbar li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .navbar a {
+    text-decoration: none;
+    color: rgb(253, 253, 253);
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px;
+    line-height: 1;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+
+    }
+
+    .navbar a:hover {
+    color: #dbeca6;
+    text-shadow: 0 0 1px white;
+    border-bottom: 8px solid yellow;
+    background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    flex: 0 0 auto;
+    margin-right: 20px;
+    }
+
+    .profile-link:hover {
+    background-color: transparent;
+    border-bottom: none;
+    }
+
+    .profile-link img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid white;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    pointer-events: none;
+    }
+
+    .profile-link:hover img {
+    border-color: #F0F3D9;
+    box-shadow: 0 0 0 2px white;
+    }
+
+    .title_text {
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 30px;
+    margin-left: 30px;
+    }
+
+
+    @media (max-width: 768px) {
+            .seal_container img {
+                height: 60px;
+                padding: 20px;
+                margin-right: 10px;
+            }
+
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+
+            .navbar a {
+                padding: 0 10px;
+                font-size: 13px;
+            }
+
+            .profile-link {
+                padding: 0 10px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .navbar a:hover {
+                color: #dbeca6;
+                text-shadow: 0 0 1px white;
+                border-bottom: 4px solid yellow;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            header {
+                height: auto;
+                gap: 5px;
+            }
+        }
+        @media (max-width: 480px) {
+            .site_name {
+                display: none; /* Optional: hide text if too tight */
+            }
+
+            .navbar a {
+                font-size: 12px;
+                padding: 0 6px;
+            }
+
+            .seal_container img {
+                height: 60px;
+            }
+
+            .profile-link img {
+                width: 40px;
+                height: 40px;
+            }
+            body {
+                padding: 5px;
+            }
+        }
+        
+        /* === File Upload Wrapper (Common) === */
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hidden-file-input {
+            display: none;
+        }
+
+        .choose-file-button {
+            background-color: #D0B564;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #555;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+
+        .choose-file-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .file-name-display {
+            flex-grow: 1;
+            padding: 5px 8px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #fcfcfc;
+            font-size: 0.9em;
+            color: #777;
+            cursor: default;
+        }
+
+        /* === Submit / Reset Buttons === */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 20px 50px 30px 50px;
+            box-sizing: border-box;
+        }
+
+        .submit-button,
+        .reset-button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .reset-button {
+            background-color: #f0f0f0;
+            color: #555;
+            border: 2px solid #c00707;
+        }
+
+        .reset-button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-1px);
+        }
+
+        /* === Modal Styling (Shared) === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .modal-body {
+            padding: 20px 0;
+        }
+
+        .modal-body h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .modal-body p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            margin-top: -20px;
+        }
+
+        .modal-close-button {
+            background-color: #D62A29;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close-button:hover {
+            background-color: #c02221;
+        }
+
+        .modal-image {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto 15px auto;
+            border-radius: 8px;
+        }
             .whole-form{    /*white bg*/
-              height: auto;
-                width: 700px;
+                height: auto;
+                width: 90%;
                 background-color: white;
                 box-shadow: 0 8px 16px rgba(0,0,0,0.2);
                 border-radius: 30px;
-              margin-left: auto;
+                margin-left: auto;
                 margin-right: auto;
                 margin-bottom: 50px;
                 margin-top: 20px;
