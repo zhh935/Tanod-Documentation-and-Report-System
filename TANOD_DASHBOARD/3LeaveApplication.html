@@ -3,7 +3,7 @@
     <head> <title> </title> 
     </head>
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     :root {
     --size: 20px;
@@ -193,9 +193,110 @@
 
 
     @media (max-width: 768px) or (orientation: portrait) {
-            .main-form-container {
-                height: 80svh;
+            body {
+
             }
+            .start-end-date-row {
+                flex-direction: column;
+                gap: 15px; /* Optional spacing between the two date inputs */
+            }
+            .main-form-container {
+                width: 90%;
+                min-height: auto;
+                padding: 10px 10px;
+            }
+
+            .form-content-wrapper {
+                padding: 20px 10px;
+                gap: 15px;
+            }
+
+            .form-main-heading h2{
+                font-size: clamp(2.2rem, 7vw, 3rem);
+                text-align: center;
+            }
+
+            .form-logo {
+                height: clamp(60px, 12vh, 90px);
+            }
+
+            .form-group label {
+                font-size: clamp(1.6rem, 4vw, 4rem);
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                width: 100%;
+                font-size: clamp(1.4rem, 4.5vw, 2rem);
+                padding: clamp(14px, 2vh, 20px);
+            }
+
+
+
+            textarea {
+                min-height: 150px;
+            }
+
+            /* 7. File Upload */
+            .choose-file-button,
+            .file-name-display {
+                font-size: clamp(1.5rem, 4vw, 2rem);
+                padding: clamp(14px, 3vh, 20px);
+            }
+
+            /* 8. Start & End Date Row (stacked) */
+            .start-end-date-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .start-end-date-row .form-group {
+                width: 100%;
+            }
+
+            /* 9. Button Group (in one row, scalable) */
+            .button-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                padding: 20px 10px;
+            }
+
+            .submit-button,
+            .reset-button {
+                font-size: clamp(1.7rem, 6vw, 2.4rem);
+                padding: clamp(16px, 4vh, 24px);
+                flex: 1 1 auto;
+                min-width: 130px;
+                max-width: 90%;
+                white-space: nowrap;
+            }
+
+            /* 10. Modal */
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .modal-body h3 {
+                font-size: clamp(1.8rem, 5vw, 2.4rem);
+            }
+
+            .modal-body p {
+                font-size: clamp(1.5rem, 5vw, 2.2rem);
+            }
+
+            .modal-image {
+                max-width: clamp(70px, 14vh, 110px);
+            }
+
+            .modal-close-button {
+                font-size: clamp(1.6rem, 5vw, 2.2rem);
+                padding: clamp(12px, 3vh, 20px);
+            }
+
             .seal_container img {
                 height: 60px;
                 padding: 20px;
@@ -440,8 +541,9 @@
         }
 
         .main-form-container {
-            height: 700px;
-            width: 90%; 
+            width: 90%;
+            min-height: 40svh;         /* ✅ Flexible fullscreen height (safe for mobile) */
+            height: auto;               /* ✅ Let it grow with content */
             background-color: white;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             border-radius: 30px;
@@ -453,11 +555,16 @@
             flex-direction: column;
             padding-top: 30px; 
             font-family: Verdana;
+            box-sizing: border-box;
         }
 
         /* --- Wrapper for actual form content (below the red banner) --- */
         .form-content-wrapper {
             width: 100%;
+            flex-grow: 1;
+            box-sizing: border-box;
+            gap: 20px;
+            max-height: 100%;
             padding: 30px 50px; /* Top/bottom padding for content, horizontal for fields */
             box-sizing: border-box;
             display: flex;
@@ -504,6 +611,7 @@
         /* --- General Form Group Styling (Label above Input/Select/Textarea) --- */
         .form-group {
             width: 100%;
+            height: auto;
             margin-bottom: 15px; /* Space between form groups */
             display: flex;
             flex-direction: column; /* Stacks label above input */
@@ -524,10 +632,10 @@
         .form-group textarea {
             width: 100%;
             padding: 10px;
-        background-color: #F5F5F5;
-        border: 1px solid #bbb;
+            background-color: #F5F5F5;
+            border: 1px solid #bbb;
             border-radius: 5px;
-            font-size: 1em;
+            font-size: clamp(10px, 1.5vw, 20px);
             box-sizing: border-box;
             outline: none; /* Remove default outline on focus */
             appearance: none; /* Remove default browser styling for select */
