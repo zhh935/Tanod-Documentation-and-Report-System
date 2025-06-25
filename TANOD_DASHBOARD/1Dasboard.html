@@ -206,7 +206,7 @@
 
         @media (max-width: 768px) {
 
-            .site_name {
+        .site_name {
             font-size: 14px;
         }
 
@@ -241,13 +241,6 @@
             }
         } 
 /*------------------EXCLUSIVE FOR 1DASHBOARD.HTML-----------------*/
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         h1 {
         position: fixed;
         top: 50%;
@@ -570,14 +563,16 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) or (orientation: portrait) {
+        @media (max-width: 1024px) or (orientation: portrait) {
     
             .dashboard-main-content {
                 height: auto;
+                min-height: auto;
                 flex-direction: column; /* Stack vertically on smaller screens */
                 align-items: center; /* Center items when stacked */
                 max-width: 100%;
                 padding: 10px;
+                margin: 10px;
             }
             .dashboard-left-area {
                 align-items: center; /* Center content within the left area when stacked */
@@ -806,6 +801,8 @@
                 padding-top: 15px;
             }
         }
+
+
     </style>
 </head>
 <body>
