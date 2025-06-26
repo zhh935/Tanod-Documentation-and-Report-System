@@ -105,14 +105,14 @@
       background-color: #b30000;
       }
       .terms {
-      position: fixed;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: clamp(8px,3vw,16px);
-      color: #bbbbbb;
-      z-index: 3;
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: clamp(8px, 3vw, 16px);
+        color: #bbbbbb;
+        z-index: 3;
       }
       .terms a {
         color: #A2C523;
@@ -453,6 +453,15 @@ h1{
 
       button.style.setProperty('--x', `${x}px`);
       button.style.setProperty('--y', `${y}px`);
+    });
+
+    window.addEventListener('resize', () => {
+      const terms = document.querySelector('.terms');
+      if (window.innerHeight < 500) {
+        terms.style.display = 'none'; // hide when keyboard is likely open
+      } else {
+        terms.style.display = 'block';
+      }
     });
 
     </script>
