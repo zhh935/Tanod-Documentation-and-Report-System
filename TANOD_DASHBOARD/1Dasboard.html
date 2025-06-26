@@ -5,6 +5,7 @@
     </head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
@@ -28,7 +29,8 @@
             min-height: 100vh;
             display: block;
             place-items: center;
-            background: radial-gradient(circle, rgba(238,247,220,1) 0%, rgba(194,210,161,1) 100%);        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            background: radial-gradient(circle, rgba(238,247,220,1) 0%, rgba(194,210,161,1) 100%);        
+            font-family: 'Open Sans', Arial, Helvetica, sans-serif ;
             overflow-y: auto;
         }
 
@@ -273,17 +275,16 @@
         /* NEW STYLES FOR LAYOUT ALIGNMENT */
         
         .dashboard-main-content {
-            flex: 1;
-            display: flex; /* Enable Flexbox for side-by-side layout */
-            flex-wrap: nowrap; /* Allow items to wrap to the next line on smaller screens */
-            justify-content: space-between; 
-            align-items: stretch; /* Align items to the top vertically */
-            gap: 30px; 
-            padding-top: 20px; /* General padding around this main content area */
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 20px;
+            padding-top: 20px;
             width: 90vw;
-            height: auto;
-            min-height: calc(100vh - 100px);
+            height: 80vh; /* force it to 80% of viewport */
+            max-height: 100vh;
             box-sizing: border-box;
+            overflow: hidden; /* prevents scrollbars */
         }
 
         .dashboard-left-area {
@@ -292,7 +293,8 @@
             display: flex;
             flex-direction: column; /* Stack dashboard elements vertically */
         }
-        /* END NEW STYLES */
+        
+        END NEW STYLES */
 
         .dashboard_text { /*dashboard text below header*/
             display: inline-block;
@@ -313,6 +315,7 @@
             justify-content: center; /* Center items vertically */
             align-items: center;
             box-sizing: border-box;
+            flex: 1 1 auto;
         }
 
         /* Styles for the profile picture */
@@ -361,6 +364,7 @@
             padding: 20px 0; /* optional spacing inside box */
             box-sizing: border-box;
             align-items: center;
+            flex: 1 1 auto;
         }
 
         .dashboard-box h3 {
@@ -413,7 +417,7 @@
 
         /* Calendar container styles - adjustments for flex context */
         .container {
-            height: 520px;
+            height: 100%;
             background-color: #fff;
             padding: 40px;
             border-radius: 12px;
@@ -575,7 +579,7 @@
     
             .dashboard-main-content {
                 height: auto;
-                min-height: auto;
+                overflow: visible;
                 flex-direction: column; /* Stack vertically on smaller screens */
                 align-items: center; /* Center items when stacked */
                 max-width: 100%;
