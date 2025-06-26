@@ -198,21 +198,24 @@ h1{
 .login-container {
   background-color: white;
   border-radius: 20px;
-  padding: 30px 40px;
-  width: 80%;
-  max-width: 500px;
-  height: 56.7vh;
+  padding: clamp(20px, 4vw, 40px);
+  width: clamp(280px, 60vw, 400px);
+  max-width: 90%;
+  height: auto;
   margin: 0 auto;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
   position: relative;
   z-index: 1;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: clamp(30px, 2vw, 40px);
+  box-sizing: border-box;
 }
 
-.login-container .button-creative:hover {
-  color: none;
-}
-
-/* Framing border inside container — not at full edge */
+/* Inner border frame */
 .login-container::before {
   content: '';
   position: absolute;
@@ -221,11 +224,100 @@ h1{
   right: 12px;
   bottom: 12px;
   border-radius: 14px;
-  border: 5px solid #91a037;
+  border: 4px solid #91a037;
   opacity: 0.9;
   pointer-events: none;
   z-index: -1;
 }
+
+/* Icon above login */
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #91a037;
+}
+
+/* Header inside container */
+.login-container h2, 
+.login-container h1 {
+  font-size: clamp(22px, 2.5vw, 30px);
+  color: #35421d;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+/* Form layout */
+.login-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* Input styles */
+.login-container input {
+  width: 100%;
+  padding: clamp(10px, 2vw, 14px);
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}
+
+.input-row input {
+  width: 100%;
+  padding: clamp(10px, 2vw, 14px);
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.button-row {
+  display: flex;
+  gap: 1em;
+  width: 100%;
+}
+
+.button-row button {
+  flex: 1;
+}
+
+.login-button {
+  background-color: #72a037;
+  color: white;
+  width: 50%;
+  padding: clamp(10px, 2vw, 14px);
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-button:hover {
+  background-color: #5c822b;
+}
+
+.back-button {
+  background-color: #808080;
+  color: white;
+  width: 50%;
+  padding: clamp(10px, 2vw, 14px);
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.back-button:hover {
+  background-color: #666666;
+}
+
     </style>
   </head>
 <body>
@@ -245,29 +337,38 @@ h1{
     <!-- Employee Login Form -->
     <div id="employee-login" style="display: none;">
       <div class="login-container">
-        <h2>Employee Login</h2>
-        <form onsubmit="event.preventDefault(); redirectToDashboard('employee');">
-          <input type="text" placeholder="Username" required><br><br>
-          <input type="password" placeholder="Password" required><br><br>
-          <button class="button-creative" type="submit">Login</button>
-        </form><br>
-        <button class="button-creative" onclick="goBack()">Back</button>
-      </div>
+          <i class="placeholder-icon">🔒</i>
+          <h2>Employee Login</h2>
+          <form onsubmit="event.preventDefault(); redirectToDashboard('employee');">
+            <div class="input-row">
+              <input type="text" placeholder="Username"/>
+              <input type="password" placeholder="Password"/>
+            </div>
+            <div class="button-row">
+              <button class="login-button" type="submit">Login</button>
+              <button class="back-button" type="button" onclick="goBack()">Back</button>
+            </div>
+          </form>
+        </div>
     </div>
 
     <!-- Admin Login Form -->
     <div id="admin-login" style="display: none;">
       <div class="login-container">
-        <h1>Admin Login</h1>
+        <i class="placeholder-icon">🔒</i>
+        <h2>Admin Login</h2>
         <form onsubmit="event.preventDefault(); redirectToDashboard('admin');">
-          <input type="text" placeholder="Admin ID" required><br><br>
-          <input type="password" placeholder="Password" required><br><br>
-          <button class="button-creative" type="submit">Login</button>
-        </form><br>
-        <button class="button-creative" onclick="goBack()">Back</button>
+          <div class="input-row">
+            <input type="text" placeholder="Username"/>
+            <input type="password" placeholder="Password"/>
+          </div>
+          <div class="button-row">
+            <button class="login-button" type="submit">Login</button>
+            <button class="back-button" type="button" onclick="goBack()">Back</button>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
 
   <p class="terms">
     By using this service, you understood and agree to the <a href="#">Terms and Conditions</a>
@@ -291,20 +392,19 @@ h1{
         }
       }
 
-      function goBack() {
+      function goBack(event) {
+        if (event) event.stopPropagation(); // optional but safe
         document.querySelector('.title').style.display = '';
         document.querySelector('.subtitle').style.display = '';
         document.getElementById('selection-buttons').style.display = 'block';
-
         document.getElementById('employee-login').style.display = 'none';
         document.getElementById('admin-login').style.display = 'none';
       }
-
       function redirectToDashboard(type) {
         if (type === 'admin') {
           window.location.href = '../ADMIN_DASHBOARD/1dashboard.html';
         } else {
-          window.location.href = '../TANOD_DASHBOARD/1Dashboard.html';
+          window.location.href = '../TANOD_DASHBOARD/1Dasboard.html';
         }
       }
     /*---------------*/
