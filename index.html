@@ -194,57 +194,149 @@ h1{
 .button-creative:hover {
   color: #00ffc3;
 }
+
+.login-container {
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  width: 80%;
+  max-width: 500px;
+  height: 56.7vh;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-container .button-creative:hover {
+  color: none;
+}
+
+/* Framing border inside container — not at full edge */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border-radius: 14px;
+  border: 5px solid #91a037;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: -1;
+}
     </style>
   </head>
-  <body>
-    <div class="background-color"></div>
-    <div class="background-image"></div>
-    <div class="container">
-  <img src="images/BarangaySealIndex.png" alt="Barangay Logo" class="logo" />
-  <h1 class="title">MARKET AREA: TANOD DOCUMENTATION<br>AND REPORTING SYSTEM</h1>
-  <p class="subtitle">Hi! Select your destination</p>
+<body>
+  <div class="background-color"></div>
+  <div class="background-image"></div>
+  <div class="container">
+    <img src="images/BarangaySealIndex.png" alt="Barangay Logo" class="logo" />
+    <h1 class="title">MARKET AREA: TANOD DOCUMENTATION<br>AND REPORTING SYSTEM</h1>
+    <p class="subtitle">Hi! Select your destination</p>
 
-  <div class="buttons">
-    <a href="LOGIN/tanodloginpage.html" class="btn color-01"><span>Employee</span></a>
-    <a href="LOGIN/adminloginpage.html" class="btn color-02"><span>Admin</span></a></div>
+    <!-- Corrected selection buttons with ID -->
+    <div class="buttons" id="selection-buttons">
+      <a onclick="showLogin('employee')" class="btn color-01"><span>Employee</span></a>
+      <a onclick="showLogin('admin')" class="btn color-02"><span>Admin</span></a>
+    </div>
+
+    <!-- Employee Login Form -->
+    <div id="employee-login" style="display: none;">
+      <div class="login-container">
+        <h2>Employee Login</h2>
+        <form onsubmit="event.preventDefault(); redirectToDashboard('employee');">
+          <input type="text" placeholder="Username" required><br><br>
+          <input type="password" placeholder="Password" required><br><br>
+          <button class="button-creative" type="submit">Login</button>
+        </form><br>
+        <button class="button-creative" onclick="goBack()">Back</button>
+      </div>
+    </div>
+
+    <!-- Admin Login Form -->
+    <div id="admin-login" style="display: none;">
+      <div class="login-container">
+        <h1>Admin Login</h1>
+        <form onsubmit="event.preventDefault(); redirectToDashboard('admin');">
+          <input type="text" placeholder="Admin ID" required><br><br>
+          <input type="password" placeholder="Password" required><br><br>
+          <button class="button-creative" type="submit">Login</button>
+        </form><br>
+        <button class="button-creative" onclick="goBack()">Back</button>
+      </div>
+    </div>
   </div>
-  </div>
-    <p class="terms">
-    By using this service, you understood and agree to the <a
-    href="#">Terms and Conditions</a>
-    </p>
-  </body>
 
-   <script type="text/javascript">
-    const btns = document.querySelectorAll(".btn");
+  <p class="terms">
+    By using this service, you understood and agree to the <a href="#">Terms and Conditions</a>
+  </p>
+</body>
 
-    btns.forEach((btn) => {
-      btn.addEventListener("mousemove", function(e){
-        const position = btn.getBoundingClientRect();
-        const x = e.pageX - position.left - position.width / 2;
-        const y = e.pageY - position.top - position.height / 2;
 
-        btn.children[0].style.transform = "translate(" + x * 0.3 + "px, " + y * 0.5 + "px)";
-      });
+      <script type="text/javascript">
+        /*-------------- LOGIN BUTTONS ------------*/
+    function showLogin(type) {
+        document.querySelector('.title').style.display = 'none';
+        document.querySelector('.subtitle').style.display = 'none';
+        document.getElementById('selection-buttons').style.display = 'none';
+
+        if (type === 'employee') {
+          document.getElementById('employee-login').style.display = 'block';
+          document.getElementById('admin-login').style.display = 'none';
+        } else {
+          document.getElementById('admin-login').style.display = 'block';
+          document.getElementById('employee-login').style.display = 'none';
+        }
+      }
+
+      function goBack() {
+        document.querySelector('.title').style.display = '';
+        document.querySelector('.subtitle').style.display = '';
+        document.getElementById('selection-buttons').style.display = 'block';
+
+        document.getElementById('employee-login').style.display = 'none';
+        document.getElementById('admin-login').style.display = 'none';
+      }
+
+      function redirectToDashboard(type) {
+        if (type === 'admin') {
+          window.location.href = '../ADMIN_DASHBOARD/1dashboard.html';
+        } else {
+          window.location.href = '../TANOD_DASHBOARD/1Dashboard.html';
+        }
+      }
+    /*---------------*/
+        const btns = document.querySelectorAll(".btn");
+
+        btns.forEach((btn) => {
+          btn.addEventListener("mousemove", function(e){
+            const position = btn.getBoundingClientRect();
+            const x = e.pageX - position.left - position.width / 2;
+            const y = e.pageY - position.top - position.height / 2;
+
+            btn.children[0].style.transform = "translate(" + x * 0.3 + "px, " + y * 0.5 + "px)";
+          });
+        });
+
+        btns.forEach((btn) => {
+          btn.addEventListener("mouseout", function(e){
+            btn.children[0].style.transform = "translate(0px, 0px)";
+          });
+        });
+
+        const button = document.querySelector('.button-creative');
+    const glow = button.querySelector('::before');
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      button.style.setProperty('--x', `${x}px`);
+      button.style.setProperty('--y', `${y}px`);
     });
-
-    btns.forEach((btn) => {
-      btn.addEventListener("mouseout", function(e){
-        btn.children[0].style.transform = "translate(0px, 0px)";
-      });
-    });
-
-    const button = document.querySelector('.button-creative');
-const glow = button.querySelector('::before');
-
-button.addEventListener('mousemove', (e) => {
-  const rect = button.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-
-  button.style.setProperty('--x', `${x}px`);
-  button.style.setProperty('--y', `${y}px`);
-});
 
     </script>
 
