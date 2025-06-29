@@ -9,6 +9,55 @@
     <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.css' rel='stylesheet' />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.js'></script>
     <style>
+        .main-content {
+            flex-grow: 1; /* Allows content to take remaining space */
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between sections */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .main-content > * {
+            position: relative;
+            z-index: 1;
+            /* This ensures cards, headers, and announcements are not affected by the background's opacity */
+        }
+        .main-content::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('../images/barangay-hall-bg.jpg') center center / cover no-repeat;
+            opacity: 0.18;           /* Very small opacity */
+            filter: blur(6px);       /* Subtle blur */
+            z-index: 0;
+            pointer-events: none;    /* Allow clicks through */
+        }
+        #calendar,
+            .fc,
+            .fc-theme-standard .fc-scrollgrid,
+            .fc-daygrid,
+            .fc-daygrid-body,
+            .fc-daygrid-day-frame {
+                background: #fff !important;
+            }
+
+        #calendar {
+            border-radius: 18px;
+            overflow: hidden; /* Ensures child corners are clipped */
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            
+        }
+        .fc,
+        .fc-theme-standard .fc-scrollgrid,
+        .fc-daygrid,
+        .fc-daygrid-body {
+            border-radius: 18px !important;
+            background: #fff !important;
+            
+        }
         body {
             margin: 0;
             font-family:  sans-serif;
@@ -183,6 +232,7 @@
             align-items: center;
             height: 100%;
             min-height: 80px;
+            width: 100%;
             position: relative;
         }
         .fc-daygrid-day-frame.cell-hovered::after {
