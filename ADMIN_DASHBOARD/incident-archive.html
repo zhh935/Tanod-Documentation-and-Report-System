@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archived Incident Reports</title>
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar Styling (Copied from previous files for consistency) */
+        .sidebar {
+            width: 250px;
+            background-color: #4B5320;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            margin-bottom: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .main-menu {
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .menu-heading {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-menu ul li {
+            margin-bottom: 5px;
+        }
+
+        .main-menu ul li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li.active a {
+            background-color: #8A9A5B;
+            border-left: 5px solid #FFD700;
+        }
+
+        .main-menu ul li a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .logout-section {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: white;
+            color: #7A0A0A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #eee;
+        }
+
+        /* Main Content Styling for Incident Report */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 1.8em;
+        }
+
+        .search-filter-section {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px 10px 35px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        /* Report Count Display */
+        .report-count {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #555;
+            padding: 10px 0;
+        }
+
+        /* Incident List Table */
+        .incident-list-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            flex-grow: 1;
+        }
+
+        .incident-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            table-layout: fixed; /* Ensures column widths are respected */
+        }
+
+        .incident-table th,
+        .incident-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+            white-space: nowrap; /* Prevent wrapping in table cells */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis */
+        }
+
+        /* Column Widths for Incident Table - Adjusted for 5 columns */
+        .incident-table th:nth-child(1), .incident-table td:nth-child(1) { width: 150px; } /* Employee */
+        .incident-table th:nth-child(2), .incident-table td:nth-child(2) { width: 130px; } /* Date */
+        .incident-table th:nth-child(3), .incident-table td:nth-child(3) { width: 80px; } /* Time */
+        .incident-table th:nth-child(4), .incident-table td:nth-child(4) { width: 80px; } /* Type */
+        .incident-table th:nth-child(5), .incident-table td:nth-child(5) { width: 250px; } /* Actions */
+
+
+        .incident-table th {
+            background-color: #f2f2f2;
+            color: #555;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .incident-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .incident-table td.actions {
+            white-space: nowrap;
+            display: flex; /* Use flexbox for button alignment */
+            gap: 8px; /* Space between buttons */
+            align-items: center;
+            padding-top: 5px; 
+            padding-bottom: 5px;
+        }
+
+        /* Table Action Buttons - General Styling */
+        .incident-table .action-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8em; /* Made base font smaller */
+            cursor: pointer;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            flex-shrink: 0; /* Prevent buttons from shrinking */
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px; /* Space for text and icon */
+            height: 32px; /* Fixed height for smaller buttons */
+        }
+
+        .incident-table .action-btn i {
+            font-size: 1em; /* Adjusted icon size relative to smaller button font */
+        }
+
+        /* Specific styles for archive buttons */
+        .incident-table .view-details-btn {
+            background-color: #28a745; /* Green for "View Details" */
+            color: white;
+            width: 100px; /* Smaller width */
+        }
+        .incident-table .view-details-btn:hover { background-color: #218838; }
+
+        .incident-table .restore-btn {
+            background-color: #007bff; /* Blue for "Restore" */
+            color: white;
+            width: 90px; /* Smaller width */
+        }
+        .incident-table .restore-btn:hover { background-color: #0056b3; }
+
+        /* MODIFIED: Specific style for icon-only delete button */
+        .incident-table .delete-perm-btn {
+            background-color: transparent; /* No background */
+            color: #dc3545; /* Red color for the icon */
+            border: none; /* No border */
+            width: 32px; /* Set a consistent width for circular appearance */
+            height: 32px; /* Set a consistent height for circular appearance */
+            padding: 0; /* Remove padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%; /* Make it circular */
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .incident-table .delete-perm-btn i {
+            font-size: 1.2em; /* Slightly larger icon size for better visibility */
+            /* The 'fa-trash' icon is visually similar to 'fa-trash-alt' but often has a slightly more filled look which might match the main page better. */
+            /* If you specifically want 'fa-trash-alt' for consistency, change this to 'font-size: 1.5em;' and keep the HTML 'fa-trash-alt' */
+        }
+
+        .incident-table .delete-perm-btn:hover {
+            color: white; /* Icon color turns white on hover */
+            background-color: #dc3545; /* Red background on hover */
+        }
+
+        /* MODAL STYLES (General) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 25px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px; /* Adjusted max-width for incident form */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        /* Incident Form Specific Styles */
+        .incident-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .incident-form input[type="text"],
+        .incident-form input[type="email"],
+        .incident-form input[type="tel"],
+        .incident-form input[type="date"],
+        .incident-form input[type="time"], /* Added time input type */
+        .incident-form textarea,
+        .incident-form select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+        /* Make select element look read-only */
+        .incident-form select[readonly] {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+            border-color: #ced4da;
+            -webkit-appearance: none; /* Remove default arrow on Chrome/Safari */
+            -moz-appearance: none;    /* Remove default arrow on Firefox */
+            appearance: none;         /* Remove default arrow */
+            pointer-events: none;     /* Prevent click events */
+        }
+        /* Add a custom arrow if needed for readonly selects, but not required for function */
+
+        .incident-form input[type="file"] {
+            height: 42px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: normal;
+            background-color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .incident-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .incident-form .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .incident-form .form-row > div {
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        /* Read-only fields styling */
+        .incident-form input:read-only,
+        .incident-form textarea:read-only {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+            border-color: #ced4da;
+        }
+
+        /* Section heading within the form */
+        .incident-form h4 {
+            color: #4B5320;
+            font-size: 1.1em;
+            border-bottom: 1px solid #D0B564;
+            padding-bottom: 5px;
+            margin-top: 25px; /* Add some space above sections */
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Modal Action Buttons (for Incident Form) */
+        .modal-footer-buttons {
+            display: flex;
+            justify-content: flex-end; /* Align to right */
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .modal-footer-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-footer-buttons .btn-resolved {
+            background-color: #28a745; /* Green */
+            color: white;
+        }
+        .modal-footer-buttons .btn-resolved:hover:not(:disabled) { background-color: #218838; }
+
+        .modal-footer-buttons .btn-on-process {
+            background-color: #dc3545; /* Red */
+            color: white;
+        }
+        .modal-footer-buttons .btn-on-process:hover:not(:disabled) { background-color: #c82333; }
+
+        .modal-footer-buttons button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Custom Alert/Confirm Modal Styles */
+        .custom-alert-confirm .modal-content {
+            max-width: 400px;
+            text-align: center;
+            padding: 20px;
+        }
+        .custom-alert-confirm .modal-content h2 {
+            margin-bottom: 15px;
+        }
+        .custom-alert-confirm .modal-content p {
+            margin-bottom: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+        
+        /* MODIFIED: Centering for Custom Alert/Confirm buttons */
+        .custom-alert-confirm .modal-footer-buttons {
+            display: flex;
+            justify-content: center; /* Center the buttons */
+            gap: 15px; /* Increased gap for better spacing */
+            margin-top: 20px;
+            padding-top: 0; /* Remove top padding as it's not needed with flex-direction */
+            border-top: none; /* Remove border top if not needed */
+        }
+
+        .custom-alert-confirm .modal-footer-buttons button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+            margin: 0; /* Remove individual button margins, controlled by gap */
+        }
+
+        /* NEW: Back to Reports and Clear All Buttons Styling - Made SMALLER */
+        .header-actions-archive {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-back-to-reports, .btn-clear-archive {
+            padding: 6px 12px; /* Reduced padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8em; /* Reduced font-size */
+            text-decoration: none; /* For the link-style button */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back-to-reports {
+            background-color: #6c757d; /* Grey */
+            color: white;
+        }
+        .btn-back-to-reports:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-clear-archive {
+            background-color: #dc3545; /* Red */
+            color: white;
+        }
+        .btn-clear-archive:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="logo">
+                <div class="company-name">TANOD DOCUMENTATION AND REPORTING SYSTEM</div>
+            </div>
+            <div class="user-profile">
+                <img src="../images/bini-stacey-appreciation-post-v0-6241ma2a9eld1.jpg" alt="Stacey Sevilleja" class="profile-pic">
+                <div class="user-info">
+                    <div class="user-name">Stacey Sevilleja</div>
+                    <div class="user-role">Admin</div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-heading">Main Menu</div>
+                <ul>
+                    <li><a href="1dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
+                    <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
+                    <li class="active"><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
+                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                </ul>
+            </nav>
+            <div class="logout-section">
+                <button class="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Incident Archive </h2>
+                <div class="header-actions-archive">
+                    <a href="4incident.html" class="btn-back-to-reports">
+                        <i class="fas fa-arrow-left"></i> Back to Reports
+                    </a>
+                    <button class="btn-clear-archive" id="btnClearArchive">
+                        <i class="fas fa-trash-alt"></i> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-filter-section">
+                <div class="search-archive-group">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search by name or type" id="archiveSearchInput">
+                    </div>
+                </div>
+
+                <div class="report-count">
+                    Total Archive: <span id="totalArchivedReportCount">0</span>
+                </div>
+            </div>
+
+            <div class="incident-list-container">
+                <table class="incident-table">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archiveTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #777;">No archived incident reports yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="incidentReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeIncidentReportModalBtn">&times;</span>
+            <h2 id="incidentModalTitle">Incident Details</h2>
+            <form id="incidentForm" class="incident-form">
+                <input type="hidden" id="incidentId">
+                
+                <div class="form-row">
+                    <div>
+                        <label for="incidentDate">Date:</label>
+                        <input type="date" id="incidentDate" readonly>
+                    </div>
+                    <div>
+                        <label for="incidentTime">Time:</label>
+                        <input type="time" id="incidentTime" readonly>
+                    </div>
+                </div>
+                <div>
+                    <label for="incidentLocation">Location of the Incident:</label>
+                    <textarea id="incidentLocation" rows="2" readonly></textarea>
+                </div>
+                <div>
+                    <label for="incidentDescription">Description of the Incident:</label>
+                    <textarea id="incidentDescription" rows="4" readonly></textarea>
+                </div>
+                <div>
+                    <label for="attachedDocumentDisplay">Attached Document:</label>
+                    <p id="attachedDocumentDisplay" style="margin-top: 5px; color: #555; font-size: 0.9em;"></p>
+                </div>
+                <div>
+                    <label for="incidentType">Type of Incident:</label>
+                    <select id="incidentType" readonly>
+                        <option value="">Select Type</option>
+                        <option value="Theft">Theft</option>
+                        <option value="Assault">Assault</option>
+                        <option value="Vandalism">Vandalism</option>
+                        <option value="Disturbance">Disturbance</option>
+                        <option value="Missing Person">Missing Person</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <h4>Involved Person Details:</h4>
+                <div class="form-row">
+                    <div>
+                        <label for="reportedBy">Name (Person filling out report):</label>
+                        <input type="text" id="reportedBy" readonly>
+                    </div>
+                    <div>
+                        <label for="reportedByContact">Contact (Person filling out report):</label>
+                        <input type="tel" id="reportedByContact" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="otherInvolvedName">Name (Other person involved):</label>
+                        <input type="text" id="otherInvolvedName" placeholder="N/A" readonly>
+                    </div>
+                    <div>
+                        <label for="otherInvolvedContact">Contact (Other person involved):</label>
+                        <input type="tel" id="otherInvolvedContact" placeholder="N/A" readonly>
+                    </div>
+                </div>
+
+                <div class="modal-footer-buttons" id="incidentModalFooterButtons" style="display: none;">
+                    <button type="button" class="btn-resolved" id="btnMarkResolved">Resolved</button>
+                    <button type="button" class="btn-on-process" id="btnMarkOnProcess">On Process</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Sidebar Active Link Script ---
+        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+        const currentPage = window.location.pathname.split('/').pop();
+
+        sidebarLinks.forEach(link => {
+            const linkPage = link.getAttribute('href').split('/').pop();
+            // Highlight 'Incident Report' if on the main incident page or this archive page
+            if (linkPage === '4incident.html' && (currentPage === '4incident.html' || currentPage === 'incident-archive.html')) {
+                link.closest('li').classList.add('active');
+            } else {
+                link.closest('li').classList.remove('active');
+            }
+        });
+        // --- END Sidebar Active Link Script ---
+
+        // --- Archive Page Specific JavaScript ---
+
+        // DOM Elements for the archive table and search
+        const archiveTableBody = document.getElementById('archiveTableBody');
+        const archiveSearchInput = document.getElementById('archiveSearchInput');
+        const totalArchivedReportCountSpan = document.getElementById('totalArchivedReportCount');
+        const btnClearArchive = document.getElementById('btnClearArchive'); // The "Clear All" button
+
+        // DOM Elements for the Incident Report Details Modal (reused from main page)
+        const incidentReportModal = document.getElementById('incidentReportModal');
+        const closeIncidentReportModalBtn = document.getElementById('closeIncidentReportModalBtn');
+        const incidentIdInput = document.getElementById('incidentId');
+        const reportedByInput = document.getElementById('reportedBy');
+        const reportedByContactInput = document.getElementById('reportedByContact');
+        const incidentDateInput = document.getElementById('incidentDate');
+        const incidentTimeInput = document.getElementById('incidentTime');
+        const incidentTypeInput = document.getElementById('incidentType');
+        const incidentDescriptionInput = document.getElementById('incidentDescription');
+        const incidentLocationInput = document.getElementById('incidentLocation');
+        const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
+        const otherInvolvedNameInput = document.getElementById('otherInvolvedName');
+        const otherInvolvedContactInput = document.getElementById('otherInvolvedContact');
+
+        // The modal's status change buttons (these should be hidden for archived reports)
+        const incidentModalFooterButtons = document.getElementById('incidentModalFooterButtons');
+
+
+        // --- Data Management ---
+        // Load incident reports from localStorage. Crucial for both pages to share data.
+        let incidentReports = JSON.parse(localStorage.getItem('incidentReports')) || [];
+        let archivedIncidentReports = JSON.parse(localStorage.getItem('archivedIncidentReports')) || [];
+
+        // Function to save data to localStorage (called whenever either array changes)
+        function saveData() {
+            localStorage.setItem('incidentReports', JSON.stringify(incidentReports));
+            localStorage.setItem('archivedIncidentReports', JSON.stringify(archivedIncidentReports));
+        }
+
+        // --- Helper Functions ---
+
+        // Function to format date to Month Day, Year (reused)
+        function formatDateToMonthDayYear(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return dateString;
+            }
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString(undefined, options);
+        }
+
+        // Function to render archived incident reports in the table
+        function renderArchivedReports() {
+            archiveTableBody.innerHTML = ''; // Clear existing rows
+
+            const searchTerm = archiveSearchInput.value.toLowerCase(); // Use archiveSearchInput
+
+            // MODIFIED: Filter reports based ONLY on employee name and incident type
+            const filteredArchivedReports = archivedIncidentReports.filter(report => {
+                const employeeMatch = report.employee.toLowerCase().includes(searchTerm);
+                const typeMatch = report.type.toLowerCase().includes(searchTerm);
+                return employeeMatch || typeMatch;
+            });
+
+            // Sort archived reports by date, newest first
+            filteredArchivedReports.sort((a, b) => {
+                const dateTimeA = new Date(`${a.date}T${a.time}`);
+                const dateTimeB = new Date(`${b.date}T${b.time}`);
+                return dateTimeB.getTime() - dateTimeA.getTime(); // Descending (newest first)
+            });
+
+            if (filteredArchivedReports.length === 0) {
+                // Colspan is 5 now (Employee, Date, Time, Type, Actions)
+                archiveTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #777;">No archived incident reports found.</td></tr>';
+            } else {
+                filteredArchivedReports.forEach((report) => {
+                    const row = archiveTableBody.insertRow();
+                    row.setAttribute('data-id', report.id);
+
+                    row.insertCell().textContent = report.employee;
+                    row.insertCell().textContent = formatDateToMonthDayYear(report.date);
+                    row.insertCell().textContent = report.time;
+                    row.insertCell().textContent = report.type;
+                    
+                    const actionsCell = row.insertCell();
+                    actionsCell.classList.add('actions');
+
+                    // "View Details" button
+                    const viewDetailsButton = document.createElement('button');
+                    viewDetailsButton.classList.add('action-btn', 'view-details-btn');
+                    viewDetailsButton.innerHTML = '<i class="fas fa-eye"></i> View Details';
+                    viewDetailsButton.addEventListener('click', () => viewIncidentDetails(report.id));
+                    actionsCell.appendChild(viewDetailsButton);
+
+                    // "Restore" button
+                    const restoreButton = document.createElement('button');
+                    restoreButton.classList.add('action-btn', 'restore-btn'); 
+                    restoreButton.innerHTML = '<i class="fas fa-undo"></i> Restore';
+                    restoreButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Prevents opening modal if clicked on row
+                        displayCustomConfirm('Are you sure you want to restore this incident report to active reports?', () => {
+                            const reportIndex = archivedIncidentReports.findIndex(rep => rep.id === report.id);
+                            if (reportIndex > -1) {
+                                const restoredReport = archivedIncidentReports.splice(reportIndex, 1)[0];
+                                // Set to 'Resolved' or 'New' depending on your main page's initial status for restored items.
+                                // I'm setting it to 'Resolved' here as the archive implies resolution.
+                                restoredReport.status = 'Resolved'; 
+                                incidentReports.push(restoredReport);
+                                saveData();
+                                renderArchivedReports(); // Re-render the archive table
+                                updateArchivedReportCount();
+                                displayCustomAlert('Incident report restored successfully!');
+                            }
+                        });
+                    });
+                    actionsCell.appendChild(restoreButton);
+
+                    // "Delete Permanently" button (icon only)
+                    const deletePermButton = document.createElement('button');
+                    deletePermButton.classList.add('action-btn', 'delete-perm-btn');
+                    // Changed icon to fa-trash-alt for consistency with the "Clear All" button,
+                    // assuming this is the icon from your main "incident report" page.
+                    deletePermButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; 
+                    deletePermButton.setAttribute('title', 'Delete Permanently');
+                    deletePermButton.addEventListener('click', (event) => {
+                        event.stopPropagation(); // Prevents opening modal if clicked on row
+                        displayCustomConfirm('Are you sure you want to permanently delete this incident report? This action cannot be undone.', () => {
+                            archivedIncidentReports = archivedIncidentReports.filter(rep => rep.id !== report.id);
+                            saveData();
+                            renderArchivedReports(); // Re-render the archive table
+                            updateArchivedReportCount();
+                            displayCustomAlert('Incident report permanently deleted.');
+                        });
+                    });
+                    actionsCell.appendChild(deletePermButton);
+                });
+            }
+            updateArchivedReportCount();
+        }
+
+        // Function to update the total archived report count
+        function updateArchivedReportCount() {
+            totalArchivedReportCountSpan.textContent = archivedIncidentReports.length;
+        }
+
+        // Function to display incident details in the modal (reused and adapted)
+        function viewIncidentDetails(id) {
+            const report = archivedIncidentReports.find(r => r.id === id);
+            if (report) {
+                incidentIdInput.value = report.id;
+                reportedByInput.value = report.employee;
+                reportedByContactInput.value = report.employeeContact;
+                incidentDateInput.value = report.date;
+                incidentTimeInput.value = report.time;
+                incidentTypeInput.value = report.type;
+                incidentDescriptionInput.value = report.description;
+                incidentLocationInput.value = report.location;
+                otherInvolvedNameInput.value = report.otherInvolvedName || 'N/A';
+                otherInvolvedContactInput.value = report.otherInvolvedContact || 'N/A';
+
+                if (report.document) {
+                    attachedDocumentDisplay.innerHTML = `<a href="${report.document}" target="_blank">View Attached Document</a>`;
+                } else {
+                    attachedDocumentDisplay.textContent = 'No document attached.';
+                }
+                
+                // Hide the action buttons in the modal for archived reports
+                incidentModalFooterButtons.style.display = 'none';
+
+                incidentReportModal.style.display = 'flex'; // Use flex to center
+            }
+        }
+
+        // --- Event Listeners ---
+
+        // Close Incident Report Modal
+        closeIncidentReportModalBtn.addEventListener('click', () => {
+            incidentReportModal.style.display = 'none';
+        });
+
+        // Close modal if user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === incidentReportModal) {
+                incidentReportModal.style.display = 'none';
+            }
+            // MODIFIED: Ensure customAlertConfirmModal is defined before checking it
+            if (customAlertConfirmModal && event.target === customAlertConfirmModal) { 
+                customAlertConfirmModal.style.display = 'none';
+            }
+        });
+
+        // Search functionality
+        archiveSearchInput.addEventListener('keyup', renderArchivedReports);
+
+        // Clear All Archived Reports
+        btnClearArchive.addEventListener('click', () => {
+            displayCustomConfirm('Are you sure you want to permanently delete ALL archived incident reports? This action cannot be undone.', () => {
+                archivedIncidentReports = []; // Empty the array
+                saveData();
+                renderArchivedReports(); // Re-render the table
+                updateArchivedReportCount();
+                displayCustomAlert('All archived incident reports have been permanently deleted.');
+            });
+        });
+
+        // --- Custom Alert/Confirm Modal ---
+        const customAlertConfirmModal = document.createElement('div');
+        customAlertConfirmModal.classList.add('modal', 'custom-alert-confirm');
+        customAlertConfirmModal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-button" id="customAlertConfirmCloseBtn">&times;</span>
+                <h2 id="customAlertConfirmTitle"></h2>
+                <p id="customAlertConfirmMessage"></p>
+                <div class="modal-footer-buttons">
+                    <button class="btn-cancel" id="customAlertConfirmCancelBtn" style="background-color: #6c757d; color: white;">Cancel</button>
+                    <button class="btn-ok" id="customAlertConfirmOkBtn" style="background-color: #007bff; color: white;">OK</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(customAlertConfirmModal);
+
+        const customAlertConfirmTitle = document.getElementById('customAlertConfirmTitle');
+        const customAlertConfirmMessage = document.getElementById('customAlertConfirmMessage');
+        const customAlertConfirmCancelBtn = document.getElementById('customAlertConfirmCancelBtn');
+        const customAlertConfirmOkBtn = document.getElementById('customAlertConfirmOkBtn');
+        const customAlertConfirmCloseBtn = document.getElementById('customAlertConfirmCloseBtn');
+
+        function displayCustomAlert(message) {
+            customAlertConfirmTitle.textContent = 'Notification';
+            customAlertConfirmMessage.textContent = message;
+            customAlertConfirmCancelBtn.style.display = 'none'; // Hide cancel button for alerts
+            customAlertConfirmOkBtn.textContent = 'OK';
+            customAlertConfirmOkBtn.onclick = () => {
+                customAlertConfirmModal.style.display = 'none';
+            };
+            customAlertConfirmCloseBtn.onclick = () => {
+                customAlertConfirmModal.style.display = 'none';
+            };
+            customAlertConfirmModal.style.display = 'flex';
+        }
+
+        function displayCustomConfirm(message, onConfirm) {
+            customAlertConfirmTitle.textContent = 'Confirm Action';
+            customAlertConfirmMessage.textContent = message;
+            customAlertConfirmCancelBtn.style.display = 'inline-block'; // Show cancel button for confirms
+            customAlertConfirmOkBtn.textContent = 'Confirm';
+            customAlertConfirmOkBtn.onclick = () => {
+                customAlertConfirmModal.style.display = 'none';
+                onConfirm();
+            };
+            customAlertConfirmCancelBtn.onclick = () => {
+                customAlertConfirmModal.style.display = 'none';
+            };
+            customAlertConfirmCloseBtn.onclick = () => {
+                customAlertConfirmModal.style.display = 'none';
+            };
+            customAlertConfirmModal.style.display = 'flex';
+        }
+
+        // Initial render on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderArchivedReports();
+            updateArchivedReportCount();
+        });
+    </script>
+</body>
+</html>

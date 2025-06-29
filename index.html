@@ -1,51 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="icon" type="image/png" href="images/Barangay-Market-Area-Seal.png">
-    <title>Market Area: Tanod Documentation</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Area: Tanod Documentation</title>
 
-      html, body {
-        height: 100%;
-        width: 100%;
-      }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      .background-image {
-        position: fixed; /* Fixed ensures it fills screen even on scroll */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('images/imagebackground.jpg');
-        background-size: cover;         /* fills the screen */
-        background-position: center;    /* keeps center visible */
-        background-repeat: no-repeat;
-        filter: blur(5px);
-        opacity: 0.4;
-        z-index: -1;
-      }
+    body {
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
 
-      .background-color {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(61, 61, 61, 0.8); /* shorthand for opacity */
-        z-index: 0;
-      }
+    .background-color {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(167, 212, 131, 0.3);
+      z-index: 1;
+    }
 
-      .container {
+    .background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('brgymarketarea.jpeg') no-repeat center center/cover;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .container {
       position: relative;
       height: 100vh;
       display: flex;
@@ -54,416 +49,86 @@
       text-align: center;
       flex-direction: column;
       z-index: 2;
-      }
+    }
 
-      .logo {
-        height: clamp(150px, 22vw, 300px);
-        width: clamp(275px, 40vw, 550px);
-        margin-bottom: 20px;
-        transition: all 0.3s ease;
-      }
-
-      .logo.shrinked {
-        height: clamp(150px, 22vw, 180px);
-        width: clamp(275px, 40vw, 330px);
-        height: c;
-        transition: all 0.3s ease;
-      }
-
-      .title {
-      font-size: clamp(25px, 4.5vw, 50px);
-      font-weight: bolder;
-      color: #ffffff;
-      margin-bottom: clamp(10px, 2vw, 20px);
-      background: #bce3a3;
-      background: radial-gradient(circle,rgba(188, 227, 163, 1) 0%, rgba(233, 206, 148, 1) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      }
-      .subtitle {
-      font-size: clamp(12px,2.5vw,24px);
+    .logo {
+      width: 150px;
       margin-bottom: 20px;
-      color: #b7b7b7;
-      }
-      .buttons {
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #b30000;
       margin-bottom: 20px;
-      }
-      .btn {
+    }
+
+    .subtitle {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .buttons {
+      margin-bottom: 20px;
+      
+    }
+
+    .btn {
       display: inline-block;
-
-      padding: clamp(12px,3vw,24px) clamp(6px,3vw,12px);
+      padding: 12px 24px;
       margin: 10px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
       color: white;
-      }
-      .employee {
+    }
+
+    .employee {
       background-color: #4c5be5;
-      }
-      .admin {
+    }
+
+    .admin {
       background-color: #b30000;
-      }
-      .terms {
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-size: clamp(8px, 3vw, 16px);
-        color: #bbbbbb;
-        z-index: 3;
-      }
-      .terms a {
-        color: #A2C523;
-        text-decoration: underline;
-        transition: color #D8FF6A 0.2s ease, text-shadow 0.2s ease;
-      }
-      .terms a:hover {
-        text-shadow: 0 0 6px #8FBF1F;
-      }
-      .btn{
-        position: relative;
-        text-align: center;
-        cursor: pointer;
-      }
-
-    .btn span{
-      position: relative;
-      display: inline-block;
-      color: #fff;
-      font-size: clamp(0.8em, 3vw, 1.2em);
-      font-weight: 500;
-      text-decoration: none;
-      width: 30vw;
-      padding: 18px 0;
-      margin: clamp(13.5px, 3vw, 35vw);
-      border-radius: 8px;
-      box-shadow: 0 5px 25px rgba(1 1 1 / 15%);
-      transition: transform 0.15s linear;
     }
 
-    .color-01 span{
-      background:#D4A026;
+    .terms {
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      color: #323232;
+      z-index: 3;
     }
 
-    .color-02 span{
-      background:#2a9f18;
+    .terms a {
+      color: #0a3a8d;
+      text-decoration: underline;
     }
+  </style>
 
-    .color-03 span{
-      background: linear-gradient(90deg, #259844, #6FF192);
-    }
-
-    .color-01:hover span {
-      box-shadow: 0 0 20px 5px rgba(246, 206, 97, 0.7), 0 0 30px 10px rgba(145, 145, 145, 0.6);
-    }
-
-    .color-02:hover span {
-      box-shadow: 0 0 20px 5px rgba(28, 205, 1, 0.7), 0 0 30px 10px rgba(104, 104, 104, 0.6);
-    }
-
-h1{
-  color: #222;
-  text-align: center;
-  margin-bottom: 50px;
-  font-size: 2.8em;
-  font-weight: 800;
-}
-.button-creative {
-  position: relative;
-  display: inline-block;
-  padding: 1em 2em;
-  background: #111;
-  color: white;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  transition: color 0.3s;
-  font-size: 1.2rem;
-  border-radius: 8px;
-  z-index: 1;
-}
-
-.button-creative::before {
-  content: '';
-  position: absolute;
-  left: var(--x, 50%);
-  top: var(--y, 50%);
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, #00ffc3 10%, transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.4s ease;
-  border-radius: 50%;
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.button-creative:hover::before {
-  transform: translate(-50%, -50%) scale(1.2);
-}
-
-.button-creative:hover {
-  color: #00ffc3;
-}
-
-.login-container {
-  background-color: white;
-  border-radius: 20px;
-  padding: clamp(20px, 4vw, 40px);
-  width: clamp(280px, 60vw, 400px);
-  max-width: 90%;
-  height: auto;
-  margin: 0 auto;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  padding: clamp(30px, 2vw, 40px);
-  box-sizing: border-box;
-}
-
-/* Inner border frame */
-.login-container::before {
-  content: '';
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  border-radius: 14px;
-  border: 4px solid #91a037;
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Icon above login */
-.login-container i {
-  font-size: 3rem;
-  color: #35421d;
-}
-
-/* Header inside container */
-.login-container h2, 
-.login-container h1 {
-  font-size: clamp(22px, 2.5vw, 30px);
-  color: #35421d;
-  text-align: center;
-}
-
-/* Form layout */
-.login-container form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-/* Input styles */
-.login-container input {
-  width: 100%;
-  padding: clamp(10px, 2vw, 14px);
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.input-row {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  width: 100%;
-}
-
-.input-row input {
-  width: 100%;
-  padding: clamp(10px, 2vw, 14px);
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.button-row {
-  display: flex;
-  gap: 1em;
-  width: 100%;
-}
-
-.button-row button {
-  flex: 1;
-}
-
-.login-button {
-  background-color: #A2C523;
-  color: white;
-  width: 50%;
-  padding: clamp(10px, 2vw, 14px);
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.login-button:hover {
-  box-shadow: 0 0 12px 3px #D8FF6A;
-}
-
-.back-button {
-  background-color: #6c757d;
-  color: white;
-  width: 50%;
-  padding: clamp(10px, 2vw, 14px);
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #5a6268;
-  box-shadow: 0 0 12px 3px rgba(144, 144, 144, 0.5);
-}
-
-    </style>
-  </head>
+</head>
 <body>
+
   <div class="background-color"></div>
   <div class="background-image"></div>
+
   <div class="container">
-    <img src="images/BarangaySealIndex.png" alt="Barangay Logo" class="logo" />
+    <img src="Barangay Market Area Seal.png" alt="Barangay Logo" class="logo" width="150" height="150" />
     <h1 class="title">MARKET AREA: TANOD DOCUMENTATION<br>AND REPORTING SYSTEM</h1>
-    <p class="subtitle">Hi! Select your destination</p>
+    <p class="subtitle">Hi! Select your destination</p> 
 
-    <!-- Corrected selection buttons with ID -->
-    <div class="buttons" id="selection-buttons">
-      <a onclick="showLogin('employee')" class="btn color-01"><span>Employee</span></a>
-      <a onclick="showLogin('admin')" class="btn color-02"><span>Admin</span></a>
+    <div class="buttons">
+      <a href="public/TANOD DASHBOARD/tanodloginpage.html" class="btn employee">Employee</a><br>
+      <a href="ADMIN DASHBOARD/adminloginpage.html" class="btn admin">Admin</a>
     </div>
-
-    <!-- Employee Login Form -->
-    <div id="employee-login" style="display: none;">
-      <div class="login-container">
-          <i class="fa-solid fa-user"></i>
-          <h2>Employee Login</h2>
-          <form onsubmit="event.preventDefault(); redirectToDashboard('employee');">
-            <div class="input-row">
-              <input type="text" placeholder="Username"/>
-              <input type="text" placeholder="Employee ID"/>
-            </div>
-            <div class="button-row">
-              <button class="login-button" type="submit">Login</button>
-              <button class="back-button" type="button" onclick="goBack()">Back</button>
-            </div>
-          </form>
-        </div>
-    </div>
-
-    <!-- Admin Login Form -->
-    <div id="admin-login" style="display: none;">
-      <div class="login-container">
-        <i class="fa-solid fa-lock"></i>
-        <h2>Admin Login</h2>
-        <form onsubmit="event.preventDefault(); redirectToDashboard('admin');">
-          <div class="input-row">
-            <input type="text" placeholder="Username"/>
-            <input type="password" placeholder="Password"/>
-          </div>
-          <div class="button-row">
-            <button class="login-button" type="submit">Login</button>
-            <button class="back-button" type="button" onclick="goBack()">Back</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  </div>
 
   <p class="terms">
     By using this service, you understood and agree to the <a href="#">Terms and Conditions</a>
   </p>
+
 </body>
-
-
-      <script type="text/javascript">
-        /*-------------- LOGIN BUTTONS ------------*/
-    function showLogin(type) {
-        document.querySelector('.title').style.display = 'none';
-        document.querySelector('.subtitle').style.display = 'none';
-        document.getElementById('selection-buttons').style.display = 'none';
-        document.querySelector('.logo').classList.add('shrinked'); // <--- ADD THIS
-
-        if (type === 'employee') {
-          document.getElementById('employee-login').style.display = 'block';
-          document.getElementById('admin-login').style.display = 'none';
-        } else {
-          document.getElementById('admin-login').style.display = 'block';
-          document.getElementById('employee-login').style.display = 'none';
-        }
-      }
-
-      function goBack(event) {
-        if (event) event.stopPropagation(); // optional but safe
-        document.querySelector('.title').style.display = '';
-        document.querySelector('.subtitle').style.display = '';
-        document.getElementById('selection-buttons').style.display = 'block';
-        document.getElementById('employee-login').style.display = 'none';
-        document.getElementById('admin-login').style.display = 'none';
-        document.querySelector('.logo').classList.remove('shrinked');
-      }
-      function redirectToDashboard(type) {
-        if (type === 'admin') {
-          window.location.href = 'ADMIN_DASHBOARD/1dashboard.html';
-        } else {
-          window.location.href = 'TANOD_DASHBOARD/1Dasboard.html';
-        }
-      }
-    /*---------------*/
-        const btns = document.querySelectorAll(".btn");
-
-        btns.forEach((btn) => {
-          btn.addEventListener("mousemove", function(e){
-            const position = btn.getBoundingClientRect();
-            const x = e.pageX - position.left - position.width / 2;
-            const y = e.pageY - position.top - position.height / 2;
-
-            btn.children[0].style.transform = "translate(" + x * 0.3 + "px, " + y * 0.5 + "px)";
-          });
-        });
-
-        btns.forEach((btn) => {
-          btn.addEventListener("mouseout", function(e){
-            btn.children[0].style.transform = "translate(0px, 0px)";
-          });
-        });
-
-        const button = document.querySelector('.button-creative');
-    const glow = button.querySelector('::before');
-
-    button.addEventListener('mousemove', (e) => {
-      const rect = button.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      button.style.setProperty('--x', `${x}px`);
-      button.style.setProperty('--y', `${y}px`);
-    });
-
-    window.addEventListener('resize', () => {
-      const terms = document.querySelector('.terms');
-      if (window.innerHeight < 500) {
-        terms.style.display = 'none'; // hide when keyboard is likely open
-      } else {
-        terms.style.display = 'block';
-      }
-    });
-
-    </script>
-
 </html>
