@@ -184,21 +184,30 @@
             font-size: 1.8em;
         }
 
+        /* Header Actions for Archive Button */
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .search-filter-section {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Distribute items horizontally */
             align-items: center;
-            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 15px; /* Adjust gap between search bar and report count */
         }
 
         .search-bar {
+            /* Reduced width for the search bar */
+            flex-basis: 60%; /* Take 60% of available space */
+            min-width: 300px; /* Ensure it doesn't get too small */
             position: relative;
-            flex-grow: 1;
-            margin-right: 20px;
         }
 
         .search-bar input {
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 10px 15px 10px 35px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -213,12 +222,39 @@
             color: #aaa;
         }
 
+        /* Improved Archive Button Styling - MODIFIED */
+        .archive-button {
+            background-color: #6c757d; /* A neutral grey */
+            color: white;
+            padding: 6px 12px; /* Smaller padding */
+            font-size: 0.8em; /* Smaller font size */
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px; /* Smaller space between icon and text */
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .archive-button i {
+            font-size: 0.9em; /* Smaller icon */
+        }
+
+        .archive-button:hover {
+            background-color: #5a6268;
+        }
+
         /* Report Count Display */
         .report-count {
             font-size: 1.1em;
             font-weight: bold;
             color: #555;
             padding: 10px 0;
+            flex-shrink: 0; /* Prevent it from shrinking */
         }
 
         /* Incident List Table */
@@ -251,8 +287,8 @@
         .incident-table th:nth-child(1), .incident-table td:nth-child(1) { width: 150px; } /* Employee */
         .incident-table th:nth-child(2), .incident-table td:nth-child(2) { width: 130px; } /* Date - adjusted for full month name */
         .incident-table th:nth-child(3), .incident-table td:nth-child(3) { width: 80px; } /* Time */
-        .incident-table th:nth-child(4), .incident-table td:nth-child(4) { width: 120px; } /* Type */
-        .incident-table th:nth-child(5), .incident-table td:nth-child(5) { width: 160px; } /* Actions - accommodates both buttons */
+        .incident-table th:nth-child(4), .incident-table td:nth-child(4) { width: 80px; } /* Type */
+        .incident-table th:nth-child(5), .incident-table td:nth-child(5) { width: 120px; } /* Actions - accommodates both buttons */
 
 
         .incident-table th {
@@ -298,13 +334,13 @@
             font-size: 1.1em; /* Slightly larger icon for text buttons */
         }
 
-        /* Specific style for icon-only delete button */
+        /* Specific style for icon-only delete button (MATCHES ARCHIVE) */
         .incident-table .delete-btn {
             background-color: transparent; /* No background */
             color: #dc3545; /* Red color for the icon */
             border: none; /* No border */
-            width: 42px; /* Bigger width for icon only */
-            height: 42px; /* Bigger height for icon only */
+            width: 36px; /* Width for icon only */
+            height: 36px; /* Height for icon only */
             padding: 0; /* Remove padding as content is icon */
             display: flex;
             justify-content: center;
@@ -577,7 +613,12 @@
         <div class="main-content">
             <div class="page-header">
                 <h2>Incident Report</h2>
+                <div class="header-actions">
+                    <a href="incident-archive.html" class="archive-button">
+                        <i class="fas fa-archive"></i> Archived
+                    </a>
                 </div>
+            </div>
 
             <div class="search-filter-section">
                 <div class="search-bar">
@@ -683,338 +724,390 @@
     </div>
 
     <script>
-        // --- Sidebar Active Link Script ---
-        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
-        const currentPage = window.location.pathname.split('/').pop();
+        // main-script.js
 
-        sidebarLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('/').pop();
-            if (linkPage === currentPage) {
-                link.closest('li').classList.add('active');
-            } else {
-                link.closest('li').classList.remove('active');
+// --- Sidebar Active Link Script (unchanged) ---
+const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+const currentPage = window.location.pathname.split('/').pop();
+
+sidebarLinks.forEach(link => {
+    const linkPage = link.getAttribute('href').split('/').pop();
+    if (linkPage === currentPage) {
+        link.closest('li').classList.add('active');
+    } else {
+        link.closest('li').classList.remove('active');
+    }
+});
+// --- END Sidebar Active Link Script ---
+
+// --- Incident Report Specific JavaScript ---
+
+const incidentReportModal = document.getElementById('incidentReportModal');
+const closeIncidentReportModalBtn = document.getElementById('closeIncidentReportModalBtn');
+const incidentModalTitle = document.getElementById('incidentModalTitle');
+const incidentForm = document.getElementById('incidentForm');
+const incidentIdInput = document.getElementById('incidentId');
+const reportedByInput = document.getElementById('reportedBy');
+const reportedByContactInput = document.getElementById('reportedByContact');
+const incidentDateInput = document.getElementById('incidentDate');
+const incidentTimeInput = document.getElementById('incidentTime');
+const incidentTypeInput = document.getElementById('incidentType');
+const incidentDescriptionInput = document.getElementById('incidentDescription');
+const incidentLocationInput = document.getElementById('incidentLocation');
+const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
+const otherInvolvedNameInput = document.getElementById('otherInvolvedName');
+const otherInvolvedContactInput = document.getElementById('otherInvolvedContact');
+const btnMarkResolved = document.getElementById('btnMarkResolved');
+const btnMarkOnProcess = document.getElementById('btnMarkOnProcess');
+// Get the modal-footer-buttons element
+const incidentModalFooterButtons = document.querySelector('.modal-footer-buttons');
+
+const incidentTableBody = document.getElementById('incidentTableBody');
+const reportSearchInput = document.getElementById('reportSearchInput');
+const totalReportCountSpan = document.getElementById('totalReportCount');
+
+// Helper function to format date to Month Day, Year (unchanged)
+function formatDateToMonthDayYear(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+}
+
+// Client-side storage for incident reports
+// Using localStorage for persistence - both active and archived reports are stored here
+let incidentReports = JSON.parse(localStorage.getItem('incidentReports')) || [
+    // Sample Data (only used if localStorage is empty)
+    { id: 4, employee: 'Jayda Avanzado', reportedByContact: '09778889999', date: '2025-06-12', time: '10:00',
+      type: 'Disturbance', description: 'Loud music from neighbor, reported by multiple residents.', location: 'Blk 1, Lot 2, Mango St.',
+      otherInvolvedName: 'Neighbor', otherInvolvedContact: '09012345678', evidence: 'None', status: 'New' },
+    { id: 1, employee: 'Gwen Apuli', reportedByContact: '09123456789', date: '2025-06-02', time: '08:30',
+      type: 'Theft', description: 'Stolen bicycle from front yard.', location: 'Blk 5, Lot 10, Acacia St.',
+      otherInvolvedName: 'None', otherInvolvedContact: 'N/A', evidence: 'CCTV Footage (link or name)', status: 'New' },
+    { id: 2, employee: 'Mikha Lim', reportedByContact: '09987654321', date: '2025-05-28', time: '13:00',
+      type: 'Assault', description: 'Verbal altercation escalated into physical assault.', location: 'Community Park',
+      otherInvolvedName: 'Juan Dela Cruz', otherInvolvedContact: '09112233445', evidence: 'Police Report #123', status: 'On Process' },
+    { id: 3, employee: 'Mikha Lim', reportedByContact: '09551234567', date: '2025-05-28', time: '10:00',
+      type: 'Assault', description: 'Minor dispute between neighbors resolved amicably.', location: 'Building 7, Apt 3A',
+      otherInvolvedName: 'Barangay Official', otherInvolvedContact: '09001122334', evidence: 'None', status: 'Resolved' }
+];
+
+// Archived reports now stored in localStorage and managed by both pages
+let archivedIncidentReports = JSON.parse(localStorage.getItem('archivedIncidentReports')) || [];
+
+
+// Function to save data to localStorage (called whenever either array changes)
+function saveData() {
+    localStorage.setItem('incidentReports', JSON.stringify(incidentReports));
+    localStorage.setItem('archivedIncidentReports', JSON.stringify(archivedIncidentReports));
+}
+
+// Function to define custom sorting order for reports (unchanged)
+function sortReports(a, b) {
+    const statusOrder = { 'New': 1, 'On Process': 2, 'Resolved': 3 };
+    const orderA = statusOrder[a.status];
+    const orderB = statusOrder[b.status];
+
+    if (orderA !== orderB) {
+        return orderA - orderB;
+    }
+
+    const dateTimeA = new Date(`${a.date}T${a.time}`);
+    const dateTimeB = new Date(`${b.date}T${b.time}`);
+    return dateTimeB.getTime() - dateTimeA.getTime();
+}
+
+// Function to render incident reports in the table (MODIFIED delete button visibility and icon)
+function renderIncidentReports() {
+    incidentTableBody.innerHTML = '';
+
+    const searchTerm = reportSearchInput.value.toLowerCase();
+
+    const filteredReports = incidentReports.filter(report => {
+        return report.employee.toLowerCase().includes(searchTerm) ||
+               report.type.toLowerCase().includes(searchTerm) ||
+               report.status.toLowerCase().includes(searchTerm) ||
+               report.location.toLowerCase().includes(searchTerm);
+    });
+
+    filteredReports.sort(sortReports);
+
+    if (filteredReports.length === 0) {
+        incidentTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #777;">No matching incident reports found.</td></tr>';
+    } else {
+        filteredReports.forEach((report) => {
+            const row = incidentTableBody.insertRow();
+            row.setAttribute('data-id', report.id);
+
+            const employeeCell = row.insertCell();
+            employeeCell.textContent = report.employee;
+
+            const dateCell = row.insertCell();
+            dateCell.textContent = formatDateToMonthDayYear(report.date);
+
+            const timeCell = row.insertCell();
+            timeCell.textContent = report.time;
+
+            const typeCell = row.insertCell();
+            typeCell.textContent = report.type;
+
+            const actionsCell = row.insertCell();
+            actionsCell.classList.add('actions');
+
+            const actionButton = document.createElement('button');
+            actionButton.classList.add('action-btn');
+
+            if (report.status === 'New') {
+                actionButton.classList.add('status-new');
+                actionButton.textContent = 'View Details';
+            } else if (report.status === 'On Process') {
+                actionButton.classList.add('status-on-process');
+                actionButton.textContent = 'On Process';
+            } else if (report.status === 'Resolved') {
+                actionButton.classList.add('status-resolved');
+                actionButton.textContent = 'Resolved';
             }
-        });
-        // --- END Sidebar Active Link Script ---
+            actionButton.addEventListener('click', () => viewIncidentDetails(report.id));
+            actionsCell.appendChild(actionButton);
 
-        // --- Incident Report Specific JavaScript ---
-
-        const incidentReportModal = document.getElementById('incidentReportModal');
-        const closeIncidentReportModalBtn = document.getElementById('closeIncidentReportModalBtn');
-        const incidentModalTitle = document.getElementById('incidentModalTitle');
-        const incidentForm = document.getElementById('incidentForm');
-        const incidentIdInput = document.getElementById('incidentId');
-        const reportedByInput = document.getElementById('reportedBy');
-        const reportedByContactInput = document.getElementById('reportedByContact');
-        const incidentDateInput = document.getElementById('incidentDate');
-        const incidentTimeInput = document.getElementById('incidentTime');
-        const incidentTypeInput = document.getElementById('incidentType');
-        const incidentDescriptionInput = document.getElementById('incidentDescription');
-        const incidentLocationInput = document.getElementById('incidentLocation');
-        const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
-        const otherInvolvedNameInput = document.getElementById('otherInvolvedName');
-        const otherInvolvedContactInput = document.getElementById('otherInvolvedContact');
-        const btnMarkResolved = document.getElementById('btnMarkResolved');
-        const btnMarkOnProcess = document.getElementById('btnMarkOnProcess');
-
-        const incidentTableBody = document.getElementById('incidentTableBody');
-        const reportSearchInput = document.getElementById('reportSearchInput');
-        const totalReportCountSpan = document.getElementById('totalReportCount');
-
-        // Helper function to format date to Month Day, Year
-        function formatDateToMonthDayYear(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            // Ensure date is valid before formatting
-            if (isNaN(date.getTime())) {
-                return dateString; // Return original string if invalid date
-            }
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options);
-        }
-
-        // Client-side storage for incident reports
-        let incidentReports = [
-            // Sample Data (replace with actual data storage later)
-            // Added a new report to demonstrate "New" on top
-            { id: 4, employee: 'Jayda Avanzado', reportedByContact: '09778889999', date: '2025-06-12', time: '10:00',
-              type: 'Disturbance', description: 'Loud music from neighbor, reported by multiple residents.', location: 'Blk 1, Lot 2, Mango St.',
-              otherInvolvedName: 'Neighbor', otherInvolvedContact: '09012345678', evidence: 'None', status: 'New' },
-            { id: 1, employee: 'Gwen Apuli', reportedByContact: '09123456789', date: '2025-06-02', time: '08:30',
-              type: 'Theft', description: 'Stolen bicycle from front yard.', location: 'Blk 5, Lot 10, Acacia St.',
-              otherInvolvedName: 'None', otherInvolvedContact: 'N/A', evidence: 'CCTV Footage (link or name)', status: 'New' },
-            { id: 2, employee: 'Mikha Lim', reportedByContact: '09987654321', date: '2025-05-28', time: '13:00',
-              type: 'Assault', description: 'Verbal altercation escalated into physical assault.', location: 'Community Park',
-              otherInvolvedName: 'Juan Dela Cruz', otherInvolvedContact: '09112233445', evidence: 'Police Report #123', status: 'On Process' },
-            { id: 3, employee: 'Mikha Lim', reportedByContact: '09551234567', date: '2025-05-28', time: '10:00',
-              type: 'Assault', description: 'Minor dispute between neighbors resolved amicably.', location: 'Building 7, Apt 3A',
-              otherInvolvedName: 'Barangay Official', otherInvolvedContact: '09001122334', evidence: 'None', status: 'Resolved' }
-        ];
-
-        // Function to define custom sorting order for reports
-        function sortReports(a, b) {
-            const statusOrder = { 'New': 1, 'On Process': 2, 'Resolved': 3 };
-            const orderA = statusOrder[a.status];
-            const orderB = statusOrder[b.status];
-
-            if (orderA !== orderB) {
-                return orderA - orderB; // Sort by status
-            }
-
-            // If statuses are the same, sort by date and time (newest first)
-            const dateTimeA = new Date(`${a.date}T${a.time}`);
-            const dateTimeB = new Date(`${b.date}T${b.time}`);
-            return dateTimeB.getTime() - dateTimeA.getTime(); // Descending (newest first)
-        }
-
-        // Function to render incident reports in the table
-        function renderIncidentReports() {
-            incidentTableBody.innerHTML = ''; // Clear existing rows
-
-            const searchTerm = reportSearchInput.value.toLowerCase();
-
-            const filteredReports = incidentReports.filter(report => {
-                return report.employee.toLowerCase().includes(searchTerm) ||
-                       report.type.toLowerCase().includes(searchTerm) ||
-                       report.status.toLowerCase().includes(searchTerm) ||
-                       report.location.toLowerCase().includes(searchTerm); // Added location to search
-            });
-
-            // Sort the filtered reports
-            filteredReports.sort(sortReports);
-
-            if (filteredReports.length === 0) {
-                incidentTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #777;">No matching incident reports found.</td></tr>';
-            } else {
-                filteredReports.forEach((report) => {
-                    const row = incidentTableBody.insertRow();
-                    row.setAttribute('data-id', report.id);
-
-                    const employeeCell = row.insertCell();
-                    employeeCell.textContent = report.employee;
-                    // Width is handled by CSS .incident-table th:nth-child(1), .incident-table td:nth-child(1)
-
-                    const dateCell = row.insertCell();
-                    dateCell.textContent = formatDateToMonthDayYear(report.date); // Format date
-                    // Width is handled by CSS .incident-table th:nth-child(2), .incident-table td:nth-child(2)
-
-                    const timeCell = row.insertCell();
-                    timeCell.textContent = report.time;
-                    // Width is handled by CSS .incident-table th:nth-child(3), .incident-table td:nth-child(3)
-
-                    const typeCell = row.insertCell();
-                    typeCell.textContent = report.type;
-                    // Width is handled by CSS .incident-table th:nth-child(4), .incident-table td:nth-child(4)
-
-                    const actionsCell = row.insertCell();
-                    actionsCell.classList.add('actions'); // Apply flexbox to this cell
-                    // Width is handled by CSS .incident-table th:nth-child(5), .incident-table td:nth-child(5)
-
-
-                    // Status-specific action button
-                    const actionButton = document.createElement('button');
-                    actionButton.classList.add('action-btn');
-
-                    if (report.status === 'New') {
-                        actionButton.classList.add('status-new');
-                        actionButton.textContent = 'View Details';
-                    } else if (report.status === 'On Process') {
-                        actionButton.classList.add('status-on-process');
-                        actionButton.textContent = 'On Process';
-                    } else if (report.status === 'Resolved') {
-                        actionButton.classList.add('status-resolved');
-                        actionButton.textContent = 'Resolved';
-                    }
-                    actionButton.addEventListener('click', () => viewIncidentDetails(report.id));
-                    actionsCell.appendChild(actionButton);
-
-                    // Delete button (now an icon)
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('action-btn', 'delete-btn');
-                    deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Changed to icon
-                    deleteButton.addEventListener('click', (event) => {
-                        event.stopPropagation(); // Prevent the view details modal from opening if row has a general click listener
-                        displayCustomConfirm('Are you sure you want to delete this incident report?', () => {
-                            const reportIndex = incidentReports.findIndex(rep => rep.id === report.id);
-                            if (reportIndex > -1) {
-                                incidentReports.splice(reportIndex, 1);
-                                renderIncidentReports(); // Re-render the table after deletion
-                                displayCustomAlert('Incident report deleted successfully!');
-                            }
-                        });
+            // Delete button only visible for 'Resolved' reports, now matching archive style
+            if (report.status === 'Resolved') {
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('action-btn', 'delete-btn'); // Use the new delete-btn class
+                deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Changed icon to trash-alt
+                deleteButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevents opening incident details modal
+                    displayCustomConfirm('Are you sure you want to delete this RESOLVED incident report? It will be moved to the Archive.', () => {
+                        const reportIndex = incidentReports.findIndex(rep => rep.id === report.id);
+                        if (reportIndex > -1) {
+                            const deletedReport = incidentReports.splice(reportIndex, 1)[0];
+                            archivedIncidentReports.push(deletedReport); // Move to archive
+                            saveData(); // Save updated data
+                            renderIncidentReports(); // Re-render the table
+                            displayCustomAlert('Incident report moved to archive!');
+                        }
                     });
-                    actionsCell.appendChild(deleteButton);
                 });
-            }
-            updateTotalReportCount();
-        }
-
-        // Update total report count
-        function updateTotalReportCount() {
-            totalReportCountSpan.textContent = incidentReports.length;
-        }
-
-        // Function to view incident details in the modal
-        function viewIncidentDetails(idToView) {
-            const report = incidentReports.find(rep => rep.id === idToView);
-            if (report) {
-                incidentIdInput.value = report.id;
-                incidentDateInput.value = report.date; // Keep raw date for date input type
-                incidentTimeInput.value = report.time;
-                incidentLocationInput.value = report.location;
-                incidentDescriptionInput.value = report.description;
-                attachedDocumentDisplay.textContent = report.evidence || 'No evidence provided.';
-                incidentTypeInput.value = report.type;
-                reportedByInput.value = report.employee;
-                reportedByContactInput.value = report.reportedByContact;
-                otherInvolvedNameInput.value = report.otherInvolvedName || 'N/A';
-                otherInvolvedContactInput.value = report.otherInvolvedContact || 'N/A';
-
-                // Set all form fields to read-only
-                incidentDateInput.readOnly = true;
-                incidentTimeInput.readOnly = true;
-                incidentLocationInput.readOnly = true;
-                incidentDescriptionInput.readOnly = true;
-                incidentTypeInput.readOnly = true; // Make select read-only
-                reportedByInput.readOnly = true;
-                reportedByContactInput.readOnly = true;
-                otherInvolvedNameInput.readOnly = true;
-                otherInvolvedContactInput.readOnly = true;
-                
-                // Handle modal buttons based on status
-                if (report.status === 'New' || report.status === 'On Process') {
-                    btnMarkResolved.style.display = 'inline-block';
-                    btnMarkOnProcess.style.display = 'inline-block';
-                    btnMarkResolved.disabled = false;
-                    btnMarkOnProcess.disabled = false;
-                } else if (report.status === 'Resolved') {
-                    btnMarkResolved.style.display = 'inline-block';
-                    btnMarkOnProcess.style.display = 'none'; // Only Resolved button for Resolved status
-                    btnMarkResolved.disabled = true; // Resolved button is not clickable if already resolved
-                }
-
-                incidentReportModal.style.display = 'flex';
-            }
-        }
-
-        // Event listeners for status change buttons in modal
-        btnMarkResolved.addEventListener('click', () => {
-            const reportId = parseInt(incidentIdInput.value);
-            displayCustomConfirm('Are you sure you want to mark this incident as RESOLVED?', () => {
-                const report = incidentReports.find(rep => rep.id === reportId);
-                if (report) {
-                    report.status = 'Resolved';
-                    renderIncidentReports();
-                    incidentReportModal.style.display = 'none'; // Close modal after action
-                }
-            });
-        });
-
-        btnMarkOnProcess.addEventListener('click', () => {
-            const reportId = parseInt(incidentIdInput.value);
-            displayCustomConfirm('Are you sure you want to mark this incident as ON PROCESS?', () => {
-                const report = incidentReports.find(rep => rep.id === reportId);
-                if (report) {
-                    report.status = 'On Process';
-                    renderIncidentReports();
-                    incidentReportModal.style.display = 'none'; // Close modal after action
-                }
-            });
-        });
-
-
-        // Close modal
-        closeIncidentReportModalBtn.addEventListener('click', () => {
-            incidentReportModal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (event) => {
-            if (event.target == incidentReportModal) {
-                incidentReportModal.style.display = 'none';
+                actionsCell.appendChild(deleteButton);
             }
         });
+    }
+    updateTotalReportCount();
+}
 
-        // Search Event Listener
-        reportSearchInput.addEventListener('input', renderIncidentReports);
+// Function to update total report count (Updated text content)
+function updateTotalReportCount() {
+    totalReportCountSpan.textContent = incidentReports.length;
+}
 
-        // Custom Alert Function (replaces alert())
-        function displayCustomAlert(message) {
-            const alertModal = document.createElement('div');
-            alertModal.classList.add('modal', 'custom-alert-confirm');
-            alertModal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2>Alert</h2>
-                    <p>${message}</p>
-                    <button style="background-color: #007bff; color: white;">OK</button>
-                </div>
-            `;
-            document.body.appendChild(alertModal);
-            alertModal.style.display = 'flex';
+// Function to view incident details in the modal (unchanged, but relies on modal HTML)
+function viewIncidentDetails(idToView) {
+    const report = incidentReports.find(rep => rep.id === idToView);
+    if (report) {
+        incidentIdInput.value = report.id;
+        incidentDateInput.value = report.date;
+        incidentTimeInput.value = report.time;
+        incidentLocationInput.value = report.location;
+        incidentDescriptionInput.value = report.description;
+        attachedDocumentDisplay.textContent = report.evidence || 'No evidence provided.';
 
-            const closeBtn = alertModal.querySelector('.close-button');
-            const okBtn = alertModal.querySelector('button');
+        // Set select value
+        incidentTypeInput.value = report.type;
+        // Re-enable for editing if not resolved, otherwise disable
+        incidentTypeInput.disabled = report.status === 'Resolved'; // Changed condition: only disable if resolved
 
-            const closeModal = () => {
-                alertModal.style.display = 'none';
-                alertModal.remove();
-            };
+        reportedByInput.value = report.employee;
+        reportedByContactInput.value = report.reportedByContact;
+        otherInvolvedNameInput.value = report.otherInvolvedName || 'N/A';
+        otherInvolvedContactInput.value = report.otherInvolvedContact || 'N/A';
 
-            closeBtn.addEventListener('click', closeModal);
-            okBtn.addEventListener('click', closeModal);
-            alertModal.addEventListener('click', (event) => {
-                if (event.target === alertModal) {
-                    closeModal();
-                }
-            });
+        // Set all fields to read-only initially, then enable specific ones based on status
+        incidentDateInput.readOnly = true;
+        incidentTimeInput.readOnly = true;
+        reportedByInput.readOnly = true;
+        reportedByContactInput.readOnly = true;
+
+        // Show/hide status buttons based on report status
+        incidentModalFooterButtons.style.display = 'flex';
+        btnMarkResolved.style.display = 'inline-block';
+        btnMarkOnProcess.style.display = 'inline-block';
+
+        if (report.status === 'New') {
+            incidentModalTitle.textContent = 'Incident Details (New)';
+            btnMarkResolved.disabled = false;
+            btnMarkOnProcess.disabled = false;
+            // For 'New' reports, allow editing location, description, type, and involved persons
+            incidentLocationInput.readOnly = false;
+            incidentDescriptionInput.readOnly = false;
+            incidentTypeInput.disabled = false; // Re-enable select
+            otherInvolvedNameInput.readOnly = false;
+            otherInvolvedContactInput.readOnly = false;
+
+        } else if (report.status === 'On Process') {
+            incidentModalTitle.textContent = 'Incident Details (On Process)';
+            btnMarkResolved.disabled = false;
+            btnMarkOnProcess.disabled = true; // Cannot set back to On Process
+            // For 'On Process' reports, allow editing location, description, type, and involved persons
+            incidentLocationInput.readOnly = false;
+            incidentDescriptionInput.readOnly = false;
+            incidentTypeInput.disabled = false; // Re-enable select
+            otherInvolvedNameInput.readOnly = false;
+            otherInvolvedContactInput.readOnly = false;
+        } else if (report.status === 'Resolved') {
+            incidentModalTitle.textContent = 'Incident Details (Resolved)';
+            btnMarkResolved.disabled = true;
+            btnMarkOnProcess.disabled = true;
+            incidentModalFooterButtons.style.display = 'none'; // Hide buttons completely
+
+            // All fields should be read-only for Resolved reports
+            incidentLocationInput.readOnly = true;
+            incidentDescriptionInput.readOnly = true;
+            incidentTypeInput.disabled = true; // Disable select
+            otherInvolvedNameInput.readOnly = true;
+            otherInvolvedContactInput.readOnly = true;
         }
-
-        // Custom Confirm Function (replaces confirm())
-        function displayCustomConfirm(message, onConfirm) {
-            const confirmModal = document.createElement('div');
-            confirmModal.classList.add('modal', 'custom-alert-confirm');
-            confirmModal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2>Confirm Action</h2>
-                    <p>${message}</p>
-                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
-                        <button class="confirm-yes-btn" style="background-color: #dc3545; color: white;">Yes</button>
-                        <button class="confirm-no-btn" style="background-color: #6c757d; color: white;">No</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(confirmModal);
-            confirmModal.style.display = 'flex';
-
-            const closeBtn = confirmModal.querySelector('.close-button');
-            const yesBtn = confirmModal.querySelector('.confirm-yes-btn');
-            const noBtn = confirmModal.querySelector('.confirm-no-btn');
-
-            const closeModal = () => {
-                confirmModal.style.display = 'none';
-                confirmModal.remove();
-            };
-
-            closeBtn.addEventListener('click', closeModal);
-            noBtn.addEventListener('click', closeModal);
-            yesBtn.addEventListener('click', () => {
-                onConfirm();
-                closeModal();
-            });
-            confirmModal.addEventListener('click', (event) => {
-                if (event.target === confirmModal) {
-                    closeModal();
-                }
-            });
-        }
+        
+        incidentReportModal.style.display = 'flex'; // Show the modal
+    }
+}
 
 
-        // Initial render when the page loads
+// Event listener for "Mark Resolved" button (unchanged)
+btnMarkResolved.addEventListener('click', () => {
+    const reportId = parseInt(incidentIdInput.value);
+    const reportIndex = incidentReports.findIndex(report => report.id === reportId);
+    if (reportIndex > -1) {
+        incidentReports[reportIndex].status = 'Resolved';
+        // Also update editable fields if they were modified while in modal
+        incidentReports[reportIndex].location = incidentLocationInput.value;
+        incidentReports[reportIndex].description = incidentDescriptionInput.value;
+        incidentReports[reportIndex].type = incidentTypeInput.value;
+        incidentReports[reportIndex].otherInvolvedName = otherInvolvedNameInput.value;
+        incidentReports[reportIndex].otherInvolvedContact = otherInvolvedContactInput.value;
+
+        saveData();
         renderIncidentReports();
+        incidentReportModal.style.display = 'none';
+        displayCustomAlert('Incident marked as Resolved!');
+    }
+});
 
-        // --- END Incident Report Specific JavaScript ---
+// Event listener for "Mark On Process" button (unchanged)
+btnMarkOnProcess.addEventListener('click', () => {
+    const reportId = parseInt(incidentIdInput.value);
+    const reportIndex = incidentReports.findIndex(report => report.id === reportId);
+    if (reportIndex > -1) {
+        incidentReports[reportIndex].status = 'On Process';
+        // Also update editable fields if they were modified while in modal
+        incidentReports[reportIndex].location = incidentLocationInput.value;
+        incidentReports[reportIndex].description = incidentDescriptionInput.value;
+        incidentReports[reportIndex].type = incidentTypeInput.value;
+        incidentReports[reportIndex].otherInvolvedName = otherInvolvedNameInput.value;
+        incidentReports[reportIndex].otherInvolvedContact = otherInvolvedContactInput.value;
+
+        saveData();
+        renderIncidentReports();
+        incidentReportModal.style.display = 'none';
+        displayCustomAlert('Incident marked as On Process!');
+    }
+});
+
+// Close incident report modal
+closeIncidentReportModalBtn.addEventListener('click', () => {
+    incidentReportModal.style.display = 'none';
+});
+
+// Close incident report modal when clicking outside
+window.addEventListener('click', (event) => {
+    if (event.target === incidentReportModal) {
+        incidentReportModal.style.display = 'none';
+    }
+});
+
+// Search Event Listener (unchanged)
+reportSearchInput.addEventListener('input', renderIncidentReports);
+
+// --- Custom Alert/Confirm Functions (reused for consistent UX) ---
+
+function displayCustomAlert(message) {
+    const alertModal = document.createElement('div');
+    alertModal.classList.add('modal', 'custom-alert-confirm');
+    alertModal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Alert</h2>
+            <p>${message}</p>
+            <button style="background-color: #007bff; color: white;">OK</button>
+        </div>
+    `;
+    document.body.appendChild(alertModal);
+    alertModal.style.display = 'flex';
+
+    const closeBtn = alertModal.querySelector('.close-button');
+    const okBtn = alertModal.querySelector('button');
+
+    const closeModal = () => {
+        alertModal.style.display = 'none';
+        alertModal.remove();
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    okBtn.addEventListener('click', closeModal);
+    alertModal.addEventListener('click', (event) => {
+        if (event.target === alertModal) {
+            closeModal();
+        }
+    });
+}
+
+function displayCustomConfirm(message, onConfirm) {
+    const confirmModal = document.createElement('div');
+    confirmModal.classList.add('modal', 'custom-alert-confirm');
+    confirmModal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Confirm Action</h2>
+            <p>${message}</p>
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+                <button class="confirm-yes-btn" style="background-color: #dc3545; color: white;">Yes</button>
+                <button class="confirm-no-btn" style="background-color: #6c757d; color: white;">No</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(confirmModal);
+    confirmModal.style.display = 'flex';
+
+    const closeBtn = confirmModal.querySelector('.close-button');
+    const yesBtn = confirmModal.querySelector('.confirm-yes-btn');
+    const noBtn = confirmModal.querySelector('.confirm-no-btn');
+
+    const closeModal = () => {
+        confirmModal.style.display = 'none';
+        confirmModal.remove();
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    noBtn.addEventListener('click', closeModal);
+    yesBtn.addEventListener('click', () => {
+        onConfirm();
+        closeModal();
+    });
+    confirmModal.addEventListener('click', (event) => {
+        if (event.target === confirmModal) {
+            closeModal();
+        }
+    });
+}
+// --- END Custom Alert and Confirm Functions ---
+
+
+// Initial render when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    renderIncidentReports();
+});
     </script>
 </body>
 </html>
