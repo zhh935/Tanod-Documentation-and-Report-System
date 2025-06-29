@@ -586,7 +586,9 @@
                 height: 'auto',
                 events: [],
                 dayCellContent: function(arg) {
-                    const dateStr = arg.date.toISOString().slice(0,10);
+                    const dateStr = arg.date.getFullYear() + '-' +
+                        String(arg.date.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(arg.date.getDate()).padStart(2, '0');
                     const dayData = scheduleData[dateStr] || { employees: [], works: [] };
                     // Get the day number (1-31)
                     const dayNum = arg.date.getDate();
