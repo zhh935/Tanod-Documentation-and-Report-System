@@ -51,11 +51,17 @@
         AND REPORTING SYSTEM
     </span>
   </div>
-  <nav id="header-nav-text"class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full">
-    <a href="dashboard.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Dashboard</a>
-    <a href="incident-report.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Incident Report</a>
-    <a href="leave-application.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Leave Application</a>
-  </nav>
+<nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+  <div class="flex-1 flex items-center justify-center px-4 py-3 bg-[#6F7F48] text-[#C8D75A] border-b-[5px] border-b-[#C8D75A] text-center">
+    Dashboard
+  </div>
+  <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Incident Report
+  </a>
+  <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Leave Application
+  </a>
+</nav>
   <div class="flex items-center gap-6">
   <!-- Notification Icon -->
   <a href="notifications.html"
@@ -116,7 +122,7 @@
         <li class="mb-1">
           <a href="incident-report.html"
             class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-            <i class="fas fa-users mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
           </a>
         </li>
         <li class="mb-1">
@@ -152,27 +158,24 @@
   <!-- Left Section -->
   <div class="flex flex-col gap-4 w-full lg:w-[30vw]">
     <!-- Profile -->
-    <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center lg:h-[50%]">
+    <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center justify-center lg:h-[50%]">
       <img src="../images/maloi.jpg" class="w-24 h-24 object-cover rounded-full border-2 border-gray-300 mb-4" />
-      <p class="text-lg font-bold text-gray-800">Name</p>
+      <p class="text-lg font-bold text-gray-800">Maloi Ricalde</p>
       <p class="text-sm text-gray-500">Barangay Tanod</p>
     </div>
 
     <!-- Announcements -->
     <div class="bg-white rounded-xl shadow p-4 lg:h-[50%]">
-      <h3 class="text-olive-800 font-bold mb-2">Announcement</h3>
-      <div class="space-y-3">
+      <h3 class="text-[#556B2F] font-semibold mb-2 text-2xl">Announcement</h3>
+      <div class="space-y-3 mt-4">
         <div class="bg-gray-100 rounded-lg p-3">
-          <div class="truncate text-sm text-gray-800">New ID distribution: June 15</div>
-          <button class="text-xs font-semibold text-gray-500 hover:text-gray-700 see-more">See More</button>
+          <div class="truncate text-m text-gray-800 font-semibold">New ID distribution: June 15</div>
         </div>
         <div class="bg-gray-100 rounded-lg p-3">
-          <div class="truncate text-sm text-gray-800">Barangay Hall Maintenance: June 16 with additional notes longer than one line</div>
-          <button class="text-xs font-semibold text-gray-500 hover:text-gray-700 see-more">See More</button>
+          <div class="truncate text-m text-gray-800 font-semibold">Barangay Hall Maintenance: June 16 with additional notes longer than one line</div>
         </div>
         <div class="bg-gray-100 rounded-lg p-3">
-          <div class="truncate text-sm text-gray-800">Tanod Meeting: June 18</div>
-          <button class="text-xs font-semibold text-gray-500 hover:text-gray-700 see-more">See More</button>
+          <div class="truncate text-m text-gray-800 font-semibold">Tanod Meeting: June 18</div>
         </div>
       </div>
     </div>
@@ -189,7 +192,7 @@
 
     <!-- Calendar Table Container -->
     <div class="flex-1">
-      <div class="h-[80%] w-full">
+      <div class="h-[90%] w-full">
         <table class="w-full h-full table-fixed border-collapse text-center text-sm">
           <thead>
             <tr class="bg-[#ebf0e6] text-gray-600 uppercase">
