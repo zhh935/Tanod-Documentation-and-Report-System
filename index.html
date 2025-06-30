@@ -341,7 +341,8 @@ h1{
   <div class="container">
     <img src="images/BarangaySealIndex.png" alt="Barangay Logo" class="logo" />
     <h1 class="title">MARKET AREA: TANOD DOCUMENTATION<br>AND REPORTING SYSTEM</h1>
-    <p class="subtitle">Hi! Select your destination</p>
+    <p class="subtitle"><u>Notice:</u> This is not part of the final product.</p><br>
+    <p class="subtitle">This index merely exists to allow sample selection between Employee and Admin html access.</p>
 
     <!-- Corrected selection buttons with ID -->
     <div class="buttons" id="selection-buttons">
@@ -384,10 +385,6 @@ h1{
         </form>
       </div>
     </div>
-
-  <p class="terms">
-    By using this service, you understood and agree to the <a href="#">Terms and Conditions</a>
-  </p>
 </body>
 
 
@@ -400,11 +397,9 @@ h1{
         document.querySelector('.logo').classList.add('shrinked'); // <--- ADD THIS
 
         if (type === 'employee') {
-          document.getElementById('employee-login').style.display = 'block';
-          document.getElementById('admin-login').style.display = 'none';
+          window.location.href = 'login-employee-tanod.html';
         } else {
-          document.getElementById('admin-login').style.display = 'block';
-          document.getElementById('employee-login').style.display = 'none';
+          window.location.href = 'login-admin.html';
         }
       }
 
