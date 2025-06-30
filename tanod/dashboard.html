@@ -234,6 +234,12 @@
     menuToggle?.addEventListener("click", openSidebar);
     overlay?.addEventListener("click", closeSidebar);
     closeBtn?.addEventListener("click", closeSidebar);
+    
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
 
     // Main Container
 

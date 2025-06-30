@@ -151,60 +151,44 @@
     
   <!--Main Container-->
   <div>
- <!-- Title -->
-  <h1 class="text-2xl font-bold mb-6">Notifications</h1>
+    <!-- Title -->
+    <h1 class="text-2xl font-bold mb-6">Notifications</h1>
 
-  <!-- Outer White Container -->
-  <div class="w-[90%] max-w-3xl bg-white rounded-2xl shadow p-4 space-y-4">
+    <!-- Outer White Container -->
+    <div class="w-[90%] max-w-3xl bg-white rounded-2xl shadow p-4 space-y-4">
 
-    <!-- Notification 1 -->
-    <div onclick="openModal('modal1', this)" class="bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
-      <h2 class="text-lg font-bold unread">Title of Notification 1</h2>
+      <!-- Notification 1 -->
+      <div onclick="openModal('modal1', this)" class="bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
+        <h2 class="text-lg font-bold unread">Title of Notification 1</h2>
+      </div>
+
+      <!-- Notification 2 -->
+      <div onclick="openModal('modal2', this)" class="bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
+        <h2 class="text-lg font-bold unread">Title of Notification 2</h2>
+      </div>
     </div>
 
-    <!-- Notification 2 -->
-    <div onclick="openModal('modal2', this)" class="bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
-      <h2 class="text-lg font-bold unread">Title of Notification 2</h2>
+    <!-- Modal 1 -->
+    <div id="modal1" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-[90vw] max-w-lg relative">
+        <button onclick="closeModal('modal1')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl">&times;</button>
+        <h2 class="text-xl font-bold mb-2">Title of Notification 1</h2>
+        <p>This is a text message notifying you of something important. It’s displayed in a modal and marks the notification as read when opened. You can customize this content further. Stay alert and updated for more changes. Thanks for checking!</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Modal 1 -->
-  <div id="modal1" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-xl p-6 w-[90vw] max-w-lg relative">
-      <button onclick="closeModal('modal1')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl">&times;</button>
-      <h2 class="text-xl font-bold mb-2">Title of Notification 1</h2>
-      <p>This is a text message notifying you of something important. It’s displayed in a modal and marks the notification as read when opened. You can customize this content further. Stay alert and updated for more changes. Thanks for checking!</p>
+    <!-- Modal 2 -->
+    <div id="modal2" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-[90vw] max-w-lg relative">
+        <button onclick="closeModal('modal2')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl">&times;</button>
+        <h2 class="text-xl font-bold mb-2">Title of Notification 2</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus gravida neque, a dictum justo congue ut. 
+          Curabitur vehicula, lorem sed finibus porttitor, nulla purus suscipit est, nec sodales purus nunc non erat. 
+          Integer nec lorem nec libero placerat aliquam vel vel libero. Fusce porttitor.
+        </p>
+      </div>
     </div>
-  </div>
-
-  <!-- Modal 2 -->
-  <div id="modal2" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-xl p-6 w-[90vw] max-w-lg relative">
-      <button onclick="closeModal('modal2')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl">&times;</button>
-      <h2 class="text-xl font-bold mb-2">Title of Notification 2</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus gravida neque, a dictum justo congue ut. 
-        Curabitur vehicula, lorem sed finibus porttitor, nulla purus suscipit est, nec sodales purus nunc non erat. 
-        Integer nec lorem nec libero placerat aliquam vel vel libero. Fusce porttitor.
-      </p>
-    </div>
-  </div>
-
-  <script>
-    function openModal(id, elem) {
-      document.getElementById(id).classList.remove('hidden');
-      // Remove bold if unread
-      const title = elem.querySelector('.unread');
-      if (title) {
-        title.classList.remove('font-bold');
-        title.classList.remove('unread');
-      }
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-    }
-  </script>
   </div>
 
 
@@ -227,6 +211,28 @@
     menuToggle?.addEventListener("click", openSidebar);
     overlay?.addEventListener("click", closeSidebar);
     closeBtn?.addEventListener("click", closeSidebar);
+      
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
+
+    // Main Container
+
+        function openModal(id, elem) {
+      document.getElementById(id).classList.remove('hidden');
+      // Remove bold if unread
+      const title = elem.querySelector('.unread');
+      if (title) {
+        title.classList.remove('font-bold');
+        title.classList.remove('unread');
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
   </script>
 
 
