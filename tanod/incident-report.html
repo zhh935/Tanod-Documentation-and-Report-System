@@ -11,6 +11,8 @@
     <title>Tanod Dashboard</title>
 </head>
 <body class="bg-[#E1EACD] overflow-x-hidden">
+   <body class="bg-[#E1EACD] overflow-x-hidden">
+    <div class="relative dashboard-bg-blur min-h-screen">
   <!--Header-->
 <!-- MOBILE HEADER from template_v1 (visible on small screens) -->
 <header id="topHeaderMobile"
@@ -159,7 +161,7 @@
 
     
 <!--Main Container-->
-<div class="w-[90%] mx-auto my-5 mb-12 bg-white shadow-lg rounded-[30px] flex flex-col pt-8 font-sans">
+<div class="w-[90%] mx-auto my-5 mb-12 bg-white shadow-lg rounded-[30px] flex flex-col pt-8 font-sans relative z-10">
     <div class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
       <div class="flex justify-center items-center gap-2 mt-[30px]">
         <div class="w-auto align-middle">
@@ -176,6 +178,7 @@
     Incident Details
   </div>
 
+  <form id="incidentForm">
   <!-- FORM CONTENT -->
   <div class="w-full px-4 sm:px-6 md:px-[50px] box-border mb-10 space-y-6 text-[14px]">
     <!-- Date & Time Row -->
@@ -316,6 +319,30 @@
   </div>
 </div>
 
+  <!-- Clear Confirmation Modal -->
+  <div id="clearConfirmModal" class="fixed inset-0 z-[1000] bg-black/40 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-[#fefefe] p-6 sm:p-8 rounded-[15px] shadow-xl w-[90%] max-w-[400px] text-center relative">
+      <span id="closeClearModal" class="absolute top-2 right-4 text-[28px] font-bold text-[#aaa] cursor-pointer">&times;</span>
+      <div class="modal-body">
+        <div class="text-[40px] text-[#D62A29] mb-2">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 class="text-[1.2em] text-[#333] mt-0 font-semibold mb-2">Clear Report?</h3>
+        <p class="text-[1em] text-[#555] mb-5">
+          You are about to clear all details that you've written thus far in this report. Do you wish to start this report over again?
+        </p>
+        <div class="flex justify-center gap-4">
+          <button id="confirmClearBtn" class="bg-[#D62A29] text-white px-6 py-2 rounded-full text-base font-bold transition duration-300 hover:bg-[#c02221]">
+            Yes, Clear
+          </button>
+          <button id="cancelClearBtn" class="bg-[#f0f0f0] text-[#555] px-6 py-2 rounded-full text-base font-bold border transition duration-300 hover:bg-[#e0e0e0]">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 
 
@@ -477,6 +504,41 @@ document.addEventListener("DOMContentLoaded", updateRemoveButtons);
       }, 0);
     });
   }
+    // Get elements
+const clearBtn = document.querySelector(".reset-button");
+const clearModal = document.getElementById("clearConfirmModal");
+const closeClearModal = document.getElementById("closeClearModal");
+const cancelClearBtn = document.getElementById("cancelClearBtn");
+const confirmClearBtn = document.getElementById("confirmClearBtn");
+const formEl = document.querySelector("incidentForm");
+
+// Show modal on clear button click
+clearBtn.addEventListener("click", function(e) {
+  e.preventDefault();
+  clearModal.classList.add("opacity-100", "pointer-events-auto");
+  clearModal.classList.remove("opacity-0", "pointer-events-none");
+});
+
+// Hide modal function
+function hideClearModal() {
+  clearModal.classList.remove("opacity-100", "pointer-events-auto");
+  clearModal.classList.add("opacity-0", "pointer-events-none");
+}
+
+// Cancel/close modal
+closeClearModal.addEventListener("click", hideClearModal);
+cancelClearBtn.addEventListener("click", hideClearModal);
+
+// Confirm clear
+confirmClearBtn.addEventListener("click", function() {
+  if (formEl) {
+    formEl.reset();
+    // Also clear dynamic fields if needed
+    document.getElementById("otherPersonsContainer").innerHTML = "";
+    // Optionally, reset other custom UI here
+  }
+  hideClearModal();
+});
 </script>
 
 
