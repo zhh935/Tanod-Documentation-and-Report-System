@@ -248,12 +248,12 @@
             text-overflow: ellipsis; /* Add ellipsis */
         }
 
-        /* Column Widths for Incident Table - Adjusted for 5 columns */
-        .incident-table th:nth-child(1), .incident-table td:nth-child(1) { width: 150px; } /* Employee */
-        .incident-table th:nth-child(2), .incident-table td:nth-child(2) { width: 130px; } /* Date */
-        .incident-table th:nth-child(3), .incident-table td:nth-child(3) { width: 80px; } /* Time */
-        .incident-table th:nth-child(4), .incident-table td:nth-child(4) { width: 80px; } /* Type */
-        .incident-table th:nth-child(5), .incident-table td:nth-child(5) { width: 250px; } /* Actions */
+/* Column Widths for Incident Table - Adjusted for 5 columns */
+    .incident-table th:nth-child(1), .incident-table td:nth-child(1) { width: 180px; } /* Employee - Increased from 150px */
+    .incident-table th:nth-child(2), .incident-table td:nth-child(2) { width: 140px; } /* Date - Increased from 130px */
+    .incident-table th:nth-child(3), .incident-table td:nth-child(3) { width: 80px; } /* Time - Keep as is */
+    .incident-table th:nth-child(4), .incident-table td:nth-child(4) { width: 90px; } /* Type - Increased slightly if needed, or keep 80px */
+    .incident-table th:nth-child(5), .incident-table td:nth-child(5) { width: 150px; } /* Actions - Reduced from 250px to fit 2 buttons comfortably */
 
 
         .incident-table th {
@@ -328,7 +328,7 @@
             transition: background-color 0.2s ease, color 0.2s ease;
         }
         .incident-table .delete-perm-btn i {
-            font-size: 1.2em; /* Slightly larger icon size for better visibility */
+            font-size: 1.4em; /* Slightly larger icon size for better visibility */
             /* The 'fa-trash' icon is visually similar to 'fa-trash-alt' but often has a slightly more filled look which might match the main page better. */
             /* If you specifically want 'fa-trash-alt' for consistency, change this to 'font-size: 1.5em;' and keep the HTML 'fa-trash-alt' */
         }
@@ -851,7 +851,7 @@
                     viewDetailsButton.addEventListener('click', () => viewIncidentDetails(report.id));
                     actionsCell.appendChild(viewDetailsButton);
 
-                    // "Restore" button
+                  /*// "Restore" button
                     const restoreButton = document.createElement('button');
                     restoreButton.classList.add('action-btn', 'restore-btn'); 
                     restoreButton.innerHTML = '<i class="fas fa-undo"></i> Restore';
@@ -870,9 +870,9 @@
                                 updateArchivedReportCount();
                                 displayCustomAlert('Incident report restored successfully!');
                             }
-                        });
+                        }); 
                     });
-                    actionsCell.appendChild(restoreButton);
+                    actionsCell.appendChild(restoreButton); */
 
                     // "Delete Permanently" button (icon only)
                     const deletePermButton = document.createElement('button');
