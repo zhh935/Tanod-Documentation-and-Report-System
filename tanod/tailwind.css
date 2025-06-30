@@ -802,7 +802,7 @@
     background-color: #ddd;
   }
   .bg-\[\#e2dfdf\] {
-    background-color: #e2dfdf;
+    background-color: #4B5320;
   }
   .bg-\[\#e57373\] {
     background-color: #e57373;
@@ -1055,7 +1055,7 @@
     white-space: nowrap;
   }
   .text-\[\#1a1a1a\] {
-    color: #1a1a1a;
+    color: #ffffff;
   }
   .text-\[\#4B5320\] {
     color: #4B5320;
@@ -1689,9 +1689,13 @@
   }
   #topHeaderMobile {
     display: flex !important;
+    background-color: rgba(75, 83, 32, 1) !important; /* Olive, 92% opacity */
+    backdrop-filter: blur(2px); /* Optional: subtle blur for glass effect */
   }
   #topHeaderDesktop {
     display: none !important;
+    background-color: rgba(75, 83, 32, 1) !important; /* Olive, 92% opacity */
+    backdrop-filter: blur(2px); /* Optional: subtle blur for glass effect */
   }
   #closeSidebar {
     display: block !important;
