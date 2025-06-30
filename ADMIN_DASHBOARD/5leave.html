@@ -767,317 +767,321 @@
         </div>
     </div>
 
-    <script>
-        // --- Sidebar Active Link Script ---
-        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
-        const currentPage = window.location.pathname.split('/').pop();
+   <script>
+    // --- Sidebar Active Link Script ---
+    const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+    const currentPage = window.location.pathname.split('/').pop();
 
-        sidebarLinks.forEach(link => {
-            const linkPage = link.getAttribute('href').split('/').pop();
-            if (linkPage === currentPage) {
-                link.closest('li').classList.add('active');
-            } else {
-                link.closest('li').classList.remove('active');
+    sidebarLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage) {
+            link.closest('li').classList.add('active');
+        } else {
+            link.closest('li').classList.remove('active');
+        }
+    });
+    // --- END Sidebar Active Link Script ---
+
+    // --- Leave Management Specific JavaScript ---
+
+    const leaveModal = document.getElementById('leaveModal');
+    const closeLeaveModalBtn = document.getElementById('closeLeaveModalBtn');
+    const leaveModalTitle = document.getElementById('leaveModalTitle');
+    const leaveForm = document.getElementById('leaveForm');
+    const leaveIdInput = document.getElementById('leaveId');
+    const leaveEmployeeInput = document.getElementById('leaveEmployee');
+    const leaveTypeInput = document.getElementById('leaveType');
+    const leaveStartDateInput = document.getElementById('leaveStartDate');
+    const leaveEndDateInput = document.getElementById('leaveEndDate');
+    const leaveReasonInput = document.getElementById('leaveReason');
+    const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
+    const btnApproveLeave = document.getElementById('btnApproveLeave');
+    const btnDeclineLeave = document.getElementById('btnDeclineLeave');
+
+    const leaveTableBody = document.getElementById('leaveTableBody');
+    const leaveSearchInput = document.getElementById('leaveSearchInput');
+    const totalLeaveCountSpan = document.getElementById('totalLeaveCount');
+
+    // Custom Alert/Confirm Modal elements
+    const customAlertConfirmModal = document.getElementById('customAlertConfirmModal');
+    const closeCustomAlertConfirmBtn = document.getElementById('closeCustomAlertConfirmBtn');
+    const customAlertConfirmTitle = document.getElementById('customAlertConfirmTitle');
+    const customAlertConfirmMessage = document.getElementById('customAlertConfirmMessage');
+    const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+    const confirmProceedBtn = document.getElementById('confirmProceedBtn');
+
+    let confirmCallback = null; // To store the callback for the confirm action
+
+    // Helper function to format date to Month Day, Year
+    function formatDateToMonthDayYear(dateString) {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) { // Check for invalid date
+            return dateString;
+        }
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    // Helper function to calculate duration in days
+    function calculateDuration(startDate, endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+            return 'N/A';
+        }
+        const diffTime = Math.abs(end - start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return `${diffDays + 1} day(s)`; // +1 to include start day
+    }
+
+    // --- Local Storage Functions ---
+    function getLeavesFromLocalStorage() {
+        const leaves = localStorage.getItem('leaveApplications');
+        return leaves ? JSON.parse(leaves) : [
+            // Sample Data - Only populate if localStorage is empty
+            {
+                id: 1, employee: 'Gwen Apuli', duration: '2 day(s)', startDate: '2025-06-15', endDate: '2025-06-16',
+                type: 'Sick Leave', reason: 'Fever and body aches.', document: 'Medical_Cert.pdf', status: 'New'
+            },
+            {
+                id: 2, employee: 'Mikha Lim', duration: '5 day(s)', startDate: '2025-07-01', endDate: '2025-07-05',
+                type: 'Vacation Leave', reason: 'Family trip to Palawan.', document: 'Flight_Details.jpg', status: 'Declined'
+            },
+            {
+                id: 3, employee: 'Sheena Catacutan', duration: '3 day(s)', startDate: '2025-06-10', endDate: '2025-06-12',
+                type: 'Emergency Leave', reason: 'Urgent family matter.', document: 'Police_Report.docx', status: 'New'
+            },
+            {
+                id: 4, employee: 'Jhoanna Robles', duration: '7 day(s)', startDate: '2025-05-20', endDate: '2025-05-26',
+                type: 'Maternity Leave', reason: 'Childbirth.', document: 'Birth_Cert.pdf', status: 'Approved'
             }
+        ];
+    }
+
+    function saveLeavesToLocalStorage(leaves) {
+        localStorage.setItem('leaveApplications', JSON.stringify(leaves));
+    }
+
+    function getArchivedLeavesFromLocalStorage() {
+        const archivedLeaves = localStorage.getItem('archivedLeaveApplications');
+        return archivedLeaves ? JSON.parse(archivedLeaves) : [];
+    }
+
+    function saveArchivedLeavesToLocalStorage(archivedLeaves) {
+        localStorage.setItem('archivedLeaveApplications', JSON.stringify(archivedLeaves));
+    }
+    // --- END Local Storage Functions ---
+
+    // Client-side storage for leave applications
+    let leaveApplications = getLeavesFromLocalStorage();
+    let archivedLeaveApplications = getArchivedLeavesFromLocalStorage();
+
+    // Function to define custom sorting order for leave applications
+    function sortLeaveApplications(a, b) {
+        const statusOrder = { 'New': 1, 'Declined': 2, 'Approved': 3 }; // New order for sorting
+        const orderA = statusOrder[a.status];
+        const orderB = statusOrder[b.status];
+
+        if (orderA !== orderB) {
+            return orderA - orderB; // Sort by status
+        }
+
+        // If statuses are the same, sort by start date (earliest first)
+        const dateA = new Date(a.startDate);
+        const dateB = new Date(b.endDate); // Sort by end date for consistent grouping with duration
+        return dateA.getTime() - dateB.getTime(); // Ascending (earliest first)
+    }
+
+    // Function to render leave applications in the table
+    function renderLeaveApplications() {
+        leaveTableBody.innerHTML = ''; // Clear existing rows
+
+        const searchTerm = leaveSearchInput.value.toLowerCase();
+
+        const filteredApplications = leaveApplications.filter(app => {
+            return app.employee.toLowerCase().includes(searchTerm) ||
+                app.type.toLowerCase().includes(searchTerm) ||
+                app.status.toLowerCase().includes(searchTerm);
         });
-        // --- END Sidebar Active Link Script ---
 
-        // --- Leave Management Specific JavaScript ---
+        // Sort the filtered applications
+        filteredApplications.sort(sortLeaveApplications);
 
-        const leaveModal = document.getElementById('leaveModal');
-        const closeLeaveModalBtn = document.getElementById('closeLeaveModalBtn');
-        const leaveModalTitle = document.getElementById('leaveModalTitle');
-        const leaveForm = document.getElementById('leaveForm');
-        const leaveIdInput = document.getElementById('leaveId');
-        const leaveEmployeeInput = document.getElementById('leaveEmployee');
-        const leaveTypeInput = document.getElementById('leaveType');
-        const leaveStartDateInput = document.getElementById('leaveStartDate');
-        const leaveEndDateInput = document.getElementById('leaveEndDate');
-        const leaveReasonInput = document.getElementById('leaveReason');
-        const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
-        const btnApproveLeave = document.getElementById('btnApproveLeave');
-        const btnDeclineLeave = document.getElementById('btnDeclineLeave');
+        if (filteredApplications.length === 0) {
+            leaveTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #777;">No matching leave applications found.</td></tr>';
+        } else {
+            filteredApplications.forEach((app) => {
+                const row = leaveTableBody.insertRow();
+                row.setAttribute('data-id', app.id);
 
-        const leaveTableBody = document.getElementById('leaveTableBody');
-        const leaveSearchInput = document.getElementById('leaveSearchInput');
-        const totalLeaveCountSpan = document.getElementById('totalLeaveCount');
+                row.insertCell().textContent = app.employee;
+                row.insertCell().textContent = app.duration;
+                row.insertCell().textContent = formatDateToMonthDayYear(app.startDate);
+                row.insertCell().textContent = formatDateToMonthDayYear(app.endDate);
+                row.insertCell().textContent = app.type;
 
-        // Custom Alert/Confirm Modal elements
-        const customAlertConfirmModal = document.getElementById('customAlertConfirmModal');
-        const closeCustomAlertConfirmBtn = document.getElementById('closeCustomAlertConfirmBtn');
-        const customAlertConfirmTitle = document.getElementById('customAlertConfirmTitle');
-        const customAlertConfirmMessage = document.getElementById('customAlertConfirmMessage');
-        const confirmCancelBtn = document.getElementById('confirmCancelBtn');
-        const confirmProceedBtn = document.getElementById('confirmProceedBtn');
+                const actionsCell = row.insertCell();
+                actionsCell.classList.add('actions');
 
-        let confirmCallback = null; // To store the callback for the confirm action
+                // Status-specific action button
+                const actionButton = document.createElement('button');
+                actionButton.classList.add('action-btn');
 
-        // Helper function to format date to Month Day, Year
-        function formatDateToMonthDayYear(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) { // Check for invalid date
-                return dateString;
-            }
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options);
-        }
-
-        // Helper function to calculate duration in days
-        function calculateDuration(startDate, endDate) {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-                return 'N/A';
-            }
-            const diffTime = Math.abs(end - start);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return `${diffDays + 1} day(s)`; // +1 to include start day
-        }
-
-        // --- Local Storage Functions ---
-        function getLeavesFromLocalStorage() {
-            const leaves = localStorage.getItem('leaveApplications');
-            return leaves ? JSON.parse(leaves) : [
-                // Sample Data - Only populate if localStorage is empty
-                { 
-                    id: 1, employee: 'Gwen Apuli', duration: '2 day(s)', startDate: '2025-06-15', endDate: '2025-06-16', 
-                    type: 'Sick Leave', reason: 'Fever and body aches.', document: 'Medical_Cert.pdf', status: 'New' 
-                },
-                { 
-                    id: 2, employee: 'Mikha Lim', duration: '5 day(s)', startDate: '2025-07-01', endDate: '2025-07-05', 
-                    type: 'Vacation Leave', reason: 'Family trip to Palawan.', document: 'Flight_Details.jpg', status: 'Declined' 
-                },
-                { 
-                    id: 3, employee: 'Sheena Catacutan', duration: '3 day(s)', startDate: '2025-06-10', endDate: '2025-06-12', 
-                    type: 'Emergency Leave', reason: 'Urgent family matter.', document: 'Police_Report.docx', status: 'New' 
-                },
-                { 
-                    id: 4, employee: 'Jhoanna Robles', duration: '7 day(s)', startDate: '2025-05-20', endDate: '2025-05-26', 
-                    type: 'Maternity Leave', reason: 'Childbirth.', document: 'Birth_Cert.pdf', status: 'Approved' 
+                if (app.status === 'New') {
+                    actionButton.classList.add('status-new');
+                    actionButton.textContent = 'View Details';
+                    actionButton.onclick = () => viewLeaveDetails(app.id);
+                    actionsCell.appendChild(actionButton); // Add View Details button
+                } else if (app.status === 'Approved') {
+                    actionButton.classList.add('status-approved');
+                    actionButton.textContent = 'Approved';
+                    actionButton.disabled = true; // Disable if already approved
+                    actionsCell.appendChild(actionButton); // Add Approved button
+                } else if (app.status === 'Declined') {
+                    actionButton.classList.add('status-declined');
+                    actionButton.textContent = 'Declined';
+                    actionButton.disabled = true; // Disable if already declined
+                    actionsCell.appendChild(actionButton); // Add Declined button
                 }
-            ];
-        }
 
-        function saveLeavesToLocalStorage(leaves) {
-            localStorage.setItem('leaveApplications', JSON.stringify(leaves));
-        }
-
-        function getArchivedLeavesFromLocalStorage() {
-            const archivedLeaves = localStorage.getItem('archivedLeaveApplications');
-            return archivedLeaves ? JSON.parse(archivedLeaves) : [];
-        }
-
-        function saveArchivedLeavesToLocalStorage(archivedLeaves) {
-            localStorage.setItem('archivedLeaveApplications', JSON.stringify(archivedLeaves));
-        }
-        // --- END Local Storage Functions ---
-
-        // Client-side storage for leave applications
-        let leaveApplications = getLeavesFromLocalStorage();
-        let archivedLeaveApplications = getArchivedLeavesFromLocalStorage();
-
-        // Function to define custom sorting order for leave applications
-        function sortLeaveApplications(a, b) {
-            const statusOrder = { 'New': 1, 'Declined': 2, 'Approved': 3 }; // New order for sorting
-            const orderA = statusOrder[a.status];
-            const orderB = statusOrder[b.status];
-
-            if (orderA !== orderB) {
-                return orderA - orderB; // Sort by status
-            }
-
-            // If statuses are the same, sort by start date (earliest first)
-            const dateA = new Date(a.startDate);
-            const dateB = new Date(b.endDate); // Sort by end date for consistent grouping with duration
-            return dateA.getTime() - dateB.getTime(); // Ascending (earliest first)
-        }
-
-        // Function to render leave applications in the table
-        function renderLeaveApplications() {
-            leaveTableBody.innerHTML = ''; // Clear existing rows
-
-            const searchTerm = leaveSearchInput.value.toLowerCase();
-
-            const filteredApplications = leaveApplications.filter(app => {
-                return app.employee.toLowerCase().includes(searchTerm) ||
-                       app.type.toLowerCase().includes(searchTerm) ||
-                       app.status.toLowerCase().includes(searchTerm);
-            });
-
-            // Sort the filtered applications
-            filteredApplications.sort(sortLeaveApplications);
-
-            if (filteredApplications.length === 0) {
-                leaveTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #777;">No matching leave applications found.</td></tr>';
-            } else {
-                filteredApplications.forEach((app) => {
-                    const row = leaveTableBody.insertRow();
-                    row.setAttribute('data-id', app.id);
-
-                    row.insertCell().textContent = app.employee;
-                    row.insertCell().textContent = app.duration;
-                    row.insertCell().textContent = formatDateToMonthDayYear(app.startDate);
-                    row.insertCell().textContent = formatDateToMonthDayYear(app.endDate);
-                    row.insertCell().textContent = app.type;
-
-                    const actionsCell = row.insertCell();
-                    actionsCell.classList.add('actions');
-
-                    // Status-specific action button
-                    const actionButton = document.createElement('button');
-                    actionButton.classList.add('action-btn');
-
-                    if (app.status === 'New') {
-                        actionButton.classList.add('status-new');
-                        actionButton.textContent = 'View Details';
-                        actionButton.onclick = () => viewLeaveDetails(app.id);
-                    } else if (app.status === 'Approved') {
-                        actionButton.classList.add('status-approved');
-                        actionButton.textContent = 'Approved';
-                        actionButton.disabled = true; // Disable if already approved
-                    } else if (app.status === 'Declined') {
-                        actionButton.classList.add('status-declined');
-                        actionButton.textContent = 'Declined';
-                        actionButton.disabled = true; // Disable if already declined
-                    }
-                    actionsCell.appendChild(actionButton);
-
-                    // Delete button (always available)
+                // Delete button - only visible for 'Approved' and 'Declined' statuses
+                if (app.status === 'Approved' || app.status === 'Declined') {
                     const deleteButton = document.createElement('button');
                     deleteButton.classList.add('delete-btn');
-                    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+                    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Changed to fas fa-trash
                     deleteButton.title = 'Delete Leave Application';
                     deleteButton.onclick = () => showConfirm('Delete Leave', 'Are you sure you want to delete this leave application? It will be moved to the archive.', () => deleteLeaveApplication(app.id));
                     actionsCell.appendChild(deleteButton);
-                });
-            }
-            totalLeaveCountSpan.textContent = filteredApplications.length;
-            saveLeavesToLocalStorage(leaveApplications); // Save current state to local storage
-        }
-
-        // Function to show leave details in modal
-        function viewLeaveDetails(id) {
-            const leave = leaveApplications.find(app => app.id === id);
-            if (leave) {
-                leaveIdInput.value = leave.id;
-                leaveEmployeeInput.value = leave.employee;
-                leaveTypeInput.value = leave.type;
-                leaveStartDateInput.value = leave.startDate;
-                leaveEndDateInput.value = leave.endDate;
-                leaveReasonInput.value = leave.reason;
-                attachedDocumentDisplay.textContent = leave.document || 'No document attached.';
-
-                // Enable/disable action buttons based on status
-                if (leave.status === 'New') {
-                    btnApproveLeave.style.display = 'inline-block';
-                    btnDeclineLeave.style.display = 'inline-block';
-                    btnApproveLeave.disabled = false;
-                    btnDeclineLeave.disabled = false;
-                } else {
-                    btnApproveLeave.style.display = 'none';
-                    btnDeclineLeave.style.display = 'none';
                 }
-
-                leaveModalTitle.textContent = `Leave Application - ${leave.employee}`;
-                leaveModal.style.display = 'flex';
-            }
-        }
-
-        // Function to update leave status
-        function updateLeaveStatus(id, status) {
-            const leaveIndex = leaveApplications.findIndex(app => app.id === id);
-            if (leaveIndex > -1) {
-                leaveApplications[leaveIndex].status = status;
-                saveLeavesToLocalStorage(leaveApplications);
-                renderLeaveApplications();
-                hideModal(leaveModal);
-                showAlert('Success', `Leave application for ${leaveApplications[leaveIndex].employee} has been ${status.toLowerCase()}.`);
-            }
-        }
-
-        // Function to delete a leave application (moves to archive)
-        function deleteLeaveApplication(id) {
-            const leaveIndex = leaveApplications.findIndex(app => app.id === id);
-            if (leaveIndex > -1) {
-                const [deletedLeave] = leaveApplications.splice(leaveIndex, 1); // Remove from current list
-                archivedLeaveApplications.push(deletedLeave); // Add to archived list
-
-                saveLeavesToLocalStorage(leaveApplications); // Save updated current list
-                saveArchivedLeavesToLocalStorage(archivedLeaveApplications); // Save updated archived list
-
-                renderLeaveApplications(); // Re-render the table
-                showAlert('Deleted', 'Leave application has been moved to the archive.');
-            }
-        }
-
-        // --- Custom Alert/Confirm Functions ---
-        function showAlert(title, message) {
-            customAlertConfirmTitle.textContent = title;
-            customAlertConfirmMessage.textContent = message;
-            confirmCancelBtn.style.display = 'none'; // Hide cancel button for alerts
-            confirmProceedBtn.textContent = 'OK';
-            confirmProceedBtn.onclick = () => hideModal(customAlertConfirmModal);
-            customAlertConfirmModal.style.display = 'flex';
-        }
-
-        function showConfirm(title, message, onConfirm) {
-            customAlertConfirmTitle.textContent = title;
-            customAlertConfirmMessage.textContent = message;
-            confirmCancelBtn.style.display = 'inline-block'; // Show cancel button for confirms
-            confirmProceedBtn.textContent = 'Proceed';
-            
-            confirmCallback = onConfirm; // Store the function to call on confirm
-
-            confirmProceedBtn.onclick = () => {
-                hideModal(customAlertConfirmModal);
-                if (confirmCallback) {
-                    confirmCallback();
-                    confirmCallback = null; // Clear callback after execution
-                }
-            };
-            confirmCancelBtn.onclick = () => {
-                hideModal(customAlertConfirmModal);
-                confirmCallback = null; // Clear callback
-            };
-            customAlertConfirmModal.style.display = 'flex';
-        }
-
-        function hideModal(modalElement) {
-            modalElement.style.display = 'none';
-        }
-
-        // --- Event Listeners ---
-        closeLeaveModalBtn.onclick = () => hideModal(leaveModal);
-        closeCustomAlertConfirmBtn.onclick = () => hideModal(customAlertConfirmModal);
-
-        window.onclick = (event) => {
-            if (event.target == leaveModal) {
-                hideModal(leaveModal);
-            }
-            if (event.target == customAlertConfirmModal) {
-                hideModal(customAlertConfirmModal);
-            }
-        };
-
-        btnApproveLeave.onclick = () => {
-            const leaveId = parseInt(leaveIdInput.value);
-            showConfirm('Approve Leave', 'Are you sure you want to approve this leave application?', () => {
-                updateLeaveStatus(leaveId, 'Approved');
             });
+        }
+        totalLeaveCountSpan.textContent = filteredApplications.length;
+        saveLeavesToLocalStorage(leaveApplications); // Save current state to local storage
+    }
+
+    // Function to show leave details in modal
+    function viewLeaveDetails(id) {
+        const leave = leaveApplications.find(app => app.id === id);
+        if (leave) {
+            leaveIdInput.value = leave.id;
+            leaveEmployeeInput.value = leave.employee;
+            leaveTypeInput.value = leave.type;
+            leaveStartDateInput.value = leave.startDate;
+            leaveEndDateInput.value = leave.endDate;
+            leaveReasonInput.value = leave.reason;
+            attachedDocumentDisplay.textContent = leave.document || 'No document attached.';
+
+            // Enable/disable action buttons based on status
+            if (leave.status === 'New') {
+                btnApproveLeave.style.display = 'inline-block';
+                btnDeclineLeave.style.display = 'inline-block';
+                btnApproveLeave.disabled = false;
+                btnDeclineLeave.disabled = false;
+            } else {
+                btnApproveLeave.style.display = 'none';
+                btnDeclineLeave.style.display = 'none';
+            }
+
+            leaveModalTitle.textContent = `Leave Application - ${leave.employee}`;
+            leaveModal.style.display = 'flex';
+        }
+    }
+
+    // Function to update leave status
+    function updateLeaveStatus(id, status) {
+        const leaveIndex = leaveApplications.findIndex(app => app.id === id);
+        if (leaveIndex > -1) {
+            leaveApplications[leaveIndex].status = status;
+            saveLeavesToLocalStorage(leaveApplications);
+            renderLeaveApplications();
+            hideModal(leaveModal);
+            showAlert('Success', `Leave application for ${leaveApplications[leaveIndex].employee} has been ${status.toLowerCase()}.`);
+        }
+    }
+
+    // Function to delete a leave application (moves to archive)
+    function deleteLeaveApplication(id) {
+        const leaveIndex = leaveApplications.findIndex(app => app.id === id);
+        if (leaveIndex > -1) {
+            const [deletedLeave] = leaveApplications.splice(leaveIndex, 1); // Remove from current list
+            archivedLeaveApplications.push(deletedLeave); // Add to archived list
+
+            saveLeavesToLocalStorage(leaveApplications); // Save updated current list
+            saveArchivedLeavesToLocalStorage(archivedLeaveApplications); // Save updated archived list
+
+            renderLeaveApplications(); // Re-render the table
+            showAlert('Deleted', 'Leave application has been moved to the archive.');
+        }
+    }
+
+    // --- Custom Alert/Confirm Functions ---
+    function showAlert(title, message) {
+        customAlertConfirmTitle.textContent = title;
+        customAlertConfirmMessage.textContent = message;
+        confirmCancelBtn.style.display = 'none'; // Hide cancel button for alerts
+        confirmProceedBtn.textContent = 'OK';
+        confirmProceedBtn.onclick = () => hideModal(customAlertConfirmModal);
+        customAlertConfirmModal.style.display = 'flex';
+    }
+
+    function showConfirm(title, message, onConfirm) {
+        customAlertConfirmTitle.textContent = title;
+        customAlertConfirmMessage.textContent = message;
+        confirmCancelBtn.style.display = 'inline-block'; // Show cancel button for confirms
+        confirmProceedBtn.textContent = 'Proceed';
+
+        confirmCallback = onConfirm; // Store the function to call on confirm
+
+        confirmProceedBtn.onclick = () => {
+            hideModal(customAlertConfirmModal);
+            if (confirmCallback) {
+                confirmCallback();
+                confirmCallback = null; // Clear callback after execution
+            }
         };
-
-        btnDeclineLeave.onclick = () => {
-            const leaveId = parseInt(leaveIdInput.value);
-            showConfirm('Decline Leave', 'Are you sure you want to decline this leave application?', () => {
-                updateLeaveStatus(leaveId, 'Declined');
-            });
+        confirmCancelBtn.onclick = () => {
+            hideModal(customAlertConfirmModal);
+            confirmCallback = null; // Clear callback
         };
+        customAlertConfirmModal.style.display = 'flex';
+    }
 
-        leaveSearchInput.addEventListener('keyup', renderLeaveApplications);
+    function hideModal(modalElement) {
+        modalElement.style.display = 'none';
+    }
 
-        // Initial render on page load
-        document.addEventListener('DOMContentLoaded', renderLeaveApplications);
-    </script>
+    // --- Event Listeners ---
+    closeLeaveModalBtn.onclick = () => hideModal(leaveModal);
+    closeCustomAlertConfirmBtn.onclick = () => hideModal(customAlertConfirmModal);
+
+    window.onclick = (event) => {
+        if (event.target == leaveModal) {
+            hideModal(leaveModal);
+        }
+        if (event.target == customAlertConfirmModal) {
+            hideModal(customAlertConfirmModal);
+        }
+    };
+
+    btnApproveLeave.onclick = () => {
+        const leaveId = parseInt(leaveIdInput.value);
+        showConfirm('Approve Leave', 'Are you sure you want to approve this leave application?', () => {
+            updateLeaveStatus(leaveId, 'Approved');
+        });
+    };
+
+    btnDeclineLeave.onclick = () => {
+        const leaveId = parseInt(leaveIdInput.value);
+        showConfirm('Decline Leave', 'Are you sure you want to decline this leave application?', () => {
+            updateLeaveStatus(leaveId, 'Declined');
+        });
+    };
+
+    leaveSearchInput.addEventListener('keyup', renderLeaveApplications);
+
+    // Initial render on page load
+    document.addEventListener('DOMContentLoaded', renderLeaveApplications);
+</script>
 </body>
 </html>
