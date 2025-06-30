@@ -2194,4 +2194,14 @@
       --tw-ease: initial;
     }
   }
+    .dashboard-bg-blur::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('../images/barangay-hall-bg.jpg') center center / cover no-repeat;
+    opacity: 0.18;
+    filter: blur(6px);
+    z-index: 0;
+    pointer-events: none;
+  }
 }
