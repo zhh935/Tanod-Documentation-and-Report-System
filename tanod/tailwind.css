@@ -13,6 +13,10 @@
     --color-red-800: oklch(44.4% 0.177 26.899);
     --color-yellow-100: oklch(97.3% 0.071 103.193);
     --color-yellow-500: oklch(79.5% 0.184 86.047);
+    --color-lime-400: oklch(84.1% 0.238 128.85);
+    --color-lime-600: oklch(64.8% 0.2 131.684);
+    --color-lime-700: oklch(53.2% 0.157 131.589);
+    --color-lime-800: oklch(45.3% 0.124 130.933);
     --color-green-600: oklch(62.7% 0.194 149.214);
     --color-green-700: oklch(52.7% 0.154 150.069);
     --color-green-800: oklch(44.8% 0.119 151.328);
@@ -563,6 +567,9 @@
   .items-start {
     align-items: flex-start;
   }
+  .items-stretch {
+    align-items: stretch;
+  }
   .justify-around {
     justify-content: space-around;
   }
@@ -1044,6 +1051,9 @@
     --tw-tracking: var(--tracking-wider);
     letter-spacing: var(--tracking-wider);
   }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
   .text-\[\#1a1a1a\] {
     color: #1a1a1a;
   }
@@ -1128,6 +1138,9 @@
   .accent-\[\#C8D75A\] {
     accent-color: #C8D75A;
   }
+  .accent-lime-600 {
+    accent-color: var(--color-lime-600);
+  }
   .opacity-0 {
     opacity: 0%;
   }
@@ -1152,6 +1165,10 @@
   }
   .shadow-xl {
     --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .ring-2 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .outline {
@@ -1408,9 +1425,39 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
+  .focus\:ring-\[\#4B5320\] {
+    &:focus {
+      --tw-ring-color: #4B5320;
+    }
+  }
   .focus\:ring-\[\#C8D75A\] {
     &:focus {
       --tw-ring-color: #C8D75A;
+    }
+  }
+  .focus\:ring-green-800 {
+    &:focus {
+      --tw-ring-color: var(--color-green-800);
+    }
+  }
+  .focus\:ring-lime-400 {
+    &:focus {
+      --tw-ring-color: var(--color-lime-400);
+    }
+  }
+  .focus\:ring-lime-600 {
+    &:focus {
+      --tw-ring-color: var(--color-lime-600);
+    }
+  }
+  .focus\:ring-lime-700 {
+    &:focus {
+      --tw-ring-color: var(--color-lime-700);
+    }
+  }
+  .focus\:ring-lime-800 {
+    &:focus {
+      --tw-ring-color: var(--color-lime-800);
     }
   }
   .focus\:ring-red-300 {

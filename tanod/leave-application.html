@@ -174,7 +174,7 @@
       <div class="w-full flex flex-col items-start">
         <label for="leave-type" class="font-bold text-sm text-gray-700 mb-1">Leave Type</label>
         <select id="leave-type" name="leave-type"
-          class="w-full p-2 bg-gray-100 border border-gray-400 rounded select-none text-sm focus:outline-none focus:ring-2 focus:ring-red-300 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.1L146.2%20204.4%2018.8%2074.5a17.6%2017.6%200%200%200-25.3%2023.7l138.6%20138.6c6.7%206.7%2017.7%206.7%2024.4%200l138.6-138.6a17.6%2017.6%200%200%200-11.7-29.4z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:12px] pr-10">
+          class="w-full p-2 bg-gray-100 border border-gray-400 rounded select-none text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.1L146.2%20204.4%2018.8%2074.5a17.6%2017.6%200%200%200-25.3%2023.7l138.6%20138.6c6.7%206.7%2017.7%206.7%2024.4%200l138.6-138.6a17.6%2017.6%200%200%200-11.7-29.4z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:12px] pr-10">
           <option value="">-- Select --</option>
           <option value="sick">Sick Leave</option>
           <option value="vacation">Vacation Leave</option>
@@ -189,13 +189,13 @@
         <div class="w-full flex flex-col items-start">
           <label for="start-date" class="font-bold text-sm text-gray-700 mb-1">Start Date</label>
           <input type="date" id="start-date" name="start-date"
-            class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-red-300" />
+            class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600" />
         </div>
 
         <div class="w-full flex flex-col items-start">
           <label for="end-date" class="font-bold text-sm text-gray-700 mb-1">End Date</label>
           <input type="date" id="end-date" name="end-date"
-            class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-red-300" />
+            class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600" />
         </div>
       </div>
 
@@ -203,23 +203,21 @@
       <div class="w-full flex flex-col items-start">
         <label for="reason-for-leave" class="font-bold text-sm text-gray-700 mb-1">Reason for leave</label>
         <textarea id="reason-for-leave" name="reason-for-leave" rows="5"
-          class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-red-300 min-h-[100px] resize-y"
+          class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 min-h-[100px] resize-y"
           placeholder="Enter your reason here..."></textarea>
       </div>
 
       <!-- File Upload -->
       <div class="w-full flex flex-col items-start mt-2">
         <label for="attached-document-leave" class="font-bold text-sm text-gray-700 mb-1">Attached Document (pdf, jpg or docs)</label>
-        <div class="flex items-center w-full gap-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center w-full gap-2">
           <input type="file" id="attached-document-leave" name="attached-document-leave" class="hidden" />
-          <label for="attached-document"
-          class="bg-[#D0B564] border border-gray-300 rounded-md px-4 py-2 text-sm text-[#555] cursor-pointer hover:bg-[#BD8F42] transition text-center w-auto">Choose
+          <label for="attached-document-leave"
+            class="bg-[#D0B564] border border-gray-300 rounded-md px-4 py-2 text-sm text-[#555] cursor-pointer hover:bg-[#BD8F42] transition text-center w-auto whitespace-nowrap">Choose
             File</label>
-          <input type="text" class="flex-grow p-2 border border-gray-200 rounded bg-gray-50 text-sm text-gray-500" placeholder="No file chosen"
-            readonly />
+          <input type="text" class="flex-1 min-w-0 p-2 border border-gray-200 rounded bg-gray-50 text-sm text-gray-500" placeholder="No file chosen" readonly />
         </div>
       </div>
-    </div>
 
     <!-- Buttons -->
     <div class="flex justify-center gap-5 w-full py-5 px-12">

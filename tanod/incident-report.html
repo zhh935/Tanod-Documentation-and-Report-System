@@ -183,12 +183,12 @@
       <div>
         <label for="incident-date" class="block font-bold text-[#444] mb-1">Date of Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
         <input type="date" id="incident-date" name="incident-date"
-          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
       </div>
       <div>
         <label for="incident-time" class="block font-bold text-[#444] mb-1">Time of Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
         <input type="time" id="incident-time" name="incident-time"
-          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
       </div>
     </div>
 
@@ -196,14 +196,14 @@
     <div>
       <label for="incident-location" class="block font-bold text-[#444] mb-1">Location of the Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
       <input type="text" id="incident-location" name="incident-location" placeholder="Enter location"
-        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
     </div>
 
     <!-- Description -->
     <div>
       <label for="incident-description" class="block font-bold text-[#444] mb-1">Description<span class="text-xs italic text-gray-500"> (*)</span></label>
       <textarea id="incident-description" name="incident-description" placeholder="Describe the incident"
-        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-[#C8D75A]"></textarea>
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-lime-600"></textarea>
     </div>
 
     <!-- File Upload -->
@@ -229,33 +229,33 @@
     <div class="grid sm:grid-cols-2 gap-4 text-[15px]">
       <!-- Radio Options -->
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="theft" class="mr-3 accent-[#C8D75A]" /> Theft
+        <input type="radio" name="incident-type" value="theft" class="mr-3 accent-lime-600" /> Theft
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="assault" class="mr-3 accent-[#C8D75A]" /> Assault
+        <input type="radio" name="incident-type" value="assault" class="mr-3 accent-lime-600" /> Assault
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="vandalism" class="mr-3 accent-[#C8D75A]" /> Vandalism
+        <input type="radio" name="incident-type" value="vandalism" class="mr-3 accent-lime-600" /> Vandalism
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="medical-emergency" class="mr-3 accent-[#C8D75A]" /> Medical Emergency
+        <input type="radio" name="incident-type" value="medical-emergency" class="mr-3 accent-lime-600" /> Medical Emergency
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="trespassing" class="mr-3 accent-[#C8D75A]" /> Trespassing
+        <input type="radio" name="incident-type" value="trespassing" class="mr-3 accent-lime-600" /> Trespassing
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="traffic-accident" class="mr-3 accent-[#C8D75A]" /> Traffic Accident
+        <input type="radio" name="incident-type" value="traffic-accident" class="mr-3 accent-lime-600" /> Traffic Accident
       </label>
       <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
-        <input type="radio" name="incident-type" value="personal-injury" class="mr-3 accent-[#C8D75A]" /> Personal Injury
+        <input type="radio" name="incident-type" value="personal-injury" class="mr-3 accent-lime-600" /> Personal Injury
       </label>
       <div class="flex flex-col sm:flex-row items-start sm:items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 col-span-full gap-3 w-full">
         <div class="flex items-center">
-          <input type="radio" name="incident-type" value="other" class="mr-3 accent-[#C8D75A]" onchange="document.getElementById('other-type-text').disabled = !this.checked" />
+          <input type="radio" name="incident-type" value="other" class="mr-3 accent-lime-600" onchange="document.getElementById('other-type-text').disabled = !this.checked" />
           <label for="other-type" class="mr-2">Other</label>
         </div>
         <input type="text" id="other-type-text" placeholder="(Specify)" disabled
-          class="flex-grow bg-[#F5F5F5] border border-[#ccc] px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#C8D75A] w-full sm:w-auto min-w-0" />
+          class="flex-grow bg-[#F5F5F5] border border-[#ccc] px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 w-full sm:w-auto min-w-0" />
       </div>
     </div>
   </div>
@@ -270,12 +270,12 @@
     <div>
       <label for="filer-name" class="block font-bold text-[#444] mb-1">Name: (Person filling out report)<span class="text-xs italic text-gray-500"> (*)</span></label>
       <input type="text" id="filer-name" name="filer-name" placeholder="Enter name"
-        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
     </div>
     <div>
       <label for="filer-contact" class="block font-bold text-[#444] mb-1">Contact: (Person filling out report)<span class="text-xs italic text-gray-500"> (*)</span></label>
       <input type="text" id="filer-contact" name="filer-contact" placeholder="Enter contact"
-        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
     </div>
   </div>
   <div id="otherPersonsContainer" class="space-y-6"></div>
@@ -412,7 +412,7 @@ function addOtherPerson() {
         <label class="block font-bold text-[#444] mb-1">Name: (Other person involved)</label>
         <input type="text" name="other-name[]" placeholder="Enter name"
           class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2
-                 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+                 focus:outline-none focus:ring-2 focus:ring-lime-600" />
       </div>
 
       <!-- Contact Field -->
@@ -420,7 +420,7 @@ function addOtherPerson() {
         <label class="block font-bold text-[#444] mb-1">Contact: (Other person involved)</label>
         <input type="text" name="other-contact[]" placeholder="Enter contact"
           class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2
-                 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+                 focus:outline-none focus:ring-2 focus:ring-lime-600" />
       </div>
     </div>
 
