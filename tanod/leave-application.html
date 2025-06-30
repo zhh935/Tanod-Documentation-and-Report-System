@@ -160,8 +160,8 @@
 
     
   <!--Main Container-->
-  <div class="w-[90%] min-h-[40svh] bg-white shadow-lg rounded-[30px] mx-auto mt-5 mb-12 flex flex-col pt-8">
-    <div class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
+  <div class="w-[90%] min-h-[40svh] bg-white shadow-lg rounded-[30px] mx-auto mt-5 mb-12 flex flex-col pt-8 relative z-10">
+    <form id ="leaveform" class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
       <div class="flex justify-center items-center gap-2 mt-[30px]">
         <div class="w-auto align-middle">
         <i class="fas fa-sign-out-alt text-[#4B5320] text-2xl mr-2"></i>
@@ -173,7 +173,7 @@
 
       <!-- Leave Type -->
       <div class="w-full flex flex-col items-start">
-        <label for="leave-type" class="font-bold text-sm text-gray-700 mb-1">Leave Type</label>
+        <label for="leave-type" class="font-bold text-sm text-gray-700 mb-1">Leave Type<span class="text-xs italic text-gray-500"> (*)</span></label>
         <select id="leave-type" name="leave-type"
           class="w-full p-2 bg-gray-100 border border-gray-400 rounded select-none text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.1L146.2%20204.4%2018.8%2074.5a17.6%2017.6%200%200%200-25.3%2023.7l138.6%20138.6c6.7%206.7%2017.7%206.7%2024.4%200l138.6-138.6a17.6%2017.6%200%200%200-11.7-29.4z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:12px] pr-10">
           <option value="">-- Select --</option>
@@ -188,13 +188,13 @@
       <!-- Date Range -->
       <div class="flex flex-col md:flex-row justify-between gap-5 w-full">
         <div class="w-full flex flex-col items-start">
-          <label for="start-date" class="font-bold text-sm text-gray-700 mb-1">Start Date</label>
+          <label for="start-date" class="font-bold text-sm text-gray-700 mb-1">Start Date<span class="text-xs italic text-gray-500"> (*)</span></label>
           <input type="date" id="start-date" name="start-date"
             class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600" />
         </div>
 
         <div class="w-full flex flex-col items-start">
-          <label for="end-date" class="font-bold text-sm text-gray-700 mb-1">End Date</label>
+          <label for="end-date" class="font-bold text-sm text-gray-700 mb-1">End Date<span class="text-xs italic text-gray-500"> (*)</span></label>
           <input type="date" id="end-date" name="end-date"
             class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600" />
         </div>
@@ -202,7 +202,7 @@
 
       <!-- Reason -->
       <div class="w-full flex flex-col items-start">
-        <label for="reason-for-leave" class="font-bold text-sm text-gray-700 mb-1">Reason for leave</label>
+        <label for="reason-for-leave" class="font-bold text-sm text-gray-700 mb-1">Reason for leave<span class="text-xs italic text-gray-500"> (*)</span></label>
         <textarea id="reason-for-leave" name="reason-for-leave" rows="5"
           class="w-full p-2 bg-gray-100 border border-gray-400 rounded text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 min-h-[100px] resize-y"
           placeholder="Enter your reason here..."></textarea>
@@ -249,6 +249,31 @@
       </div>
     </div>
   </div>
+
+  <!-- Clear Confirmation Modal -->
+<div id="clearConfirmModal" class="fixed inset-0 z-[1000] bg-black/40 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-[#fefefe] p-6 sm:p-8 rounded-[15px] shadow-xl w-[90%] max-w-[400px] text-center relative">
+    <span id="closeClearModal" class="absolute top-2 right-4 text-[28px] font-bold text-[#aaa] cursor-pointer">&times;</span>
+    <div class="modal-body">
+      <div class="text-[40px] text-[#D62A29] mb-2">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="text-[1.2em] text-[#333] mt-0 font-semibold mb-2">Clear Report?</h3>
+      <p class="text-[1em] text-[#555] mb-5">
+        You are about to clear all details that you've written thus far in this report. Do you wish to start this report over again?
+      </p>
+      <div class="flex justify-center gap-4">
+        <button id="confirmClearBtn" class="bg-[#D62A29] text-white px-6 py-2 rounded-full text-base font-bold transition duration-300 hover:bg-[#c02221]">
+          Yes, Clear
+        </button>
+        <button id="cancelClearBtn" class="bg-[#f0f0f0] text-[#555] px-6 py-2 rounded-full text-base font-bold border transition duration-300 hover:bg-[#e0e0e0]">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
   <script>
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
@@ -315,7 +340,37 @@
         modal.classList.add("opacity-0", "pointer-events-none");
       }
     });
-  </script>
+        // Confirmation modal logic for Clear button
+    const clearBtn = document.querySelector('button[type="reset"]');
+    const clearModal = document.getElementById("clearConfirmModal");
+    const closeClearModal = document.getElementById("closeClearModal");
+    const cancelClearBtn = document.getElementById("cancelClearBtn");
+    const confirmClearBtn = document.getElementById("confirmClearBtn");
+    const formEl = document.querySelector("leaveform");
+
+    clearBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      clearModal.classList.add("opacity-100", "pointer-events-auto");
+      clearModal.classList.remove("opacity-0", "pointer-events-none");
+    });
+
+    function hideClearModal() {
+      clearModal.classList.remove("opacity-100", "pointer-events-auto");
+      clearModal.classList.add("opacity-0", "pointer-events-none");
+    }
+
+    closeClearModal.addEventListener("click", hideClearModal);
+    cancelClearBtn.addEventListener("click", hideClearModal);
+
+    confirmClearBtn.addEventListener("click", function() {
+      if (formEl) {
+        formEl.reset();
+        // If you have dynamic fields, clear them here as well
+        // Example: document.getElementById("otherPersonsContainer")?.innerHTML = "";
+      }
+      hideClearModal();
+    });
+      </script>
 
 
 </body>
