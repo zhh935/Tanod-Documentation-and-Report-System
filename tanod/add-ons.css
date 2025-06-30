@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+#notif-container {
+    max-width: 90vw;
+    min-height: 80vh;
+}
 /* PC View Calendar Table Design */
 #calendar-table {
     width: 100%;

@@ -51,10 +51,16 @@
         AND REPORTING SYSTEM
     </span>
   </div>
-  <nav id="header-nav-text"class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full">
-    <a href="dashboard.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Dashboard</a>
-    <a href="incident-report.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Incident Report</a>
-    <a href="leave-application.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Leave Application</a>
+  <nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+    <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Dashboard
+    </a>
+    <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Incident Report
+    </a>
+    <div class="flex-1 flex items-center justify-center px-4 py-3 bg-[#6F7F48] text-[#C8D75A] border-b-[5px] border-b-[#C8D75A] text-center">
+      Leave Application
+    </div>
   </nav>
   <div class="flex items-center gap-6">
   <!-- Notification Icon -->
@@ -115,7 +121,7 @@
       <li class="mb-1">
         <a href="incident-report.html"
            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-users mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
+          <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
         </a>
       </li>
       <li class="mb-1">
@@ -152,8 +158,9 @@
   <div class="w-[90%] min-h-[40svh] bg-white shadow-lg rounded-[30px] mx-auto mt-5 mb-12 flex flex-col pt-8">
     <div class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
       <div class="flex justify-center items-center gap-2 mt-[30px]">
-        <img src="../images/leavelogo-removebg-preview.png" alt="Incident Logo"
-          class="h-[clamp(40px,6vw,70px)] w-auto mt-2 align-middle" />
+        <div class="w-auto align-middle">
+        <i class="fas fa-sign-out-alt text-gray-800 text-2xl mr-2"></i>
+        </div>
         <h2 class="text-center text-[clamp(1.2em,4vw,2em)] font-bold text-gray-800">LEAVE APPLICATION</h2>
       </div>
 

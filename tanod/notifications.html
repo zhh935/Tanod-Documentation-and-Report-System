@@ -28,10 +28,9 @@
   </div>
   <div class="flex items-center gap-6">
   <!-- Notification Icon -->
-  <a href="notifications.html"
-     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
-    <i class="fas fa-bell icon-responsive text-white"></i>
-  </a>
+    <div class="flex-shrink-0 text-2xl text-[#C8D75A]">
+      <i class="fas fa-bell icon-responsive"></i>
+    </div>
 
   <!-- Profile Photo -->
   <a href="profile.html"
@@ -51,18 +50,22 @@
         AND REPORTING SYSTEM
     </span>
   </div>
-  <nav id="header-nav-text"class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full">
-    <a href="dashboard.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Dashboard</a>
-    <a href="incident-report.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Incident Report</a>
-    <a href="leave-application.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Leave Application</a>
+  <nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+    <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Dashboard
+    </a>
+    <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Incident Report
+    </a>
+    <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Leave Application
+    </a>
   </nav>
   <div class="flex items-center gap-6">
   <!-- Notification Icon -->
-  <a href="notifications.html"
-     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
-    <i class="fas fa-bell icon-responsive text-white"></i>
-  </a>
-
+    <div class="flex-shrink-0 text-2xl text-[#C8D75A]">
+      <i class="fas fa-bell icon-responsive"></i>
+    </div>
   <!-- Profile Photo -->
   <a href="profile.html"
      class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
@@ -141,6 +144,7 @@
   </div>
 
   <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+  <div id="overlay2" class="fixed inset-0 bg-black/40 hidden z-40"></div>
 
 
 
@@ -149,7 +153,62 @@
   <!--Main Container-->
   <div>
 
+
+    <!-- Outer White Container -->
+    <div id="notif-container" class="bg-white shadow-lg rounded-[30px] mx-auto mt-5 mb-12 flex flex-col py-5 px-12">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fas fa-bell text-[#6F7F48] text-3xl"></i>
+          <h1 class="text-3xl font-bold text-[#4B5320]">Notifications</h1>
+        </div>
+      
+      <div class="">
+      <!-- Notification 1 -->
+      <div onclick="openModal('modal1', this)" class="w-full mx-auto rounded-md p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
+        <h2 class="text-lg font-bold unread">Notification 1</h2>
+        <p class="text-[12px]">Name of the sender</p>
+      </div>
+
+      <!-- Notification 2 -->
+      <div onclick="openModal('modal2', this)" class="w-full mx-auto rounded-md p-4 cursor-pointer border border-gray-200 hover:bg-gray-50">
+        <h2 class="text-lg font-bold unread">Notification 2</h2>
+        <p class="text-[12px]">Name of the sender</p>
+      </div>
+
+    <!-- Modal 1 -->
+    <div id="modal1" class="hidden fixed inset-0 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-[90%] mx-auto relative">
+        <button onclick="closeModal('modal1')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl">&times;</button>
+        <h2 class="text-xl font-bold mb-2">Title of Notification 1</h2>
+        <h3 class="text-sm font-semibold mb-4">Name of the sender</h3>
+        <div class="border border-gray-400 rounded-lg p-4">
+                  <p>This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. This is a text message. </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div id="modal2" class="hidden fixed inset-0 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-[90%] mx-auto relative">
+        <div onclick="closeModal('modal2')" class="absolute top-3 right-3 text-gray-500 hover:text-black text-xl"><i class="fas fa-times"></i></div>
+        <div>
+        <h2 class="text-xl font-bold my-2">Title of Notification 2</h2>
+        <h3 class="text-sm font-semibold mb-4">Name of the sender</h3>
+        </div>
+        <div class="border border-gray-400 rounded-lg p-4">
+          <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus gravida neque, a dictum justo congue ut. 
+          Curabitur vehicula, lorem sed finibus porttitor, nulla purus suscipit est, nec sodales purus nunc non erat. 
+          Integer nec lorem nec libero placerat aliquam vel vel libero. Fusce porttitor.
+          </p>
+        </div>
+        
+      </div>
+    </div>
   </div>
+  
+
+
   <script>
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
@@ -169,6 +228,30 @@
     menuToggle?.addEventListener("click", openSidebar);
     overlay?.addEventListener("click", closeSidebar);
     closeBtn?.addEventListener("click", closeSidebar);
+      
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
+
+      // Main Container
+      function openModal(id, elem) {
+        document.getElementById(id).classList.remove('hidden');
+        document.getElementById("overlay2").classList.remove("hidden"); // Show overlay
+
+        // Remove bold if unread
+        const title = elem.querySelector('.unread');
+        if (title) {
+          title.classList.remove('font-bold', 'unread');
+        }
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+        document.getElementById("overlay2").classList.add("hidden"); // Hide overlay
+      }
+
   </script>
 
 

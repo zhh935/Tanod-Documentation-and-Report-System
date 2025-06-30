@@ -51,11 +51,17 @@
         AND REPORTING SYSTEM
     </span>
   </div>
-  <nav id="header-nav-text"class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full">
-    <a href="dashboard.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Dashboard</a>
-    <a href="incident-report.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Incident Report</a>
-    <a href="leave-application.html" class="flex items-center gap-2 py-3 px-2 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300">Leave Application</a>
-  </nav>
+<nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+  <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Dashboard
+  </a>
+  <div class="flex-1 flex items-center justify-center px-4 py-3 bg-[#6F7F48] text-[#C8D75A] border-b-[5px] border-b-[#C8D75A] text-center">
+    Incident Report
+  </div>
+  <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Leave Application
+  </a>
+</nav>
   <div class="flex items-center gap-6">
   <!-- Notification Icon -->
   <a href="notifications.html"
@@ -102,36 +108,36 @@
       </div>
     </a>
 
-  <!-- Menu -->
-  <nav class="w-full flex-grow mt-5">
-    <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
-    <ul class="list-none m-0 p-0">
-      <li class="mb-1">
-        <a href="dashboard.html"
-           class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
-        </a>
-      </li>
-      <li class="mb-1">
-        <div class="flex items-center py-3 border-l-[5px] border-[#C8D75A] text-[#C8D75A] font-bold bg-[#6F7F48]">
-          <i class="fas fa-users mr-2 ml-3 text-lg"></i>
-          <span class="">Incident Report</span>
-        </div>
-      </li>
-      <li class="mb-1">
-        <a href="leave-application.html"
-           class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
-        </a>
-      </li>
-      <li class="mb-1">
-        <a href="notifications.html"
+    <!-- Menu -->
+    <nav class="w-full flex-grow mt-5">
+      <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
+      <ul class="list-none m-0 p-0">
+        <li class="mb-1">
+          <a href="dashboard.html"
             class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-            <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
-        </a>
-      </li>
-    </ul>
-  </nav>
+            <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <div class="flex items-center py-3 border-l-[5px] border-[#C8D75A] text-[#C8D75A] font-bold bg-[#6F7F48]">
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i>
+            <span class="">Incident Report</span>
+          </div>
+        </li>
+        <li class="mb-1">
+          <a href="leave-application.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="notifications.html"
+              class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+              <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
 
     <!-- Logout Button -->
@@ -150,16 +156,17 @@
     
 <!--Main Container-->
 <div class="w-[90%] mx-auto my-5 mb-12 bg-white shadow-lg rounded-[30px] flex flex-col pt-8 font-sans">
-   <!-- Title Area -->
-    <div class="flex items-center justify-center w-full mb-6 mt-4 text-[#333] text-[13px]">
-      <img src="../images/blackbellicon.png" alt="Incident Logo" class="h-[clamp(15px,4vw,30px)] mr-2 align-middle" />
-      <span class="text-[clamp(1.2em,4vw,2em)] font-bold text-center">INCIDENT REPORT</span>
+    <div class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
+      <div class="flex justify-center items-center gap-2 mt-[30px]">
+        <div class="w-auto align-middle">
+        <i class="fas fa-exclamation-triangle text-[#4B5320] text-2xl mr-2"></i>
+        </div>
+        <h2 class="text-center text-[clamp(1.2em,4vw,2em)] font-bold text-[#4B5320]">INCIDENT REPORT</h2>
+      </div>
+    
+
+      <p class="text-xs italic text-center text-gray-500 mt-[-10px] mb-6">(*) Required fields must be filled to apply for leave.</p>
     </div>
-
-    <p class="text-[10px] text-[#777] italic text-center mb-6 -mt-2">
-      (*) Required fields must be filled to apply for leave.
-    </p>
-
   <!-- SECTION HEADER -->
   <div class="bg-[#e2dfdf] text-[#1a1a1a] text-sm font-semibold uppercase px-8 md:px-12 py-3 mb-6 mx-4 md:mx-10 rounded-md shadow-sm tracking-wider">
     Incident Details
@@ -254,7 +261,7 @@
   Involved Individuals' Details
 </div>
 
-<div class="w-full px-4 sm:px-6 md:px-[50px] box-border mb-4 space-y-4 text-[14px] min-h-[250px]">
+<div class="w-full px-4 sm:px-6 md:px-[50px] box-border mb-4 space-y-4 text-[14px]">
   <div class="grid md:grid-cols-2 gap-6 mb-4">
     <div>
       <label for="filer-name" class="block font-bold text-[#444] mb-1">Name: (Person filling out report)</label>
@@ -327,6 +334,12 @@
     menuToggle?.addEventListener("click", openSidebar);
     overlay?.addEventListener("click", closeSidebar);
     closeBtn?.addEventListener("click", closeSidebar);
+    
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
 
 
     /*-- Modals --*/
