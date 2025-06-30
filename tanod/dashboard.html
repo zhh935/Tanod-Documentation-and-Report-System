@@ -241,6 +241,13 @@
         }
     });
 
+    function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+    // Example action: redirect to logout page
+        window.location.href = "/logout"; // or whatever your logout URL is
+      }
+    }
+
     // Main Container
 
       const loggedInEmpId = "123";
