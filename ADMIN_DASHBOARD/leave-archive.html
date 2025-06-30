@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Archive</title>
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    /* All the CSS from your 5leave.html that applies to the layout and table should be copied here as well. */
+    /* You can streamline this by moving shared CSS to a separate file like style.css */
+
+    /* Basic Reset & Body Styling */
+
+    /* Basic Reset & Body Styling */
+    body {
+        margin: 0;
+        font-family: sans-serif;
+        background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .dashboard-container {
+        display: flex;
+        width: 100%;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        width: 250px;
+        background-color: #4B5320;
+        color: white;
+        padding: 20px 0;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .logo-section {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: white;
+        margin-bottom: 10px;
+    }
+
+    .company-name {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 0 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-right: 15px;
+        border: 2px solid white;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .user-role {
+        font-size: 13px;
+        color: #ccc;
+    }
+
+    .main-menu {
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    .menu-heading {
+        padding: 10px 20px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #f0f0f0;
+        margin-bottom: 10px;
+    }
+
+    .main-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-menu ul li {
+        margin-bottom: 5px;
+    }
+
+    .main-menu ul li a {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        border-left: 5px solid transparent;
+    }
+
+    .main-menu ul li a:hover,
+    .main-menu ul li.active a {
+        background-color: #8A9A5B;
+        border-left: 5px solid #FFD700;
+    }
+
+    .main-menu ul li a i {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .logout-section {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .logout-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: white;
+        color: #7A0A0A;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background-color: #eee;
+    }
+
+    /* Main Content Styling for Leave Archive */
+    .main-content {
+        flex-grow: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        margin: 20px;
+        overflow-y: auto;
+        max-height: calc(100vh - 40px);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 15px;
+    }
+
+    .page-header h2 {
+        margin: 0;
+        color: #333;
+        font-size: 1.8em;
+    }
+
+    .header-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .back-button {
+        padding: 8px 12px;
+        background-color: #6c757d;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.8em;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .back-button:hover {
+        background-color: #5a6268;
+    }
+
+    .clear-all-button {
+        padding: 8px 12px;
+        background-color: #dc3545; /* Red for clear all */
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.8em;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .clear-all-button:hover {
+        background-color: #c82333;
+    }
+
+    .search-filter-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-bar {
+        position: relative;
+        width: 600px;
+        margin-right: 20px;
+    }
+
+    .search-bar input {
+        width: calc(100% - 40px);
+        padding: 10px 15px 10px 35px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+    }
+
+    .search-bar i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+
+    .report-count {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #555;
+        padding: 10px 0;
+    }
+
+    .leave-list-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        overflow-x: auto;
+        flex-grow: 1;
+    }
+
+    .leave-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        table-layout: fixed; /* Helps with consistent column widths */
+    }
+
+    .leave-table th,
+    .leave-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Adjusted column widths for the table */
+    .leave-table th:nth-child(1), .leave-table td:nth-child(1) { width: 140px; } /* Employee */
+    .leave-table th:nth-child(2), .leave-table td:nth-child(2) { width: 80px; } /* Duration */
+    .leave-table th:nth-child(3), .leave-table td:nth-child(3) { width: 130px; } /* Start Date */
+    .leave-table th:nth-child(4), .leave-table td:nth-child(4) { width: 130px; } /* End Date */
+    .leave-table th:nth-child(5), .leave-table td:nth-child(5) { width: 100px; } /* Type */
+    /* Increased width for Actions column to fit both buttons comfortably */
+    .leave-table th:nth-child(6), .leave-table td:nth-child(6) { width: 200px; } /* Actions - Increased width */
+
+
+    .leave-table th {
+        background-color: #f2f2f2;
+        color: #555;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+
+    .leave-table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .leave-table td.actions {
+        white-space: nowrap;
+        display: flex; /* Use flexbox to align buttons */
+        gap: 8px; /* Space between buttons */
+        align-items: center; /* Vertically align buttons */
+        padding-top: 5px;
+        padding-bottom: 5px;
+        justify-content: flex-start; /* Center the buttons within the cell */
+    }
+
+    /* General styling for action buttons */
+    .leave-table .action-btn {
+        padding: 6px 10px;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.85em;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        flex-shrink: 0;
+        width: auto; /* Allow width to adjust based on content */
+        text-align: center;
+        display: inline-flex; /* Use inline-flex for content/icon alignment */
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        /* Removed gap from here, will be added specifically to .view-details-btn */
+    }
+
+    /* NEW: Styling for the View Details button */
+    .leave-table .view-details-btn {
+        background-color: #28a745; /* Green color */
+        color: white;
+        border: 1px solid #28a745; /* Green border */
+        padding: 6px 10px; /* Standard padding for text button */
+        gap: 5px; /* Gap between text and icon */
+    }
+
+    .leave-table .view-details-btn:hover {
+        background-color: #218838; /* Darker green on hover */
+        border-color: #218838;
+    }
+
+    /* NEW/MODIFIED STYLE FOR THE DELETE ICON BUTTON */
+    .leave-table .delete-icon-btn {
+        background-color: transparent; /* Start with no background */
+        color: #dc3545; /* Red color for the icon *
+        padding: 6px; /* Reduced padding for consistent height with view details */
+        border-radius: 50%; /* Make it circular */
+        width: 35px; /* Fixed width for a square/circular button */
+        height: 35px; /* Fixed height for a square/circular button */
+        display: inline-flex; /* Ensure flex properties apply */
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1em; /* Adjust icon size if needed */
+    }
+
+    .leave-table .delete-icon-btn i {
+        font-size: 1.1em; /* Keep icon size consistent or adjust as needed */
+        margin: 0; /* Remove any default margin from the icon */
+    }
+
+    .leave-table .delete-icon-btn:hover {
+        background-color: #dc3545; /* Red background on hover */
+        color: white; /* White icon on hover */
+        border-color: #dc3545; /* Ensure border matches background on hover */
+    }
+
+    /* Remove the old status classes, as View Details button will always be green */
+    /*
+    .leave-table .action-btn.status-approved {
+        background-color: #28a745;
+        color: white;
+    }
+    .leave-table .action-btn.status-declined {
+        background-color: #dc3545;
+        color: white;
+    }
+    .leave-table .action-btn.status-new {
+        background-color: #ffc107;
+        color: #333;
+    }
+    .leave-table .action-btn.status-deleted {
+        background-color: #6c757d;
+        color: white;
+    }
+    */
+
+    /* MODAL STYLES (General) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 25px;
+        border: 1px solid #888;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        position: relative;
+        animation: fadeIn 0.3s ease-out;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-button {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+    }
+
+    .modal-content h2 {
+        text-align: center;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+
+    .leave-form label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: bold;
+        font-size: 0.9em;
+    }
+
+    .leave-form input[type="text"],
+    .leave-form input[type="date"],
+    .leave-form textarea,
+    .leave-form select {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-family: sans-serif;
+        font-size: 0.9em;
+    }
+
+    .leave-form select[readonly] {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+        border-color: #ced4da;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        pointer-events: none;
+    }
+
+    .leave-form textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .leave-form .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .leave-form .form-row > div {
+        flex: 1;
+        min-width: 180px;
+    }
+
+    .leave-form input:read-only,
+    .leave-form textarea:read-only {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+        border-color: #ced4da;
+    }
+
+    /* Custom Alert/Confirm Modal Styles */
+    .custom-alert-confirm .modal-content {
+        max-width: 400px;
+        text-align: center;
+        padding: 20px;
+    }
+    .custom-alert-confirm .modal-content h2 {
+        margin-bottom: 15px;
+    }
+    .custom-alert-confirm .modal-content p {
+        margin-bottom: 20px;
+        font-size: 1em;
+        color: #555;
+    }
+    .custom-alert-confirm .modal-footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .custom-alert-confirm .modal-content button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        transition: background-color 0.2s ease;
+    }
+
+    /* Styles for confirm modal buttons */
+    .custom-alert-confirm .btn-approved {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+    .custom-alert-confirm .btn-approved:hover {
+        background-color: #218838;
+    }
+    .custom-alert-confirm .btn-declined {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+    .custom-alert-confirm .btn-declined:hover {
+        background-color: #c82333;
+    }
+</style>
+   
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo-section">
+                <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="logo">
+                <div class="company-name">TANOD DOCUMENTATION AND REPORTING SYSTEM</div>
+            </div>
+            <div class="user-profile">
+                <img src="../images/bini-stacey-appreciation-post-v0-6241ma2a9eld1.jpg" alt="Stacey Sevilleja" class="profile-pic">
+                <div class="user-info">
+                    <div class="user-name">Stacey Sevilleja</div>
+                    <div class="user-role">Admin</div>
+                </div>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-heading">Main Menu</div>
+                <ul>
+                    <li><a href="1dashboard.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
+                    <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
+                    <li><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
+                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                </ul>
+            </nav>
+            <div class="logout-section">
+                <button class="logout-btn">Log Out</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Leave Archive</h2>
+                <div class="header-buttons">
+                    <a href="5leave.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Leave Management
+                    </a>
+                    <button class="clear-all-button" id="clearAllArchiveBtn">
+                        <i class="fas fa-trash-restore"></i> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-filter-section">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i> <input type="text" placeholder="Search by employee, type, or status..." id="archiveSearchInput">
+                </div>
+                <div class="report-count">
+                    Total Archived Leaves: <span id="totalArchivedLeaveCount">0</span>
+                </div>
+            </div>
+
+            <div class="leave-list-container">
+                <table class="leave-table">
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Duration</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archiveTableBody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; color: #777;">No archived leave applications found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="archiveLeaveModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeArchiveLeaveModalBtn">&times;</span>
+            <h2 id="archiveLeaveModalTitle">Archived Leave Details</h2>
+            <form id="archiveLeaveForm" class="leave-form">
+                <div class="form-row">
+                    <div>
+                        <label for="archiveLeaveEmployee">Employee:</label>
+                        <input type="text" id="archiveLeaveEmployee" readonly>
+                    </div>
+                    <div>
+                        <label for="archiveLeaveType">Leave Type:</label>
+                        <input type="text" id="archiveLeaveType" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label for="archiveLeaveStartDate">Start Date:</label>
+                        <input type="date" id="archiveLeaveStartDate" readonly>
+                    </div>
+                    <div>
+                        <label for="archiveLeaveEndDate">End Date:</label>
+                        <input type="date" id="archiveLeaveEndDate" readonly>
+                    </div>
+                </div>
+                <div>
+                    <label for="archiveLeaveReason">Reason for Leave:</label>
+                    <textarea id="archiveLeaveReason" rows="4" readonly></textarea>
+                </div>
+                <div>
+                    <label for="archiveAttachedDocumentDisplay">Attached Document:</label>
+                    <p id="archiveAttachedDocumentDisplay" style="margin-top: 5px; color: #555; font-size: 0.9em;"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="customAlertConfirmModal" class="modal custom-alert-confirm">
+        <div class="modal-content">
+            <span class="close-button" id="closeCustomAlertConfirmBtn">&times;</span>
+            <h2 id="customAlertConfirmTitle"></h2>
+            <p id="customAlertConfirmMessage"></p>
+            <div class="modal-footer-buttons">
+                <button id="confirmCancelBtn" class="btn-declined" style="display: none;">Cancel</button>
+                <button id="confirmProceedBtn" class="btn-approved">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // --- Sidebar Active Link Script ---
+const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+const currentPage = window.location.pathname.split('/').pop();
+
+sidebarLinks.forEach(link => {
+    const linkPage = link.getAttribute('href').split('/').pop();
+    if (linkPage === currentPage) {
+        link.closest('li').classList.add('active');
+    } else {
+        link.closest('li').classList.remove('active');
+    }
+});
+// --- END Sidebar Active Link Script ---
+
+// --- Leave Archive Specific JavaScript ---
+
+const archiveTableBody = document.getElementById('archiveTableBody');
+const archiveSearchInput = document.getElementById('archiveSearchInput');
+const totalArchivedLeaveCountSpan = document.getElementById('totalArchivedLeaveCount');
+const clearAllArchiveBtn = document.getElementById('clearAllArchiveBtn');
+
+// Modal elements for archive details
+const archiveLeaveModal = document.getElementById('archiveLeaveModal');
+const closeArchiveLeaveModalBtn = document.getElementById('closeArchiveLeaveModalBtn');
+const archiveLeaveModalTitle = document.getElementById('archiveLeaveModalTitle');
+const archiveLeaveEmployeeInput = document.getElementById('archiveLeaveEmployee');
+const archiveLeaveTypeInput = document.getElementById('archiveLeaveType');
+const archiveLeaveStartDateInput = document.getElementById('archiveLeaveStartDate');
+const archiveLeaveEndDateInput = document.getElementById('archiveLeaveEndDate');
+const archiveLeaveReasonInput = document.getElementById('archiveLeaveReason');
+const archiveAttachedDocumentDisplay = document.getElementById('archiveAttachedDocumentDisplay');
+
+// Custom Alert/Confirm Modal elements
+const customAlertConfirmModal = document.getElementById('customAlertConfirmModal');
+const closeCustomAlertConfirmBtn = document.getElementById('closeCustomAlertConfirmBtn');
+const customAlertConfirmTitle = document.getElementById('customAlertConfirmTitle');
+const customAlertConfirmMessage = document.getElementById('customAlertConfirmMessage');
+const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+const confirmProceedBtn = document.getElementById('confirmProceedBtn');
+
+let confirmCallback = null; // To store the callback for the confirm action
+
+// Helper function to format date to Month Day, Year
+function formatDateToMonthDayYear(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+}
+
+// Helper function to calculate duration in days
+function calculateDuration(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        return 'N/A';
+    }
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return `${diffDays + 1} day(s)`;
+}
+
+// --- Local Storage Functions ---
+function getArchivedLeavesFromLocalStorage() {
+    const archivedLeaves = localStorage.getItem('archivedLeaveApplications');
+    return archivedLeaves ? JSON.parse(archivedLeaves) : [];
+}
+
+function saveArchivedLeavesToLocalStorage(archivedLeaves) {
+    localStorage.setItem('archivedLeaveApplications', JSON.stringify(archivedLeaves));
+}
+
+// Initial load of archived applications
+let archivedLeaveApplications = getArchivedLeavesFromLocalStorage();
+
+// ... (your existing JavaScript code) ...
+
+// Function to render archived leave applications in the table
+function renderArchivedLeaveApplications() {
+    archiveTableBody.innerHTML = ''; // Clear existing rows
+
+    const searchTerm = archiveSearchInput.value.toLowerCase();
+
+    const filteredArchivedApplications = archivedLeaveApplications.filter(app => {
+        return app.employee.toLowerCase().includes(searchTerm) ||
+            app.type.toLowerCase().includes(searchTerm) ||
+            (app.status && app.status.toLowerCase().includes(searchTerm)); // Check for status property
+    });
+
+    if (filteredArchivedApplications.length === 0) {
+        archiveTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #777;">No archived leave applications found.</td></tr>';
+    } else {
+        filteredArchivedApplications.forEach((app) => {
+            const row = archiveTableBody.insertRow();
+            row.setAttribute('data-id', app.id);
+
+            row.insertCell().textContent = app.employee;
+            row.insertCell().textContent = app.duration;
+            row.insertCell().textContent = formatDateToMonthDayYear(app.startDate);
+            row.insertCell().textContent = formatDateToMonthDayYear(app.endDate);
+            row.insertCell().textContent = app.type;
+
+            const actionsCell = row.insertCell();
+            actionsCell.classList.add('actions'); // Apply 'actions' class for flexbox styling
+
+            // MODIFIED: View Details button with eye icon and consistent green styling
+            const viewDetailsButton = document.createElement('button');
+            viewDetailsButton.classList.add('action-btn', 'view-details-btn'); // Add new class for consistent green
+            viewDetailsButton.innerHTML = '<i class="fas fa-eye"></i> View Details'; // Add eye icon
+            viewDetailsButton.onclick = () => viewArchivedLeaveDetails(app.id);
+            actionsCell.appendChild(viewDetailsButton);
+
+            // MODIFIED: Delete button with trash-alt icon and specific styling class
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('action-btn', 'delete-icon-btn'); // Add specific class for styling
+            deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Use fas fa-trash-alt icon
+            deleteButton.title = 'Permanently Delete Leave'; // Tooltip
+            deleteButton.onclick = () => deleteArchivedLeave(app.id);
+            actionsCell.appendChild(deleteButton);
+        });
+    }
+    totalArchivedLeaveCountSpan.textContent = filteredArchivedApplications.length;
+}
+
+// ... (rest of your JavaScript code remains the same) ...
+// Function to view details of an archived leave
+function viewArchivedLeaveDetails(id) {
+    const leave = archivedLeaveApplications.find(app => app.id === id);
+    if (leave) {
+        archiveLeaveEmployeeInput.value = leave.employee;
+        archiveLeaveTypeInput.value = leave.type;
+        archiveLeaveStartDateInput.value = leave.startDate;
+        archiveLeaveEndDateInput.value = leave.endDate;
+        archiveLeaveReasonInput.value = leave.reason;
+        archiveAttachedDocumentDisplay.textContent = leave.document || 'No document attached.';
+
+        // Display status in modal title
+        const displayStatus = leave.originalStatus || leave.status || 'N/A';
+        archiveLeaveModalTitle.textContent = `Archived Leave Details - ${leave.employee} (Status: ${displayStatus})`;
+        archiveLeaveModal.style.display = 'flex';
+    }
+}
+
+// Function to permanently delete an archived leave
+function deleteArchivedLeave(id) {
+    showConfirm(
+        'Confirm Deletion',
+        'Are you sure you want to permanently delete this archived leave application? This action cannot be undone.',
+        () => {
+            archivedLeaveApplications = archivedLeaveApplications.filter(app => app.id !== id);
+            saveArchivedLeavesToLocalStorage(archivedLeaveApplications);
+            renderArchivedLeaveApplications();
+            showAlert('Deleted!', 'The archived leave application has been permanently deleted.');
+        }
+    );
+}
+
+// Function to clear all archived leaves
+function clearAllArchivedLeaves() {
+    showConfirm(
+        'Clear All Archive',
+        'Are you sure you want to clear ALL archived leave applications? This action cannot be undone.',
+        () => {
+            archivedLeaveApplications = [];
+            saveArchivedLeavesToLocalStorage(archivedLeaveApplications);
+            renderArchivedLeaveApplications();
+            showAlert('Archive Cleared', 'All archived leave applications have been cleared.');
+        }
+    );
+}
+
+// --- Custom Alert/Confirm Functions ---
+function showAlert(title, message) {
+    customAlertConfirmTitle.textContent = title;
+    customAlertConfirmMessage.textContent = message;
+    confirmCancelBtn.style.display = 'none'; // Hide cancel button for alerts
+    confirmProceedBtn.textContent = 'OK';
+    confirmProceedBtn.className = 'btn-approved'; // Ensure it's the 'OK' style
+    confirmProceedBtn.onclick = () => hideModal(customAlertConfirmModal);
+    customAlertConfirmModal.style.display = 'flex';
+}
+
+function showConfirm(title, message, onConfirm) {
+    customAlertConfirmTitle.textContent = title;
+    customAlertConfirmMessage.textContent = message;
+    confirmCancelBtn.style.display = 'inline-block'; // Show cancel button for confirms
+    confirmProceedBtn.textContent = 'Proceed';
+    confirmProceedBtn.className = 'btn-declined'; // Set to a "delete/danger" style
+    confirmCancelBtn.className = 'btn-approved'; // Set cancel to a "safe" style
+
+    confirmCallback = onConfirm; // Store the function to call on confirm
+
+    confirmProceedBtn.onclick = () => {
+        hideModal(customAlertConfirmModal);
+        if (confirmCallback) {
+            confirmCallback();
+            confirmCallback = null; // Clear callback after execution
+        }
+    };
+    confirmCancelBtn.onclick = () => {
+        hideModal(customAlertConfirmModal);
+        confirmCallback = null; // Clear callback
+    };
+    customAlertConfirmModal.style.display = 'flex';
+}
+
+function hideModal(modalElement) {
+    modalElement.style.display = 'none';
+}
+
+
+// --- Event Listeners ---
+closeArchiveLeaveModalBtn.onclick = () => hideModal(archiveLeaveModal);
+closeCustomAlertConfirmBtn.onclick = () => hideModal(customAlertConfirmModal);
+
+window.onclick = (event) => {
+    if (event.target == archiveLeaveModal) {
+        hideModal(archiveLeaveModal);
+    }
+    if (event.target == customAlertConfirmModal) {
+        hideModal(customAlertConfirmModal);
+    }
+};
+
+archiveSearchInput.addEventListener('keyup', renderArchivedLeaveApplications);
+clearAllArchiveBtn.onclick = () => {
+    clearAllArchivedLeaves(); // Call the function which includes the confirm
+};
+
+// --- Function to load and process deleted leaves from 5leave.html ---
+function processIncomingDeletedLeaves() {
+    const referrer = document.referrer;
+    const expectedReferrerFilename = '5leave.html';
+
+    // Extract just the filename from the referrer URL
+    const referrerFilename = referrer ? referrer.split('/').pop().split('?')[0].split('#')[0] : '';
+
+    const tempDeletedLeavesKey = 'deletedLeaveRequestsTemp';
+    const incomingDeletedLeaves = JSON.parse(localStorage.getItem(tempDeletedLeavesKey)) || [];
+
+    // Check 1: Did we come from 5leave.html AND are there incoming deleted leaves?
+    if (referrerFilename === expectedReferrerFilename && incomingDeletedLeaves.length > 0) {
+        let currentArchivedLeaves = getArchivedLeavesFromLocalStorage();
+
+        incomingDeletedLeaves.forEach(deletedLeave => {
+            // Ensure the leave isn't already in the archive to prevent duplicates
+            const existsInArchive = currentArchivedLeaves.some(archived => archived.id === deletedLeave.id);
+            if (!existsInArchive) {
+                // Add the deleted leave to the archive.
+                currentArchivedLeaves.push({
+                    ...deletedLeave,
+                    originalStatus: deletedLeave.status, // Store the status it had in 5leave.html
+                    status: 'Deleted', // Set the status for archive context
+                    archivedDate: new Date().toISOString() // Optional: add an archive date
+                });
+            }
+        });
+
+        saveArchivedLeavesToLocalStorage(currentArchivedLeaves);
+        localStorage.removeItem(tempDeletedLeavesKey); // Clear the temporary storage after processing
+        renderArchivedLeaveApplications(); // Re-render table with new data
+        showAlert('Archive Updated', 'New deleted leave requests have been added from 5leave.html.');
+
+    } else if (incomingDeletedLeaves.length > 0 && !referrer) {
+        // Optional: Handle cases where referrer is empty (e.g., direct navigation, or some browser settings)
+        // but there's still deleted data. This is less secure as it bypasses the referrer check.
+        console.warn("Incoming deleted leaves found without referrer. Processing, but consider referrer policy.");
+        let currentArchivedLeaves = getArchivedLeavesFromLocalStorage();
+
+        incomingDeletedLeaves.forEach(deletedLeave => {
+            const existsInArchive = currentArchivedLeaves.some(archived => archived.id === deletedLeave.id);
+            if (!existsInArchive) {
+                currentArchivedLeaves.push({
+                    ...deletedLeave,
+                    originalStatus: deletedLeave.status,
+                    status: 'Deleted',
+                    archivedDate: new Date().toISOString()
+                });
+            }
+        });
+        saveArchivedLeavesToLocalStorage(currentArchivedLeaves);
+        localStorage.removeItem(tempDeletedLeavesKey);
+        renderArchivedLeaveApplications();
+        showAlert('Archive Updated', 'New deleted leave requests have been added.');
+    } else {
+        // If no specific deleted leaves are passed or referrer doesn't match,
+        // just render the existing archive from local storage.
+        renderArchivedLeaveApplications();
+    }
+}
+
+// Initial render and processing of deleted leaves on page load
+document.addEventListener('DOMContentLoaded', processIncomingDeletedLeaves);
+    </script>
+</body>
+</html>
