@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Tanod Dashboard</title>
+</head>
+<body class="bg-[#E1EACD] overflow-x-hidden">
+  <!--Header-->
+<!-- MOBILE HEADER from template_v1 (visible on small screens) -->
+<header id="topHeaderMobile"
+        class="relative flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
+
+  <!-- Left: Menu Button -->
+  <div class="text-3xl">
+    <button id="menuToggle" class="cursor-pointer text-white">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Center: Logo + Title (Absolute Centered) -->
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 text-center">
+    <img src="../images/Barangay-Market-Area-Seal.png" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(16px,2vw,20px)] hidden sm:inline-block">
+      TANOD DOCUMENTATION <br />
+      AND REPORTING SYSTEM
+    </span>
+  </div>
+
+  <!-- Right: Notification + Profile -->
+  <div class="flex items-center gap-6">
+    <a href="notifications.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+      <i class="fas fa-bell icon-responsive text-white"></i>
+    </a>
+    <a href="profile.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+      <img src="../images/maloi.jpg" alt="Profile"
+           class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+    </a>
+  </div>
+</header>
+
+<!-- DESKTOP HEADER from template_v2 (visible on md and up) -->
+<header id="topHeaderDesktop" class="hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
+  <div class="flex items-center gap-2">
+    <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
+        TANOD DOCUMENTATION <br />
+        AND REPORTING SYSTEM
+    </span>
+  </div>
+<nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+  <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Dashboard
+  </a>
+  <div class="flex-1 flex items-center justify-center px-4 py-3 bg-[#6F7F48] text-[#C8D75A] border-b-[5px] border-b-[#C8D75A] text-center">
+    Incident Report
+  </div>
+  <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Leave Application
+  </a>
+</nav>
+  <div class="flex items-center gap-6">
+  <!-- Notification Icon -->
+  <a href="notifications.html"
+     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+    <i class="fas fa-bell icon-responsive text-white"></i>
+  </a>
+
+  <!-- Profile Photo -->
+  <a href="profile.html"
+     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+    <img src="../images/maloi.jpg" alt="Profile"
+         class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+  </a>
+  </div>
+</header>
+
+  
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" data-open="false" class=" pt-3 fixed top-0 left-0 z-[1000] w-[250px] bg-[#4B5320] text-white shadow-md flex flex-col min-h-screen transition-transform duration-300">
+
+    <!-- Close Button (Mobile Only) -->
+    <div class="w-full flex justify-start">
+      <button id="closeSidebar" class="hidden text-2xl text-white px-4 pt-4">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+      <!-- Logo + Title -->
+    <div class="flex flex-col items-center text-center space-y-3 mt-4 pt-4 px-4">
+      <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[80px] h-[80px] rounded-full bg-white" loading="lazy"/>
+      <div class="font-bold text-sm leading-[1.3]">
+        TANOD DOCUMENTATION AND REPORTING SYSTEM
+      </div>
+    </div>
+
+    <!-- User Profile -->
+    <a href="profile.html" class="flex items-center w-full py-3 mt-4 transition-colors duration-300 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] no-underline">
+      <img src="../images/maloi.jpg" alt="Profile"
+          class="w-[50px] h-[50px] rounded-full bg-[#ddd] border-2 border-white mr-4 ml-3" />
+      <div class="flex flex-col justify-center">
+        <div class="font-bold text-base leading-tight text-white">Maloi Ricalde</div>
+        <div class="text-[13px] text-[#ccc] leading-tight">Tanod</div>
+      </div>
+    </a>
+
+    <!-- Menu -->
+    <nav class="w-full mt-2 mb-5">
+      <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
+      <ul class="list-none m-0 p-0">
+        <li class="mb-1">
+          <a href="dashboard.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <div class="flex items-center py-3 border-l-[5px] border-[#C8D75A] text-[#C8D75A] font-bold bg-[#6F7F48]">
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i>
+            <span class="">Incident Report</span>
+          </div>
+        </li>
+        <li class="mb-1">
+          <a href="leave-application.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="notifications.html"
+              class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+              <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <!-- Logout Button -->
+    <div class="w-full px-5 py-5">
+      <button class="w-full py-3 bg-white text-[#7A0A0A] font-bold text-[16px] rounded transition-colors duration-300 hover:bg-[#eee]">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+
+
+
+    
+<!--Main Container-->
+<div class="w-[90%] mx-auto my-5 mb-12 bg-white shadow-lg rounded-[30px] flex flex-col pt-8 font-sans">
+    <div class="w-full flex-grow flex flex-col gap-5 max-h-full px-12 items-center">
+      <div class="flex justify-center items-center gap-2 mt-[30px]">
+        <div class="w-auto align-middle">
+        <i class="fas fa-exclamation-triangle text-[#4B5320] text-2xl mr-2"></i>
+        </div>
+        <h2 class="text-center text-[clamp(1.2em,4vw,2em)] font-bold text-[#4B5320]">INCIDENT REPORT</h2>
+      </div>
+    
+
+      <p class="text-xs italic text-center text-gray-500 mt-[-10px] mb-6">(*) Required fields must be filled to apply for leave.</p>
+    </div>
+  <!-- SECTION HEADER -->
+  <div class="bg-[#e2dfdf] text-[#1a1a1a] text-sm font-semibold uppercase px-8 md:px-12 py-3 mb-6 mx-4 md:mx-10 rounded-md shadow-sm tracking-wider">
+    Incident Details
+  </div>
+
+  <!-- FORM CONTENT -->
+  <div class="w-full px-4 sm:px-6 md:px-[50px] box-border mb-10 space-y-6 text-[14px]">
+    <!-- Date & Time Row -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <label for="incident-date" class="block font-bold text-[#444] mb-1">Date of Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
+        <input type="date" id="incident-date" name="incident-date"
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+      </div>
+      <div>
+        <label for="incident-time" class="block font-bold text-[#444] mb-1">Time of Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
+        <input type="time" id="incident-time" name="incident-time"
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div>
+      <label for="incident-location" class="block font-bold text-[#444] mb-1">Location of the Incident<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <input type="text" id="incident-location" name="incident-location" placeholder="Enter location"
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label for="incident-description" class="block font-bold text-[#444] mb-1">Description<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <textarea id="incident-description" name="incident-description" placeholder="Describe the incident"
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-lime-600"></textarea>
+    </div>
+
+    <!-- File Upload -->
+    <div>
+      <label for="attached-document" class="block font-bold text-[#444] mb-1">Attach Document<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        <input type="file" id="attached-document" name="attached-document" class="hidden" />
+        <label for="attached-document"
+          class="bg-[#D0B564] border border-gray-300 rounded-md px-4 py-2 text-sm text-[#555] cursor-pointer hover:bg-[#BD8F42] transition text-center sm:w-auto w-full">
+          Choose File
+        </label>
+        <input type="text" readonly placeholder="No file chosen"
+          class="flex-grow min-w-0 bg-[#fcfcfc] border border-[#eee] rounded-md px-3 py-2 text-sm text-[#777] cursor-default w-full" />
+      </div>
+    </div>
+
+    <!-- Section Header -->
+    <div class="bg-[#e2dfdf] text-[#1a1a1a] text-sm font-semibold uppercase px-8 md:px-12 py-3 rounded-md shadow-sm tracking-wider">
+      Type of Incident
+    </div>
+
+    <!-- Radio Grid -->
+    <div class="grid sm:grid-cols-2 gap-4 text-[15px]">
+      <!-- Radio Options -->
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="theft" class="mr-3 accent-lime-600" /> Theft
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="assault" class="mr-3 accent-lime-600" /> Assault
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="vandalism" class="mr-3 accent-lime-600" /> Vandalism
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="medical-emergency" class="mr-3 accent-lime-600" /> Medical Emergency
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="trespassing" class="mr-3 accent-lime-600" /> Trespassing
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="traffic-accident" class="mr-3 accent-lime-600" /> Traffic Accident
+      </label>
+      <label class="flex items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 cursor-pointer hover:shadow-md transition w-full">
+        <input type="radio" name="incident-type" value="personal-injury" class="mr-3 accent-lime-600" /> Personal Injury
+      </label>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center bg-white px-4 py-3 rounded-lg shadow border border-gray-200 col-span-full gap-3 w-full">
+        <div class="flex items-center">
+          <input type="radio" name="incident-type" value="other" class="mr-3 accent-lime-600" onchange="document.getElementById('other-type-text').disabled = !this.checked" />
+          <label for="other-type" class="mr-2">Other</label>
+        </div>
+        <input type="text" id="other-type-text" placeholder="(Specify)" disabled
+          class="flex-grow bg-[#F5F5F5] border border-[#ccc] px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-lime-600 w-full sm:w-auto min-w-0" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Involved Person(s) Section Header -->
+<div class="bg-[#e2dfdf] text-[#1a1a1a] text-sm font-semibold uppercase px-8 md:px-12 py-3 mb-4 mx-4 md:mx-10 rounded-md shadow-sm tracking-wider">
+  Involved Individuals' Details
+</div>
+
+<div class="w-full px-4 sm:px-6 md:px-[50px] box-border mb-4 space-y-4 text-[14px]">
+  <div class="grid md:grid-cols-2 gap-6 mb-10">
+    <div>
+      <label for="filer-name" class="block font-bold text-[#444] mb-1">Name: (Person filling out report)<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <input type="text" id="filer-name" name="filer-name" placeholder="Enter name"
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+    </div>
+    <div>
+      <label for="filer-contact" class="block font-bold text-[#444] mb-1">Contact: (Person filling out report)<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <input type="text" id="filer-contact" name="filer-contact" placeholder="Enter contact"
+        class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+    </div>
+  </div>
+  <div id="otherPersonsContainer" class="space-y-6"></div>
+  <div class="flex justify-center mt-1">
+    <button type="button" onclick="addOtherPerson()"
+      class="text-sm text-white font-bold px-8 py-2 rounded-full bg-[#4CAF50] hover:bg-[#45a049] transition-all shadow-md mt-1">
+      + Add Another Person
+    </button>
+  </div>
+</div>
+
+
+  <!-- Buttons -->
+  <div class="mt-3 flex flex-col sm:flex-row justify-center gap-5 w-full px-4 sm:px-6 md:px-[50px] pb-10">
+    <button type="submit"
+      class="submit-button bg-[#4CAF50] text-white px-8 py-3 rounded-full text-[1.1em] font-bold transition duration-300 hover:bg-[#45a049] hover:-translate-y-[1px]">
+      Submit
+    </button>
+    <button type="reset" class="reset-button bg-[#f0f0f0] text-[#555] px-8 py-3 rounded-full text-[1.1em] font-bold border-2 border-[#c00707] transition duration-300 hover:bg-[#e0e0e0] hover:-translate-y-[1px]">
+      Clear
+    </button>
+  </div>
+
+  <div id="successModal" class="fixed inset-0 z-[1000] bg-black/40 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-[#fefefe] p-6 sm:p-8 rounded-[15px] shadow-xl w-[90%] max-w-[400px] text-center relative transform -translate-y-5 transition-transform duration-300 modal-content">
+      <span class="close-button absolute top-2 right-4 text-[28px] font-bold text-[#aaa] cursor-pointer">&times;</span>
+      <div class="modal-body">
+        <div class="text-[80px] text-[#57a045]">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="text-[1.5em] text-[#333] mt-0 font-semibold">Upload Successful!</h3>
+        <p class="text-[1em] text-[#555] mb-5">Your report will be reviewed by the Admin.</p>
+        <button class="modal-close-button bg-[#D62A29] text-white px-6 py-2 rounded-full text-base font-bold transition duration-300 hover:bg-[#c02221]">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("closeSidebar");
+
+    function openSidebar() {
+      sidebar.dataset.open = "true";
+      overlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebar.dataset.open = "false";
+      overlay.classList.add("hidden");
+    }
+
+    menuToggle?.addEventListener("click", openSidebar);
+    overlay?.addEventListener("click", closeSidebar);
+    closeBtn?.addEventListener("click", closeSidebar);
+    
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
+
+    function confirmLogout() {
+      if (confirm("Are you sure you want to log out?")) {
+        // Example action: redirect to logout page
+        window.location.href = "../index.html"; // or whatever your logout URL is
+      }
+    }
+
+
+    /*-- Modals --*/
+
+    // Modal handling
+const modal = document.getElementById("successModal");
+const submitButtons = document.querySelectorAll(".submit-button");
+const closeButton = document.querySelector(".close-button");
+const modalCloseBtn = document.querySelector(".modal-close-button");
+
+// Show modal
+function showModal(event) {
+  event.preventDefault();
+  modal.classList.add("opacity-100", "pointer-events-auto");
+  modal.classList.remove("opacity-0", "pointer-events-none");
+
+  // Animate modal content
+  const content = modal.querySelector(".modal-content");
+  content.classList.remove("-translate-y-5");
+  content.classList.add("translate-y-0");
+}
+
+// Hide modal
+    function hideModal() {
+      modal.classList.remove("opacity-100", "pointer-events-auto");
+      modal.classList.add("opacity-0", "pointer-events-none");
+
+      const content = modal.querySelector(".modal-content");
+      content.classList.remove("translate-y-0");
+      content.classList.add("-translate-y-5");
+    }
+
+    // Event bindings
+    submitButtons.forEach((btn) => btn.addEventListener("click", showModal));
+    closeButton.addEventListener("click", hideModal);
+    modalCloseBtn.addEventListener("click", hideModal);
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) hideModal();
+    });
+
+        //ADD ANOTHER PERSON
+
+function addOtherPerson() {
+  const container = document.getElementById("otherPersonsContainer");
+
+  const row = document.createElement("div");
+  row.className = "person-row mb-8";
+
+  row.innerHTML = `
+    <!-- Top Divider -->
+    <div class="flex items-center justify-center mb-4">
+      <hr class="border-gray-300 w-full" />
+    </div>
+
+    <!-- Input Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Name Field -->
+      <div>
+        <label class="block font-bold text-[#444] mb-1">Name: (Other person involved)</label>
+        <input type="text" name="other-name[]" placeholder="Enter name"
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2
+                 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+      </div>
+
+      <!-- Contact Field -->
+      <div>
+        <label class="block font-bold text-[#444] mb-1">Contact: (Other person involved)</label>
+        <input type="text" name="other-contact[]" placeholder="Enter contact"
+          class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2
+                 focus:outline-none focus:ring-2 focus:ring-lime-600" />
+      </div>
+    </div>
+
+    <!-- Bottom Divider + Remove Button -->
+    <div class="flex items-center justify-center gap-2 mt-4">
+      <hr class="flex-grow border-gray-300" />
+      <button type="button" onclick="removeOtherPerson(this)" title="Remove"
+        class="remove-btn hidden text-white bg-[#D62A29] hover:bg-[#c02221]
+               px-4 py-1 rounded-full text-sm font-bold transition-all shadow-md">
+        ✕
+      </button>
+      <hr class="flex-grow border-gray-300" />
+    </div>
+  `;
+
+  container.appendChild(row);
+  updateRemoveButtons();
+}
+
+function removeOtherPerson(button) {
+  const row = button.closest(".person-row");
+  row.remove();
+  updateRemoveButtons();
+}
+
+function updateRemoveButtons() {
+  const personRows = document.querySelectorAll("#otherPersonsContainer .person-row");
+
+  // hide all remove buttons by default
+  document.querySelectorAll(".remove-btn").forEach(btn => btn.classList.add("hidden"));
+
+  // show remove buttons only if 2 or more other persons exist
+  if (personRows.length >= 1) {
+    document.querySelectorAll(".remove-btn").forEach(btn => btn.classList.remove("hidden"));
+  }
+}
+
+document.addEventListener("DOMContentLoaded", updateRemoveButtons);
+
+  const radios = document.querySelectorAll("input[name='incident-type']");
+  const otherInput = document.getElementById('other-type-text');
+  const form = document.querySelector('form');
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      otherInput.disabled = !(radio.value === 'other' && radio.checked);
+    });
+  });
+
+  if (form) {
+    form.addEventListener('reset', () => {
+      setTimeout(() => {
+        otherInput.disabled = true;
+      }, 0);
+    });
+  }
+</script>
+
+
+</body>
+
+
+</html>

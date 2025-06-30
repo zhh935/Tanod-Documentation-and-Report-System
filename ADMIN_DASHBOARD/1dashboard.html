@@ -163,8 +163,25 @@
             display: flex;
             flex-direction: column;
             gap: 30px; /* Space between sections */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-
+        .main-content > * {
+            position: relative;
+            z-index: 1;
+            /* This ensures cards, headers, and announcements are not affected by the background's opacity */
+        }
+        .main-content::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('../images/barangay-hall-bg.jpg') center center / cover no-repeat;
+            opacity: 0.18;           /* Very small opacity */
+            filter: blur(6px);       /* Subtle blur */
+            z-index: 0;
+            pointer-events: none;    /* Allow clicks through */
+        }
         .dashboard-header h2 {
             margin: 0;
             color: #333;

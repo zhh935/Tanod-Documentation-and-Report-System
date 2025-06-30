@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Tanod Dashboard</title>
+</head>
+<body class="bg-[#E1EACD] overflow-x-hidden">
+  <!--Header-->
+<!-- MOBILE HEADER from template_v1 (visible on small screens) -->
+<header id="topHeaderMobile"
+        class="relative flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
+
+  <!-- Left: Menu Button -->
+  <div class="text-3xl">
+    <button id="menuToggle" class="cursor-pointer text-white">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Center: Logo + Title (Absolute Centered) -->
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 text-center">
+    <img src="../images/Barangay-Market-Area-Seal.png" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(16px,2vw,20px)] hidden sm:inline-block">
+      TANOD DOCUMENTATION <br />
+      AND REPORTING SYSTEM
+    </span>
+  </div>
+
+  <!-- Right: Notification + Profile -->
+  <div class="flex items-center gap-6">
+    <a href="notifications.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+      <i class="fas fa-bell icon-responsive text-white"></i>
+    </a>
+    <a href="profile.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+      <img src="../images/maloi.jpg" alt="Profile"
+           class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+    </a>
+  </div>
+</header>
+
+<!-- DESKTOP HEADER from template_v2 (visible on md and up) -->
+<header id="topHeaderDesktop" class="hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
+  <div class="flex items-center gap-2">
+    <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
+        TANOD DOCUMENTATION <br />
+        AND REPORTING SYSTEM
+    </span>
+  </div>
+  <nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+    <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Dashboard
+    </a>
+    <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Incident Report
+    </a>
+    <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+      Leave Application
+    </a>
+  </nav>
+  <div class="flex items-center gap-6">
+  <!-- Notification Icon -->
+    <div class="flex-shrink-0 text-2xl text-[#C8D75A]">
+      <i class="fas fa-bell icon-responsive"></i>
+    </div>
+  <!-- Profile Photo -->
+  <a href="profile.html"
+     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+    <img src="../images/maloi.jpg" alt="Profile"
+         class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+  </a>
+  </div>
+</header>
+
+  
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" data-open="false" class=" pt-3 fixed top-0 left-0 z-[1000] w-[250px] bg-[#4B5320] text-white shadow-md flex flex-col min-h-screen transition-transform duration-300">
+
+    <!-- Close Button (Mobile Only) -->
+    <div class="w-full flex justify-start">
+      <button id="closeSidebar" class="hidden text-2xl text-white px-4 pt-4">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+      <!-- Logo + Title -->
+    <div class="flex flex-col items-center text-center space-y-3 mt-4 pt-4 px-4">
+      <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[80px] h-[80px] rounded-full bg-white" loading="lazy"/>
+      <div class="font-bold text-sm leading-[1.3]">
+        TANOD DOCUMENTATION AND REPORTING SYSTEM
+      </div>
+    </div>
+
+    <!-- User Profile -->
+    <a href="profile.html" class="flex items-center w-full py-3 mt-4 transition-colors duration-300 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] no-underline">
+      <img src="../images/maloi.jpg" alt="Profile"
+          class="w-[50px] h-[50px] rounded-full bg-[#ddd] border-2 border-white mr-4 ml-3" />
+      <div class="flex flex-col justify-center">
+        <div class="font-bold text-base leading-tight text-white">Maloi Ricalde</div>
+        <div class="text-[13px] text-[#ccc] leading-tight">Tanod</div>
+      </div>
+    </a>
+
+    <!-- Menu -->
+    <nav class="w-full mt-2 mb-5">
+    <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
+    <ul class="list-none m-0 p-0">
+        <li class="mb-1">
+        <a href="dashboard.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
+        </a>
+        </li>
+        <li class="mb-1">
+        <a href="incident-report.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
+        </a>
+        </li>
+        <li class="mb-1">
+        <a href="leave-application.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
+        </a>
+        </li>
+        <li class="mb-1">
+        <div class="flex items-center py-3 border-l-[5px] border-[#C8D75A] text-[#C8D75A] font-bold bg-[#6F7F48]">
+            <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
+        </a>
+        </li>
+    </ul>
+    </nav>
+
+    <!-- Logout Button -->
+    <div class="w-full px-5 py-5">
+      <button onclick="confirmLogout()" class="w-full py-3 bg-white text-[#7A0A0A] font-bold text-[16px] rounded transition-colors duration-300 hover:bg-[#eee]">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+  <div id="overlay2" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+
+
+
+    
+  <!--Main Container-->
+ <main class="w-full px-4 py-6 mx-auto mt-[10px]">
+  <section class="bg-white shadow-xl rounded-2xl p-6 space-y-6 transition-all duration-500">
+    <h1 class="text-2xl font-bold text-[#4B5320]">Notifications</h1>
+
+    <ul class="space-y-4">
+
+      <!-- Notification 1 -->
+      <li class="flex flex-col sm:flex-row justify-between gap-4 bg-[#F7FAEF] border-l-4 border-[#FFD700] rounded-xl p-4 hover:scale-[1.01] hover:bg-[#ecf3da] transition-all duration-300 ease-in-out">
+        <div>
+          <p class="text-gray-800 font-semibold">New incident report submitted by Officer Reyes.</p>
+          <p class="text-sm text-gray-500 mt-1">2 hours ago</p>
+        </div>
+        <div class="flex gap-3 items-center self-end sm:self-center">
+          <button title="Mark as read" class="text-green-600 hover:text-green-800 transition duration-200">
+            <i class="fas fa-check-circle text-lg"></i>
+          </button>
+          <button title="Delete" class="text-red-600 hover:text-red-800 transition duration-200">
+            <i class="fas fa-trash-alt text-lg"></i>
+          </button>
+        </div>
+      </li>
+
+      <!-- Notification 2 (Unread) - same style as Notification 1 -->
+      <li class="flex flex-col sm:flex-row justify-between gap-4 bg-[#F7FAEF] border-l-4 border-[#FFD700] rounded-xl p-4 hover:scale-[1.01] hover:bg-[#ecf3da] transition-all duration-300 ease-in-out">
+        <div>
+          <p class="text-gray-800 font-semibold">Your leave request (July 10–12) has been approved.</p>
+          <p class="text-sm text-gray-500 mt-1">1 day ago</p>
+        </div>
+        <div class="flex gap-3 items-center self-end sm:self-center">
+          <button title="Mark as read" class="text-green-600 hover:text-green-800 transition duration-200">
+            <i class="fas fa-check-circle text-lg"></i>
+          </button>
+          <button title="Delete" class="text-red-600 hover:text-red-800 transition duration-200">
+            <i class="fas fa-trash-alt text-lg"></i>
+          </button>
+        </div>
+      </li>
+
+      <!-- Notification 3 -->
+      <li class="flex flex-col sm:flex-row justify-between gap-4 bg-[#EAEAEA] rounded-xl p-4 hover:scale-[1.01] hover:bg-[#dddddd] transition-all duration-300 ease-in-out">
+        <div>
+          <p class="text-gray-800 font-semibold">Barangay meeting scheduled on August 5 at 4:00 PM.</p>
+          <p class="text-sm text-gray-500 mt-1">3 days ago</p>
+        </div>
+        <div class="flex gap-3 items-center self-end sm:self-center">
+          <button title="Mark as read" class="text-green-600 hover:text-green-800 transition duration-200">
+            <i class="fas fa-check-circle text-lg"></i>
+          </button>
+          <button title="Delete" class="text-red-600 hover:text-red-800 transition duration-200">
+            <i class="fas fa-trash-alt text-lg"></i>
+          </button>
+        </div>
+      </li>
+
+      <!-- Notification 4 -->
+      <li class="flex flex-col sm:flex-row justify-between gap-4 bg-[#EAEAEA] rounded-xl p-4 hover:scale-[1.01] hover:bg-[#dddddd] transition-all duration-300 ease-in-out">
+        <div>
+          <p class="text-gray-800 font-semibold">Reminder: Submit your weekly patrol log before Friday.</p>
+          <p class="text-sm text-gray-500 mt-1">5 days ago</p>
+        </div>
+        <div class="flex gap-3 items-center self-end sm:self-center">
+          <button title="Mark as read" class="text-green-600 hover:text-green-800 transition duration-200">
+            <i class="fas fa-check-circle text-lg"></i>
+          </button>
+          <button title="Delete" class="text-red-600 hover:text-red-800 transition duration-200">
+            <i class="fas fa-trash-alt text-lg"></i>
+          </button>
+        </div>
+      </li>
+
+      <!-- Notification 5 -->
+      <li class="flex flex-col sm:flex-row justify-between gap-4 bg-[#EAEAEA] rounded-xl p-4 hover:scale-[1.01] hover:bg-[#dddddd] transition-all duration-300 ease-in-out">
+        <div>
+          <p class="text-gray-800 font-semibold">System maintenance on July 1st, 12:00 AM – 2:00 AM.</p>
+          <p class="text-sm text-gray-500 mt-1">6 days ago</p>
+        </div>
+        <div class="flex gap-3 items-center self-end sm:self-center">
+          <button title="Mark as read" class="text-green-600 hover:text-green-800 transition duration-200">
+            <i class="fas fa-check-circle text-lg"></i>
+          </button>
+          <button title="Delete" class="text-red-600 hover:text-red-800 transition duration-200">
+            <i class="fas fa-trash-alt text-lg"></i>
+          </button>
+        </div>
+      </li>
+
+      <!-- Placeholder shown only when all notifications are gone -->
+      <div id="noNotifPlaceholder" class="hidden flex items-center justify-center bg-[#F7FAEF] border-l-4 border-gray-300 rounded-xl p-6 h-[100px]">
+        <p class="text-gray-500 font-medium text-center">
+          <i class="fas fa-inbox mr-2 text-gray-400"></i>
+          No new notifications
+        </p>
+      </div>
+
+    </ul>
+  </section>
+</main>
+
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("closeSidebar");
+
+    function openSidebar() {
+      sidebar.dataset.open = "true";
+      overlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebar.dataset.open = "false";
+      overlay.classList.add("hidden");
+    }
+
+    menuToggle?.addEventListener("click", openSidebar);
+    overlay?.addEventListener("click", closeSidebar);
+    closeBtn?.addEventListener("click", closeSidebar);
+      
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
+
+    //Main Container
+
+    document.querySelectorAll('button[title="Delete"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const li = btn.closest('li');
+      li.classList.add('opacity-0', 'translate-x-4');
+      li.style.transition = 'all 0.3s ease';
+      setTimeout(() => li.remove(), 300);
+    });
+  });
+
+  // no notif
+
+  const notifList = document.getElementById('notifList');
+  const noNotif = document.getElementById('noNotifPlaceholder');
+
+  function checkIfEmpty() {
+    if (!notifList.querySelector('li')) {
+      notifList.classList.add('hidden');
+      noNotif.classList.remove('hidden');
+    }
+  }
+
+  // Initial check (in case page loads with 0)
+  checkIfEmpty();
+
+  // Enable delete buttons
+  document.querySelectorAll('button[title="Delete"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const li = btn.closest('li');
+      li.classList.add('opacity-0', 'translate-x-4');
+      li.style.transition = 'all 0.3s ease';
+      setTimeout(() => {
+        li.remove();
+        checkIfEmpty(); // Check after deletion
+      }, 300);
+    });
+  });
+
+  </script>
+
+
+</body>
+
+
+</html>

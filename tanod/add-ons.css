@@ -1,0 +1,415 @@
+@import "tailwindcss";
+
+#notif-container {
+    max-width: 90vw;
+    min-height: 80vh;
+}
+/* PC View Calendar Table Design */
+#calendar-table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#calendar-table th, #calendar-table td {
+    width: calc(100% / 7); /* 7 Equal Columns */
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    vertical-align: top;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#calendar-table td {
+    min-height: 80px; /* You can adjust this */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#calendar-table td:hover {
+    background-color: #f0f0f0; /* Hover Effect */
+}
+
+.day-number {
+    font-weight: bold;
+    font-size: 1.1em;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.today {
+    background-color: #fef9c3; /* Yellow highlight */
+    border: 2px solid #facc15;
+}
+
+.duty {
+    background-color: #d1fae5; /* Light green */
+}
+
+.dayoff {
+    background-color: #fee2e2; /* Light red */
+}
+
+.dashboard-main-content {
+    display: flex;
+}
+#calendar-table tr {
+    height: calc((90% - 3rem) / 6);
+}
+/* Custom orientation overrides */
+/* ---------- MOBILE  (PORTRAIT) --------------------------------- */
+@media (orientation: portrait) {
+  /* Sidebar stays off‑canvas until opened */
+  #sidebar {
+    transform: translateX(-100%) !important;
+  }
+  #sidebar[data-open="true"] {
+    transform: translateX(0%) !important;
+  }
+
+  /* Show mobile header, hide desktop header */
+  #topHeaderMobile {               /* template v1 */
+    display: flex !important;
+  }
+  #topHeaderDesktop {              /* template v2 */
+    display: none !important;
+  }
+
+  /* Mobile sidebar close button visible */
+  #closeSidebar {
+    display: block !important;
+  }
+
+  /* Full title visible unless width rule below hides it */
+  #title {
+    display: inline;
+  }
+    #dashboard-main-content {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        overflow: visible;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #dashboard-left-area,
+    #calendar-container,
+    #tanod-dashboard,
+    #dashboard-box {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #tanod-dashboard {
+        width: 90vw;
+        height: 60vh;
+        padding: 20px 0;
+    }
+
+    #dashboard-box {
+        width: 90vw;
+        max-width: 90vw;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #announcement-header {
+        padding-left: 4vw;
+        font-size: 4vw;
+        align-self: flex-start;
+    }
+
+    #item-box-1,
+    #item-box-2,
+    #item-box-3 {
+        padding: 2vw;
+        margin: 2vw 0;
+        width: 90%;
+        max-width: 100%;
+        align-items: flex-start;
+    }
+
+    #text-content-1,
+    #text-content-2,
+    #text-content-3 {
+        max-height: 1.4em;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    #calendar-nav h2 {
+        font-size: 1.4em;
+    }
+
+    #calendar-nav button {
+        padding: 8px 12px;
+        font-size: 0.95em;
+    }
+
+    #calendar-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #calendar-nav button {
+        width: 100%;
+        max-width: 150px;
+    }
+}
+
+/* Calendar Day Cell Design */
+#calendar-table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+}
+
+#calendar-table thead th {
+    width: calc(100% / 7);
+}
+
+#calendar-table tbody {
+    height: 50%;
+    display: table-row-group;
+}
+
+#calendar-table tr {
+    height: calc((100% - 3rem) / 6);
+}
+
+#calendar-table td {
+    width: calc(100% / 7);
+    border: 1px solid #e0e0e0;
+    position: relative;
+    vertical-align: top;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.day-number {
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.today {
+    background-color: #f5f5a7;
+    border: 2px solid #ffcc00;
+}
+
+.duty {
+    background-color: #d1e7dd;
+}
+
+.dayoff {
+    background-color: #f8d7da;
+}
+
+/* Optional: trim the long title on very narrow devices */
+@media (orientation: portrait), (max-width: 768px) {
+  #title {
+    display: none;
+  }
+}
+
+/* ---------- DESKTOP  (LANDSCAPE  + WIDE) ----------------------- */
+@media (orientation: landscape) {
+  /* Hide sidebar entirely on desktop */
+  #sidebar,
+  #closeSidebar {
+    display: none !important;
+  }
+
+  /* Show desktop header and hide the mobile one */
+  #topHeaderDesktop {              /* template v2 */
+    display: flex !important;
+  }
+  #topHeaderMobile {               /* template v1 */
+    display: none !important;
+  }
+
+  #overlay {
+    display: none;
+  }
+
+  .dashboard-main-content {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+ .dashboard-main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .dashboard-left-area,
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dashboard-box {
+    width: 90vw;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dashboard-box h3 {
+    font-size: 5vw;
+    padding-left: 0.5rem;
+  }
+
+  .item-box {
+    padding: 0.75rem 1rem;
+  }
+
+  .text-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 1.3em;
+    line-height: 1.3em;
+    width: 100%;
+  }
+
+  .text-content.expanded {
+    white-space: normal;
+    overflow: visible;
+    max-height: none;
+  }
+
+  .see-more {
+    display: none;
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 700;
+    margin-top: 0.25rem;
+  }
+
+  .see-more.visible {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 480px) {
+    #dashboard-main-content {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        overflow: visible;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #dashboard-left-area,
+    #calendar-container,
+    #tanod-dashboard,
+    #dashboard-box {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    #tanod-dashboard {
+        height: auto !important;
+        padding: 20px 0;
+    }
+
+    #dashboard-box {
+        width: 90vw;
+        max-width: 90vw;
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #announcement-header {
+        padding-left: 4vw;
+        font-size: 4vw;
+        align-self: flex-start;
+    }
+
+    #item-box-1,
+    #item-box-2,
+    #item-box-3 {
+        padding: 2vw;
+        margin: 2vw 0;
+        width: 90%;
+        max-width: 100%;
+        align-items: flex-start;
+    }
+
+    #text-content-1,
+    #text-content-2,
+    #text-content-3 {
+        max-height: 1.4em;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    #calendar-nav h2 {
+        font-size: 1.4em;
+    }
+
+    #calendar-nav button {
+        padding: 8px 12px;
+        font-size: 0.95em;
+    }
+
+    #calendar-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #calendar-nav button {
+        width: 100%;
+        max-width: 150px;
+    }
+
+    /* Calendar Mobile Sizing */
+    #calendar-table {
+        width: 100%;
+        height: auto;
+        table-layout: fixed;
+        border-spacing: 0;
+        margin: 0 auto;
+    }
+
+    #calendar-table thead th {
+        width: calc(100% / 7);
+    }
+
+    #calendar-table tr {
+        height: calc(100% / 6);
+    }
+
+    #calendar-table td {
+        width: calc(100% / 7);
+        min-height: 60px;
+        border: 1px solid #e0e0e0;
+        position: relative;
+        vertical-align: top;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+}

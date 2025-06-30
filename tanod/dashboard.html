@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Tanod Dashboard</title>
+</head>
+<body class="bg-[#E1EACD] overflow-x-hidden">
+  <!--Header-->
+<!-- MOBILE HEADER from template_v1 (visible on small screens) -->
+<header id="topHeaderMobile"
+        class="relative flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
+
+  <!-- Left: Menu Button -->
+  <div class="text-3xl">
+    <button id="menuToggle" class="cursor-pointer text-white">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Center: Logo + Title (Absolute Centered) -->
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 text-center">
+    <img src="../images/Barangay-Market-Area-Seal.png" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(16px,2vw,20px)] hidden sm:inline-block">
+      TANOD DOCUMENTATION <br />
+      AND REPORTING SYSTEM
+    </span>
+  </div>
+
+  <!-- Right: Notification + Profile -->
+  <div class="flex items-center gap-6">
+    <a href="notifications.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+      <i class="fas fa-bell icon-responsive text-white"></i>
+    </a>
+    <a href="profile.html"
+       class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+      <img src="../images/maloi.jpg" alt="Profile"
+           class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+    </a>
+  </div>
+</header>
+
+<!-- DESKTOP HEADER from template_v2 (visible on md and up) -->
+<header id="topHeaderDesktop" class="hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
+  <div class="flex items-center gap-2">
+    <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
+    <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
+        TANOD DOCUMENTATION <br />
+        AND REPORTING SYSTEM
+    </span>
+  </div>
+<nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+  <div class="flex-1 flex items-center justify-center px-4 py-3 bg-[#6F7F48] text-[#C8D75A] border-b-[5px] border-b-[#C8D75A] text-center">
+    Dashboard
+  </div>
+  <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Incident Report
+  </a>
+  <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+    Leave Application
+  </a>
+</nav>
+  <div class="flex items-center gap-6">
+  <!-- Notification Icon -->
+  <a href="notifications.html"
+     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+    <i class="fas fa-bell icon-responsive text-white"></i>
+  </a>
+
+  <!-- Profile Photo -->
+  <a href="profile.html"
+     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300">
+    <img src="../images/maloi.jpg" alt="Profile"
+         class="w-[50px] h-[50px] rounded-full border-2 border-white" />
+  </a>
+  </div>
+</header>
+
+  
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" data-open="false" class=" pt-3 fixed top-0 left-0 z-[1000] w-[250px] bg-[#4B5320] text-white shadow-md flex flex-col min-h-screen transition-transform duration-300">
+
+    <!-- Close Button (Mobile Only) -->
+    <div class="w-full flex justify-start">
+      <button id="closeSidebar" class="hidden text-2xl text-white px-4 pt-4">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+      <!-- Logo + Title -->
+    <div class="flex flex-col items-center text-center space-y-3 mt-4 pt-4 px-4">
+      <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[80px] h-[80px] rounded-full bg-white" loading="lazy"/>
+      <div class="font-bold text-sm leading-[1.3]">
+        TANOD DOCUMENTATION AND REPORTING SYSTEM
+      </div>
+    </div>
+
+    <!-- User Profile -->
+    <a href="profile.html" class="flex items-center w-full py-3 mt-4 transition-colors duration-300 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] no-underline">
+      <img src="../images/maloi.jpg" alt="Profile"
+          class="w-[50px] h-[50px] rounded-full bg-[#ddd] border-2 border-white mr-4 ml-3" />
+      <div class="flex flex-col justify-center">
+        <div class="font-bold text-base leading-tight text-white">Maloi Ricalde</div>
+        <div class="text-[13px] text-[#ccc] leading-tight">Tanod</div>
+      </div>
+    </a>
+
+
+<!-- Menu -->
+    <nav class="w-full mt-2 mb-5">
+      <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
+      <ul class="list-none m-0 p-0">
+        <li class="mb-1">
+          <div class="flex items-center py-3 border-l-[5px] border-[#C8D75A] text-[#C8D75A] font-bold bg-[#6F7F48]">
+            <i class="fas fa-th-large mr-2 ml-3 text-lg"></i>
+            <span class="">Dashboard</span>
+          </div>
+        </li>
+        <li class="mb-1">
+          <a href="incident-report.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="leave-application.html"
+            class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="notifications.html"
+          class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <!-- Logout Button -->
+    <div class="w-full px-5 py-5">
+      <button class="w-full py-3 bg-white text-[#7A0A0A] font-bold text-[16px] rounded transition-colors duration-300 hover:bg-[#eee]">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+
+
+
+<!--Main Container-->
+<div class="flex flex-col lg:flex-row gap-4 p-4 lg:p-6">
+  <!-- Left Section -->
+  <div class="flex flex-col gap-4 w-full lg:w-[30vw]">
+    <!-- Profile -->
+    <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center justify-center lg:h-[50%]">
+      <img src="../images/maloi.jpg" class="w-24 h-24 object-cover rounded-full border-2 border-gray-300 mb-4" />
+      <p class="text-lg font-bold text-gray-800">Maloi Ricalde</p>
+      <p class="text-sm text-gray-500">Barangay Tanod</p>
+    </div>
+
+    <!-- Announcements -->
+    <div class="bg-white rounded-xl shadow p-4 lg:h-[50%]">
+      <h3 class="text-[#556B2F] font-semibold mb-2 text-2xl">Announcement</h3>
+      <div class="space-y-3 mt-4">
+        <div class="bg-gray-100 rounded-lg p-3">
+          <div class="truncate text-m text-gray-800 font-semibold">New ID distribution: June 15</div>
+        </div>
+        <div class="bg-gray-100 rounded-lg p-3">
+          <div class="truncate text-m text-gray-800 font-semibold">Barangay Hall Maintenance: June 16 with additional notes longer than one line</div>
+        </div>
+        <div class="bg-gray-100 rounded-lg p-3">
+          <div class="truncate text-m text-gray-800 font-semibold">Tanod Meeting: June 18</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="w-full lg:w-[65vw] lg:h-[80vh] bg-white rounded-xl shadow p-6 flex flex-col">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-2 bg-[#ebf0e6] p-3 rounded mb-4">
+      <button id="prevMonth" class="text-[#556B2F] text-sm font-bold px-4 py-2 rounded hover:bg-[#dce6cc]">&lt; Previous</button>
+      <h2 id="currentMonthYear" class="text-xl font-semibold text-gray-700">June 2025</h2>
+      <button id="nextMonth" class="text-[#556B2F] text-sm font-bold px-4 py-2 rounded hover:bg-[#dce6cc]">Next &gt;</button>
+    </div>
+
+    <!-- Calendar Table Container -->
+    <div class="flex-1">
+      <div class="h-[90%] w-full">
+        <table class="w-full h-full table-fixed border-collapse text-center text-sm">
+          <thead>
+            <tr class="bg-[#ebf0e6] text-gray-600 uppercase">
+              <th class="p-2">Sun</th>
+              <th class="p-2">Mon</th>
+              <th class="p-2">Tue</th>
+              <th class="p-2">Wed</th>
+              <th class="p-2">Thu</th>
+              <th class="p-2">Fri</th>
+              <th class="p-2">Sat</th>
+            </tr>
+          </thead>
+          <tbody id="calendarBody" class="text-gray-700 h-full"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const closeBtn = document.getElementById("closeSidebar");
+
+    function openSidebar() {
+      sidebar.dataset.open = "true";
+      overlay.classList.remove("hidden");
+    }
+
+    function closeSidebar() {
+      sidebar.dataset.open = "false";
+      overlay.classList.add("hidden");
+    }
+
+    menuToggle?.addEventListener("click", openSidebar);
+    overlay?.addEventListener("click", closeSidebar);
+    closeBtn?.addEventListener("click", closeSidebar);
+    
+    window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          closeSidebar();
+        }
+    });
+
+    function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+    // Example action: redirect to logout page
+        window.location.href = "../index.html"; // or whatever your logout URL is
+      }
+    }
+
+    // Main Container
+
+      const loggedInEmpId = "123";
+      const currentMonthYearHeader = document.getElementById("currentMonthYear");
+      const calendarBody = document.getElementById("calendarBody");
+      const prevMonthBtn = document.getElementById("prevMonth");
+      const nextMonthBtn = document.getElementById("nextMonth");
+
+      let currentDate = new Date();
+      let currentMonth = currentDate.getMonth();
+      let currentYear = currentDate.getFullYear();
+
+      function getPhilippineDate() {
+        const now = new Date();
+        return new Date(now.getTime() + (8 * 60 + now.getTimezoneOffset()) * 60000);
+      }
+
+      function getScheduleForDay(date) {
+        const schedules = JSON.parse(localStorage.getItem("schedules")) || [];
+        const isoDate = date.toISOString().split("T")[0];
+        const match = schedules.find(e => e.empId === loggedInEmpId && e.start === isoDate);
+        return match ? match.workType.toUpperCase() : '';
+      }
+
+      function renderCalendar() {
+        calendarBody.innerHTML = '';
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const today = getPhilippineDate();
+
+        currentMonthYearHeader.textContent = `${new Date(currentYear, currentMonth).toLocaleString('en-US', { month: 'long' })} ${currentYear}`;
+        let date = 1;
+
+        for (let i = 0; i < 6; i++) {
+          const row = document.createElement("tr");
+          for (let j = 0; j < 7; j++) {
+            const cell = document.createElement("td");
+            cell.className = "p-3 border border-gray-200 relative h-[5vh] align-top";
+
+            if (i === 0 && j < firstDay || date > daysInMonth) {
+              cell.classList.add("bg-gray-100");
+            } else {
+              const cellDate = new Date(currentYear, currentMonth, date);
+              const schedule = getScheduleForDay(cellDate);
+
+              const daySpan = document.createElement("span");
+              daySpan.className = "absolute top-1 left-1 text-xs font-bold text-gray-500";
+              daySpan.textContent = date;
+
+              const scheduleSpan = document.createElement("div");
+              scheduleSpan.className = "mt-6 font-semibold text-sm";
+              scheduleSpan.textContent = schedule;
+
+              if (schedule === 'DUTY') scheduleSpan.classList.add("text-green-600");
+              if (schedule === 'DAYOFF') scheduleSpan.classList.add("text-red-600");
+              if (date === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                cell.classList.add("bg-yellow-100", "border-yellow-500", "shadow");
+              }
+
+              cell.appendChild(daySpan);
+              cell.appendChild(scheduleSpan);
+              date++;
+            }
+            row.appendChild(cell);
+          }
+          calendarBody.appendChild(row);
+          if (date > daysInMonth) break;
+        }
+      }
+
+      prevMonthBtn.addEventListener("click", () => {
+        currentMonth = (currentMonth - 1 + 12) % 12;
+        if (currentMonth === 11) currentYear--;
+        renderCalendar();
+      });
+
+      nextMonthBtn.addEventListener("click", () => {
+        currentMonth = (currentMonth + 1) % 12;
+        if (currentMonth === 0) currentYear++;
+        renderCalendar();
+      });
+
+      renderCalendar();
+  </script>
+
+
+</body>
+
+
+</html>

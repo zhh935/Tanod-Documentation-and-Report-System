@@ -8,27 +8,70 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.css' rel='stylesheet' />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/index.global.min.js'></script>
-
-
     <style>
-        /* Basic Reset & Body Styling */
+        .main-content {
+            flex-grow: 1; /* Allows content to take remaining space */
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between sections */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .main-content > * {
+            position: relative;
+            z-index: 1;
+            /* This ensures cards, headers, and announcements are not affected by the background's opacity */
+        }
+        .main-content::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('../images/barangay-hall-bg.jpg') center center / cover no-repeat;
+            opacity: 0.18;           /* Very small opacity */
+            filter: blur(6px);       /* Subtle blur */
+            z-index: 0;
+            pointer-events: none;    /* Allow clicks through */
+        }
+        #calendar,
+            .fc,
+            .fc-theme-standard .fc-scrollgrid,
+            .fc-daygrid,
+            .fc-daygrid-body,
+            .fc-daygrid-day-frame {
+                background: #fff !important;
+            }
+
+        #calendar {
+            border-radius: 18px;
+            overflow: hidden; /* Ensures child corners are clipped */
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            
+        }
+        .fc,
+        .fc-theme-standard .fc-scrollgrid,
+        .fc-daygrid,
+        .fc-daygrid-body {
+            border-radius: 18px !important;
+            background: #fff !important;
+            
+        }
         body {
             margin: 0;
             font-family:  sans-serif;
             background: linear-gradient(to bottom, #E1EACD 0%, #F0F3D9 50%, #F9F6E6 100%);
             display: flex;
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            min-height: 100vh;
         }
-
         .dashboard-container {
             display: flex;
             width: 100%;
         }
-
-        /* Sidebar Styling */
         .sidebar {
-            width: 250px; 
-            background-color: #4B5320; 
+            width: 250px;
+            background-color: #4B5320;
             color: white;
             padding: 20px 0;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -37,65 +80,55 @@
             align-items: center;
             flex-shrink: 0;
         }
-
         .logo-section {
             text-align: center;
             margin-bottom: 30px;
             padding: 0 15px;
         }
-
         .logo {
-            width: 60px; /* Adjust logo size */
+            width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: white; /* Placeholder for your actual logo */
+            background-color: white;
             margin-bottom: 10px;
         }
-
         .company-name {
             font-weight: bold;
             font-size: 14px;
             line-height: 1.3;
         }
-
         .user-profile {
             display: flex;
             align-items: center;
             margin-bottom: 30px;
             padding: 0 20px;
             width: 100%;
-            box-sizing: border-box; /* Include padding in width */
+            box-sizing: border-box;
         }
-
         .profile-pic {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: #ddd; /* Placeholder */
+            background-color: #ddd;
             margin-right: 15px;
             border: 2px solid white;
         }
-
         .user-info {
             display: flex;
             flex-direction: column;
         }
-
         .user-name {
             font-weight: bold;
             font-size: 16px;
         }
-
         .user-role {
             font-size: 13px;
             color: #ccc;
         }
-
         .main-menu {
             width: 100%;
-            flex-grow: 1; /* Allows menu to take available space */
+            flex-grow: 1;
         }
-
         .menu-heading {
             padding: 10px 20px;
             font-size: 12px;
@@ -103,50 +136,37 @@
             color: #f0f0f0;
             margin-bottom: 10px;
         }
-
         .main-menu ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
         .main-menu ul li {
             margin-bottom: 5px;
         }
-
-      .main-menu ul li a {
+        .main-menu ul li a {
             display: flex;
             align-items: center;
-            /* Keep initial padding as it is, which is 12px 20px */
             padding: 12px 20px;
             color: white;
             text-decoration: none;
-            /* Transition only background-color */
             transition: background-color 0.3s ease;
-            /* IMPORTANT: Add this to create space for the "border" without shifting content */
-            border-left: 5px solid transparent; /* Start with a transparent border */
+            border-left: 5px solid transparent;
         }
-
         .main-menu ul li a:hover,
         .main-menu ul li.active a {
-            background-color: #8A9A5B; /* The background color you want on hover/active */
-            /* CHANGE THIS: Only change the border-left color, padding-left stays the same */
-            border-left: 5px solid #FFD700; /* Gold-like border for active state */
-            /* REMOVE THIS LINE: padding-left no longer needs to be adjusted */
-            /* padding-left: 15px; */
+            background-color: #8A9A5B;
+            border-left: 5px solid #FFD700;
         }
-
         .main-menu ul li a i {
             margin-right: 10px;
             font-size: 18px;
         }
-
         .logout-section {
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
         }
-
         .logout-btn {
             width: 100%;
             padding: 12px;
@@ -159,63 +179,303 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-
         .logout-btn:hover {
             background-color: #eee;
         }
-
-        /* Main Content Styling */
         .main-content {
             flex-grow: 1;
-              padding: 30px;
-              display: flex;
-                flex-direction: column;
-    gap: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    margin: 20px;
-    overflow-y: auto;
-    max-height: calc(100vh - 40px);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
         }
-
         .schedule-header h2 {
             margin: 0;
             color: #333;
         }
-/* Schedule Management - Styled Select */
-        .styled-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: sans-serif;
-    font-size: 0.95em;
-    background-color: white;
-    color: #333;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease-in-out;
-}
-
-        .styled-select:focus {
-    border-color: #8A9A5B;
-    outline: none;
-}
-
-        select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: sans-serif;
-            font-size: 0.9em;
+        .add-work-btn {
+            background: #8A9A5B;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;      /* Smaller padding */
+            font-size: 14px;        /* Smaller font */
+            margin-top: 10px;
+            margin-right: 10px;     /* Space between buttons */
+            cursor: pointer;
+        }
+        .add-work-btn:hover { background: #6f8140; }
+        /* Calendar cell centeraing and blur */
+        .calendar-cell-date {
+            position: absolute;
+            bottom: -35px;
+            right: -10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #444;
+            z-index: 1;
+            pointer-events: none;
+            background: rgba(255,255,255,0.7); /* Optional: subtle background for readability */
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+        .fc-daygrid-day-frame {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 80px;
+            width: 100%;
+            position: relative;
+        }
+        .fc-daygrid-day-frame.cell-hovered::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.18);
+            border-radius: 8px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .fc-daygrid-day-frame.cell-hovered .view-shifts-btn {
+            display: block !important;
+            box-shadow: 0 0 12px 3px #ffd700, 0 2px 8px rgba(0,0,0,0.12);
+            border-color: #FFD700;
+            background: #fffbe6;
+        }
+        .calendar-summary-blur-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the left */
+            justify-content: flex-start;
+            height: 100%;
+            width: 100%;
+            padding-left: 20px; /* Add a little padding from the left edge */
             box-sizing: border-box;
-}
-          </style>
+        }
+        .calendar-summary-blur-wrap.fc-day-blur {
+            filter: blur(3px);
+            transition: filter 0.2s;
+        }
+        .calendar-icon-summary {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align to the left */
+            justify-content: center;
+            gap: 8px;
+            min-height: 60px;
+            width: 100%;
+        }
+        .icon-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 18px;
+            border: 1.5px solid #bdbdbd;
+            border-radius: 7px;
+            padding: 3px 10px 3px 6px;
+            margin-bottom: 6px;
+            min-width: 90px;
+            box-sizing: border-box;
+        }
+        .calendar-icon-img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: inline-block;
+        }
+        .icon-num {
+            font-size: 17px;
+            font-weight: bold;
+            color: #333;
+        }
+        .fc-daygrid-day:hover .view-shifts-btn {
+            display: block;
+        }
+        .view-shifts-btn {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 2px solid #8A9A5B;
+            border-radius: 5px;
+            padding: 7px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s, border-color 0.3s, background 0.3s;
+            font-weight: bold;
+        }
+        .view-shifts-btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.5);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        .employee-link {
+            color: #4B5320;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            font-size: 15px;
+            margin: 3px 0;
+            display: block;
+            text-align: left;
+        }
+        .work-shift-box {
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 7px 0;
+            padding: 8px 12px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.3);
+            align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 10px;
+            padding: 25px 30px;
+            width: 400px;
+            min-width: 400px;
+            max-width: 400px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            box-sizing: border-box;;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute; top: 10px; right: 15px;
+            background: none; border: none; font-size: 20px; cursor: pointer;
+        }
+        .modal label { display: block; margin: 10px 0 3px 0; }
+        .modal input, .modal select, .modal textarea {
+            width: 100%; padding: 7px; border-radius: 4px; border: 1px solid #ccc;
+            margin-bottom: 10px; font-size: 1em;
+        }
+        .modal textarea { resize: vertical; min-height: 40px; }
+        .modal-actions { text-align: right; }
+        .modal-actions button { margin-left: 8px; }
+        .work-shift-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 7px 0;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            /* Remove background here, will be set by time of day class */
+        }
+        .work-shift-box.shift-time-morning {
+            background: #fffbe6;
+            border-color: #ffe066;
+        }
+        .work-shift-box.shift-time-afternoon {
+            background: #e6f3ff;
+            border-color: #90caf9;
+        }
+        .shift-time-morning {
+            background: #fffbe6;
+            color: #bfa100;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .shift-time-afternoon {
+            background: #e6f3ff;
+            color: #1976d2;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .shift-label {
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+            color: #555;
+            display: inline-block;
+            width: 70px; /* Adjust as needed for best alignment */
+            text-align: left;
+        }
+        .work-desc-box {
+            background: #fff;
+            border-radius: 4px;
+            padding: 7px 10px;
+            margin-top: 4px;
+            font-size: 14px;
+            color: #444;
+            border: 1px solid #e0e0e0;
+        }
+        .personnel-row {
+            background: #808000; /* Olive */
+            color: #fff;
+            border-color: #808000;
+        }
+        .personnel-row .icon-num {
+            color: #fff;
+        }
+        .workshift-row {
+            background: #d35400; /* Dark orange */
+            color: #fff;
+            border-color: #d35400;
+        }
+        .workshift-row .icon-num {
+            color: #fff;
+        }
+        .icon-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.3px;
+            min-width: 53px; /* Ensures alignment */
+            display: inline-block;
+        }
+        .personnel-row .icon-label {
+            color: #fff;
+        }
+        .workshift-row .icon-label {
+            color: #fff;
+        }
+        .work-shift-box,
+        .edit-work-shift-box {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            /* Optionally set a min-height if you want all boxes to be the same height */
+            /* min-height: 90px; */
+            /* overflow-y: auto; */
+        }
+    </style>
 </head>
 <body>
+    <div class="modal" id="manageScheduleModal">
+    <div class="modal-content" style="min-width:350px; max-width:95vw;">
+        <button class="modal-close" onclick="closeModal('manageScheduleModal')">&times;</button>
+        <h3>Manage Existing Schedules</h3>
+        <div id="manageScheduleList"></div>
+    </div>
+</div>
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo-section">
@@ -243,104 +503,438 @@
                 <button class="logout-btn">Log Out</button>
             </div>
         </div>
-
         <div class="main-content">
             <div class="schedule-header">
                 <h2>Schedule Management</h2>
             </div>
-            <!-- Employee Selection -->
-        <label for="employeeSelect">Assign to:</label>
-        <select id="employeeSelect">
-         <option value="">-- Select Employee --</option>
-        </select>
-
-            <!-- Calendar Container -->
+            <div style="margin-bottom: 18px;">
+    <button id="openAddScheduleModal" class="add-work-btn small-btn">Add Employee Schedule</button>
+    <button id="manageScheduleBtn" class="add-work-btn small-btn" style="background:#6f8140;">Manage Existing Schedule</button>
+</div>
             <div id="calendar"></div>
-
         </div>
-            
+    </div>
 
+    <!-- Add Employee Schedule Modal -->
+    <div class="modal" id="addScheduleModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('addScheduleModal')">&times;</button>
+            <h3>Add Employee Schedule</h3>
+            <form id="addScheduleForm">
+                <label for="scheduleEmployee">Select Employee:</label>
+                <select id="scheduleEmployee" required></select>
+                <label for="scheduleDate">Select Date:</label>
+                <input type="date" id="scheduleDate" required>
+                <div class="modal-actions">
+                    <button type="submit" class="add-work-btn">Add to Shift</button>
+                </div>
+                <div id="currentWorkShifts" style="margin-top:18px;">
+                    <h4 style="margin-bottom:6px;">Current Work Shifts for this Date</h4>
+                    <div id="workShiftsList" style="font-size:14px; color:#444;"></div>
+                </div>
+            </form>
+            <button id="openAddWorkModal" class="add-work-btn" style="display:none;">Add Work to Shift</button>
+        </div>
+    </div>
 
-             <script>
-        // Get all sidebar links
+    
+
+    <!-- Add Work to Shift Modal -->
+    <div class="modal" id="addWorkModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('addWorkModal')">&times;</button>
+            <h3>Add Work to Shift</h3>
+            <form id="addWorkForm">
+                <label for="workStart">Time Beginning:</label>
+                <input type="time" id="workStart" required>
+                <label for="workEnd">Time End:</label>
+                <input type="time" id="workEnd" required>
+                <label for="workDesc">Work Description:</label>
+                <textarea id="workDesc" placeholder="Describe the work..." required></textarea>
+                <div class="modal-actions">
+                    <button type="submit" class="add-work-btn">Add Work</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Employee Shifts Modal -->
+    <div class="modal" id="viewShiftsModal">
+        <div class="modal-content" style="min-width:350px;">
+            <button class="modal-close" onclick="closeModal('viewShiftsModal')">&times;</button>
+            <h3 id="viewShiftsDate"></h3>
+            <div id="employeeListForDay"></div>
+        </div>
+    </div>
+
+    <!-- View Employee Work Modal -->
+    <div class="modal" id="viewEmployeeWorkModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('viewEmployeeWorkModal')">&times;</button>
+            <h3 id="employeeWorkTitle"></h3>
+            <div id="employeeWorkList"></div>
+        </div>
+    </div>
+
+        <div class="modal" id="editScheduleModal">
+        <div class="modal-content" style="min-width:350px; max-width:95vw;">
+            <button class="modal-close" onclick="closeModal('editScheduleModal')">&times;</button>
+            <h3 id="editScheduleTitle"></h3>
+            <form id="editScheduleForm">
+                <div id="editWorkShiftsList"></div>
+                <div class="modal-actions">
+                    <button type="submit" class="add-work-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar active link logic
         const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
-
-        // Get the current page's filename
         const currentPage = window.location.pathname.split('/').pop();
-
-        // Loop through each link and check if its href matches the current page
         sidebarLinks.forEach(link => {
-            // Get the filename from the link's href
             const linkPage = link.getAttribute('href').split('/').pop();
+            if (linkPage === currentPage) link.closest('li').classList.add('active');
+            else link.closest('li').classList.remove('active');
+        });
 
-            if (linkPage === currentPage) {
-                // Add the 'active' class to the parent <li> element
-                link.closest('li').classList.add('active');
-            } else {
-                // Ensure no other links have the active class if navigating back/forth
-                link.closest('li').classList.remove('active');
+        // Utility functions for modals
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            if (id === 'addScheduleModal') document.getElementById('addScheduleForm').reset();
+            if (id === 'addWorkModal') document.getElementById('addWorkForm').reset();
+        }
+
+        // Data structure: { date: { employees: [empId], works: [{empId, start, end, desc}] } }
+        let employees = JSON.parse(localStorage.getItem("employees")) || [];
+        let scheduleData = JSON.parse(localStorage.getItem("scheduleData")) || {};
+
+        // Populate employee dropdowns
+        function populateEmployeeDropdown(selectId) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">-- Select Employee --</option>';
+            employees.forEach(emp => {
+                const option = document.createElement("option");
+                option.value = emp.id;
+                option.textContent = emp.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Calendar rendering logic
+        let calendar;
+        function renderCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            if (calendar) calendar.destroy();
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: false,
+                height: 'auto',
+                events: [],
+                dayCellContent: function(arg) {
+                    const dateStr = arg.date.getFullYear() + '-' +
+                        String(arg.date.getMonth() + 1).padStart(2, '0') + '-' +
+                        String(arg.date.getDate()).padStart(2, '0');
+                    const dayData = scheduleData[dateStr] || { employees: [], works: [] };
+                    // Get the day number (1-31)
+                    const dayNum = arg.date.getDate();
+                    let html = `
+                        <div class="calendar-cell-date">${dayNum}</div>
+                            <div class="calendar-summary-blur-wrap">
+                                <div class="calendar-icon-summary">
+                                    <div class="icon-row personnel-row">
+                                        <span class="icon-label">Personnel</span>
+                                        <img src="../images/employee.png" alt="Employees" class="calendar-icon-img"/>
+                                        <span class="icon-num">${dayData.employees.length}</span>
+                                    </div>
+                                    <div class="icon-row workshift-row">
+                                        <span class="icon-label">Workshifts</span>
+                                        <img src="../images/workshift.png" alt="Work Shifts" class="calendar-icon-img"/>
+                                        <span class="icon-num">${dayData.works.length}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="view-shifts-btn" style="display:none;" data-date="${dateStr}">View Employee Shifts</button>
+                        `;
+                    return { html };
+                },
+                dayCellDidMount: function(arg) {
+                    const cell = arg.el;
+                    const btn = cell.querySelector('.view-shifts-btn');
+                    const blurWrap = cell.querySelector('.calendar-summary-blur-wrap');
+                    if (!btn || !blurWrap) return;
+                    cell.style.position = 'relative';
+                    btn.style.zIndex = 3;
+                    cell.addEventListener('mouseenter', () => {
+                        blurWrap.classList.add('fc-day-blur');
+                        cell.classList.add('cell-hovered');
+                        btn.style.display = 'block';
+                    });
+                    cell.addEventListener('mouseleave', () => {
+                        blurWrap.classList.remove('fc-day-blur');
+                        cell.classList.remove('cell-hovered');
+                        btn.style.display = 'none';
+                    });
+                    btn.onclick = (e) => {
+                        e.stopPropagation();
+                        openViewShiftsModal(btn.getAttribute('data-date'));
+                    };
+                }
+            });
+            calendar.render();
+        }
+
+        // Modal logic for Add Employee Schedule
+        document.getElementById('openAddScheduleModal').onclick = function() {
+            populateEmployeeDropdown('scheduleEmployee');
+            openModal('addScheduleModal');
+            document.getElementById('openAddWorkModal').style.display = 'none';
+            updateWorkShiftsList();
+        };
+        document.getElementById('manageScheduleBtn').onclick = function() {
+            populateManageScheduleList();
+            openModal('manageScheduleModal');
+        };
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('edit-sched-btn')) {
+                const date = e.target.getAttribute('data-date');
+                const empId = e.target.getAttribute('data-emp');
+                openEditScheduleModal(date, empId);
             }
         });
-    </script>
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Load employees from localStorage
-    const employees = JSON.parse(localStorage.getItem("employees")) || [];
-    const employeeSelect = document.getElementById("employeeSelect");
+        function openEditScheduleModal(date, empId) {
+            const emp = employees.find(e => e.id == empId);
+            document.getElementById('editScheduleTitle').textContent = `Edit Schedule for ${emp ? emp.name : 'Employee'} on ${date}`;
+            const editList = document.getElementById('editWorkShiftsList');
+            const dayData = scheduleData[date] || { employees: [], works: [] };
+            const works = dayData.works.filter(w => w.empId == empId);
 
-    // Populate dropdown
-    employees.forEach(emp => {
-        const option = document.createElement("option");
-        option.value = emp.id;
-        option.textContent = emp.name;
-        employeeSelect.appendChild(option);
-    });
+            if (works.length === 0) {
+                editList.innerHTML = "<p>No work shifts for this employee on this date.</p>";
+            } else {
+                editList.innerHTML = works.map((w, idx) => `
+                    <div class="edit-work-shift-box" style="margin-bottom:12px; border:1px solid #ccc; border-radius:5px; padding:10px;">
+                        <label>Time Beginning:
+                            <input type="time" name="workStart${idx}" value="${w.start}" required>
+                        </label>
+                        <label>Time End:
+                            <input type="time" name="workEnd${idx}" value="${w.end}" required>
+                        </label>
+                        <label>Description:
+                            <textarea name="workDesc${idx}" required>${w.desc}</textarea>
+                        </label>
+                    </div>
+                `).join('');
+            }
+            // Store for saving
+            document.getElementById('editScheduleForm').setAttribute('data-date', date);
+            document.getElementById('editScheduleForm').setAttribute('data-emp', empId);
 
-    // Load saved schedule
-    const savedSchedules = JSON.parse(localStorage.getItem("schedules")) || [];
+            openModal('editScheduleModal');
+        }
 
-    const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        selectable: true,
-        height: 'auto',
-        dateClick: function(info) {
-               const selectedEmpId = employeeSelect.value;
-        
-    if (!selectedEmpId) {
-        alert("Please select an employee to assign a schedule.");
-        return;
+        // Handle Save Changes in Edit Modal
+        document.getElementById('editScheduleForm').onsubmit = function(e) {
+            e.preventDefault();
+            const date = this.getAttribute('data-date');
+            const empId = this.getAttribute('data-emp');
+            const dayData = scheduleData[date];
+            if (!dayData) return;
+
+            // Only update works for this empId
+            const works = dayData.works.filter(w => w.empId == empId);
+            works.forEach((w, idx) => {
+                w.start = this[`workStart${idx}`].value;
+                w.end = this[`workEnd${idx}`].value;
+                w.desc = this[`workDesc${idx}`].value;
+            });
+
+            localStorage.setItem("scheduleData", JSON.stringify(scheduleData));
+            renderCalendar();
+            closeModal('editScheduleModal');
+            populateManageScheduleList();
+        };
+
+        // Add Employee to Shift
+        document.getElementById('addScheduleForm').onsubmit = function(e) {
+            e.preventDefault();
+            const empId = document.getElementById('scheduleEmployee').value;
+            const date = document.getElementById('scheduleDate').value;
+            if (!empId || !date) return;
+            if (!scheduleData[date]) scheduleData[date] = { employees: [], works: [] };
+            if (!scheduleData[date].employees.includes(empId)) scheduleData[date].employees.push(empId);
+            localStorage.setItem("scheduleData", JSON.stringify(scheduleData));
+            renderCalendar();
+            document.getElementById('openAddWorkModal').style.display = 'inline-block';
+            document.getElementById('openAddWorkModal').setAttribute('data-emp', empId);
+            document.getElementById('openAddWorkModal').setAttribute('data-date', date);
+            updateWorkShiftsList();
+        };
+
+        // Open Add Work to Shift Modal
+        document.getElementById('openAddWorkModal').onclick = function() {
+            openModal('addWorkModal');
+        };
+
+        // Add Work to Shift
+        document.getElementById('addWorkForm').onsubmit = function(e) {
+            e.preventDefault();
+            const empId = document.getElementById('openAddWorkModal').getAttribute('data-emp');
+            const date = document.getElementById('openAddWorkModal').getAttribute('data-date');
+            const start = document.getElementById('workStart').value;
+            const end = document.getElementById('workEnd').value;
+            const desc = document.getElementById('workDesc').value;
+            if (!empId || !date || !start || !end || !desc) return;
+            if (!scheduleData[date]) scheduleData[date] = { employees: [], works: [] };
+            scheduleData[date].works.push({ empId, start, end, desc });
+            localStorage.setItem("scheduleData", JSON.stringify(scheduleData));
+            renderCalendar();
+            closeModal('addWorkModal');
+            document.getElementById('openAddWorkModal').style.display = 'none';
+            updateWorkShiftsList();
+        };
+
+        // View Employee Shifts Modal
+        function openViewShiftsModal(date) {
+            const modal = document.getElementById('viewShiftsModal');
+            const listDiv = document.getElementById('employeeListForDay');
+            const dayData = scheduleData[date] || { employees: [], works: [] };
+            document.getElementById('viewShiftsDate').textContent = `Shifts for ${date}`;
+            if (dayData.employees.length === 0) {
+                listDiv.innerHTML = "<p>No employees scheduled for this date.</p>";
+            } else {
+                listDiv.innerHTML = '';
+                dayData.employees.forEach(empId => {
+                    const emp = employees.find(e => e.id == empId);
+                    if (!emp) return;
+                    const btn = document.createElement('button');
+                    btn.className = 'employee-link';
+                    btn.textContent = emp.name;
+                    btn.onclick = () => openEmployeeWorkModal(date, empId);
+                    listDiv.appendChild(btn);
+                });
+            }
+            openModal('viewShiftsModal');
+        }
+
+        // View Employee Work Modal
+        function openEmployeeWorkModal(date, empId) {
+            const emp = employees.find(e => e.id == empId);
+            document.getElementById('employeeWorkTitle').textContent = `Work for ${emp ? emp.name : 'Employee'} on ${date}`;
+            const workList = document.getElementById('employeeWorkList');
+            const dayData = scheduleData[date] || { employees: [], works: [] };
+            const works = dayData.works.filter(w => w.empId == empId);
+            if (works.length === 0) {
+                workList.innerHTML = "<p>No work assigned for this employee on this date.</p>";
+            } else {
+                workList.innerHTML = '';
+                works.forEach(w => {
+                    // Determine if morning or afternoon
+                    const startHour = parseInt(w.start.split(':')[0], 10);
+                    const isMorning = startHour < 12;
+                    const boxClass = isMorning ? 'work-shift-box shift-time-morning' : 'work-shift-box shift-time-afternoon';
+                    const label = isMorning ? 'Morning' : 'Afternoon';
+                    const div = document.createElement('div');
+                    div.className = boxClass;
+                    div.innerHTML = `
+                        <div>
+                            <span class="shift-label">${label}</span>
+                            <span>${w.start} - ${w.end}</span>
+                        </div>
+                        <div class="work-desc-box">${w.desc}</div>
+                    `;
+                    workList.appendChild(div);
+                });
+            }
+            openModal('viewEmployeeWorkModal');
+        }
+        // Helper to update the work shifts list in the modal
+        function updateWorkShiftsList() {
+            const empId = document.getElementById('scheduleEmployee').value;
+            const date = document.getElementById('scheduleDate').value;
+            const listDiv = document.getElementById('workShiftsList');
+            if (!empId || !date) {
+                listDiv.innerHTML = '<em>Select an employee and date to view work shifts.</em>';
+                return;
+            }
+            const dayData = scheduleData[date] || { employees: [], works: [] };
+            const works = dayData.works.filter(w => w.empId == empId);
+            if (works.length === 0) {
+                listDiv.innerHTML = '<em>No work shifts for this employee on this date.</em>';
+            } else {
+                listDiv.innerHTML = works.map(w =>
+                    `<div style="margin-bottom:6px;">
+                        <strong>${w.start} - ${w.end}</strong>: ${w.desc}
+                    </div>`
+                ).join('');
+            }
+        }
+
+        // Update the list when employee or date changes
+        document.getElementById('scheduleEmployee').addEventListener('change', updateWorkShiftsList);
+        document.getElementById('scheduleDate').addEventListener('change', updateWorkShiftsList);
+
+        // Also update after adding a work shift
+        document.getElementById('addWorkForm').addEventListener('submit', function() {
+            setTimeout(updateWorkShiftsList, 100);
+        });
+
+        // Initial population and calendar render
+        document.addEventListener('DOMContentLoaded', function () {
+            populateEmployeeDropdown('scheduleEmployee');
+            renderCalendar();
+        });
+        function populateManageScheduleList() {
+    const listDiv = document.getElementById('manageScheduleList');
+    let html = '';
+    const dates = Object.keys(scheduleData).sort();
+    if (dates.length === 0) {
+        html = '<p>No schedules found.</p>';
+    } else {
+        dates.forEach(date => {
+            const dayData = scheduleData[date];
+            if (!dayData.employees.length) return;
+            html += `<div style="margin-bottom:16px;">
+                <strong>${date}</strong>
+                <ul style="margin:6px 0 0 18px; padding:0;">`;
+            dayData.employees.forEach(empId => {
+                const emp = employees.find(e => e.id == empId);
+                html += `<li style="margin-bottom:4px;">
+                    ${emp ? emp.name : 'Unknown Employee'}
+                    <button class="edit-sched-btn" data-date="${date}" data-emp="${empId}" style="margin-left:10px; color:#fff; background:#1976d2; border:none; border-radius:3px; padding:2px 8px; font-size:12px; cursor:pointer;">Edit</button>
+                    <button class="remove-sched-btn" data-date="${date}" data-emp="${empId}" style="margin-left:5px; color:#fff; background:#b71c1c; border:none; border-radius:3px; padding:2px 8px; font-size:12px; cursor:pointer;">Remove</button>
+                </li>`;
+            });
+            html += `</ul></div>`;
+        });
     }
+    listDiv.innerHTML = html;
 
-    const selectedEmployee = employees.find(e => e.id == selectedEmpId);
-    if (!selectedEmployee) return;
-
-    // Ask for work type
-    const workType = prompt(`What kind of work is ${selectedEmployee.name} assigned to on ${info.dateStr}?`, "Patrol");
-
-    if (!workType) return; // Cancelled
-
-    const newEvent = {
-        title: `${selectedEmployee.name} - ${workType}`,
-        start: info.dateStr,
-        allDay: true,
-        empId: selectedEmpId,
-        workType: workType // Save work type as metadata
-    };
-
-    calendar.addEvent(newEvent);
-
-    // Save to localStorage
-    savedSchedules.push(newEvent);
-    localStorage.setItem("schedules", JSON.stringify(savedSchedules));
-}
+    // Add remove handlers
+    document.querySelectorAll('.remove-sched-btn').forEach(btn => {
+        btn.onclick = function() {
+            const date = this.getAttribute('data-date');
+            const empId = this.getAttribute('data-emp');
+            // Remove employee from schedule
+            if (scheduleData[date]) {
+                scheduleData[date].employees = scheduleData[date].employees.filter(eid => eid != empId);
+                // Also remove their works for that date
+                scheduleData[date].works = scheduleData[date].works.filter(w => w.empId != empId);
+                // If no employees and no works left, remove the date entirely
+                if (scheduleData[date].employees.length === 0 && scheduleData[date].works.length === 0) {
+                    delete scheduleData[date];
+                }
+                localStorage.setItem("scheduleData", JSON.stringify(scheduleData));
+                renderCalendar();
+                populateManageScheduleList();
+            }
+        };
     });
-
-    // Render saved events
-    savedSchedules.forEach(event => calendar.addEvent(event));
-    calendar.render();
-});
-</script>
-
-
-        </body>
+}
+    </script>
+</body>
+</html>
