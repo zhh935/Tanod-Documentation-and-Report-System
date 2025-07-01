@@ -6,310 +6,233 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="icon" type="image/png" href="images/Barangay-Market-Area-Seal.png">
     <title>Admin Access — Login</title>
-  <style>
-@import url('https://rsms.me/inter/inter-ui.css');
-::selection {
-  background: #2D2F36;
-}
-::-webkit-selection {
-  background: #2D2F36;
-}
-::-moz-selection {
-  background: #2D2F36;
-}
-body {
-  background: white;
-  font-family: 'Inter UI', sans-serif;
-  margin: 0;
-  padding: 0; /* Remove extra padding */
-}
-.bg-blur {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background: url('images/imagebackground.jpg') center center / cover no-repeat;
-  filter: blur(8px) brightness(0.7);
-  opacity: 0.7;
-}
-.page {
-  /* Remove background and sizing so only modals remain centered */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  position: static;
-  width: 100%;
-  height: 100%;
-}
-@media (max-width: 767px) {
-  .page {
-    height: auto;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-  }
-}
-.container {
-  display: flex;
-  height: 320px;
-  margin: 0 auto;
-  width: 640px;
-  background: transparent;
-  box-shadow: none;
-  border-radius: 24px; /* Add this for rounded corners */
-  overflow: hidden;
-}
-@media (max-width: 767px) {
-  .container {
-    flex-direction: column;
-    height: 630px;
-    width: 320px;
-  }
-}
-.left {
-  background: white;
-  height: calc(100% - 40px);
-  top: 20px;
-  position: relative;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 200px;
-  padding: 0 10px;
-  border-radius: 24px 0 0 24px; /* Rounded left side */
-}
-@media (max-width: 767px) {
-  .left {
-    flex-shrink: 0;
-    height: 100%;
-    width: 100%;
-    max-height: 270px;
-    border-radius: 24px 24px 0 0; /* Rounded top corners */
-  }
-}
-.login {
-  font-size: 30px;
-  font-weight: 900;
-  margin-top: 30px;
-}
-.eula {
-  color: #999;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 40px;
-}
-.right {
-  background: #705d41;
-  box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
-  color: #F1F1F2;
-  position: relative;
-  width: 50%;
-}
-@media (max-width: 767px) {
-  .right {
-    flex-shrink: 0;
-    height: 100%;
-    width: 100%;
-    max-height: 350px;
-  }
-}
-svg {
-  position: absolute;
-  width: 320px;
-}
-path {
-  fill: none;
-  stroke: url(#linearGradient);;
-  stroke-width: 4;
-  stroke-dasharray: 240 1386;
-}
-.form {
-  margin: 40px;
-  position: absolute;
-}
-label {
-  color:  #cacaca;
-  display: block;
-  font-size: 14px;
-  height: 16px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-}
-input {
-  background: transparent;
-  border: 0;
-  color: #f2f2f2;
-  font-size: 20px;
-  height: 30px;
-  line-height: 30px;
-  outline: none !important;
-  width: 100%;
-}
-input::-moz-focus-inner { 
-  border: 0; 
-}
-#submit {
-  color: #ffffff;
-  margin-top: 40px;
-  transition: color;
-  font-size: 30px;
-  width: 100%;
-  cursor: pointer;
-}
-#submit:hover, #submit:focus {
-  color: #f2f2f2;
-  text-shadow: 0 0 10px #14b5ff, 0 0 16px #a2ffbe;
-  box-shadow: none;
-}
-#submit:focus {
-  color: #f2f2f2;
-}
-#submit:active {
-  color: #d0d0d2;
-}
-.terms {
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-        color: #bbbbbb;
-        z-index: 3;
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background: #534120;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
       }
-a.terms {
-  color: #A2C523;
-  text-decoration: underline;
-  transition: color 0.2s, text-shadow 0.2s;
+      .bg-blur {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+        background: url('images/barangay-hall-bg.jpg') center center / cover no-repeat;
+        filter: blur(8px) brightness(0.7);
+        opacity: 0.7;
+      }
+      .main-flex {
+        display: flex;
+        min-height: 100vh;
+        width: 100vw;
+        align-items: center;
+        justify-content: flex-end;
+        position: relative;
+      }
+      .left-info {
+        flex: 1 1 0%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 7vw;
+        z-index: 1;
+      }
+      .left-title {
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 0;
+        margin-top: 0;
+        line-height: 1.05;
+      }
+      .left-subtitle {
+        font-size: 1.25rem;
+        color: #A2C523;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .login-container {
+        flex: 0 0 420px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-height: 100vh;
+        z-index: 2;
+      }
+      form {
+        width: 400px;
+        background-color: rgba(255, 255, 255, 0.671);
+        border-radius: 45px;
+        backdrop-filter: blur(10px);
+        border: 2px solid #534120;
+        box-shadow: 0 0 40px rgba(8,7,16,0.6);
+        padding: 50px 35px;
+        margin: 0 40px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      form * {
+        font-family: 'Poppins',sans-serif;
+        font-weight: bolder;
+        color: #000000;
+        letter-spacing: 0.5px;
+        outline: none;
+        border: none;
+      }
+      form h3 {
+        font-size: 50px;
+        font-weight: 800;
+        line-height: 42px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      label {
+        display: block;
+        margin-top: 30px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      input[type="text"],
+      input[type="password"] {
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 20px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+        border: 2px solid #ffffff; /* <-- Green border */
+        transition: background 0.2s, border 0.2s;
+        box-sizing: border-box;
+      }
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        background: #d8d8d8;
+        border: 2px solid #ffa600; /* <-- Blue border on focus */
+      }
+      ::placeholder {
+        color: #000000;
+      }
+      #submit {
+        margin-top: 40px;
+        width: 100%;
+        background-color: #ffffff;
+        color: #080710;
+        padding: 15px 0;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 45px;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+      }
+      #submit:hover, #submit:focus {
+        background: #a17524;
+        color: #fff;
+      }
+      /* Hide left info and center login on mobile */
+@media (max-width: 900px) {
+  .main-flex {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .left-info {
+    display: none;
+  }
+  .login-container {
+    min-height: 100vh;
+    margin: 0;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  form {
+    margin: 0 auto;
+    width: 80vw;
+    min-width: 0;
+    padding: 30px 10px;
+    box-sizing: border-box;
+    max-width: 80vw;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
-a.terms:hover {
-  text-shadow: 0 0 6px #8FBF1F;
-  color: #91a037;
+
+@media (max-width: 80vw) {
+  form {
+    width: 80vw !important;
+    min-width: 0 !important;
+    padding: 20px 5px;
+    box-sizing: border-box;
+    max-width: 80vw;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
-  </style>
+@media (max-width: 900px) {
+  input[type="text"],
+  input[type="password"],
+  #submit {
+    width: 100%;
+    max-width: 80vw;
+    max-height: 70vh;
+  }
+}
+    </style>
+</head>
 <body>
-<div class="bg-blur"></div>
-<div class="page">
-  <div class="container">
-    <div class="left">
-      <div class="login">ADMIN LOGIN</div>
-      <div class="eula">This login area is restricted for <u><em>Admin Access</em></u> only. If you are not an admin, please exit immediately. By using this service, you understood and agree to the <a href="#" class="terms">Terms and Conditions</a></div>
+    <div class="bg-blur"></div>
+    <div class="main-flex">
+      <div class="left-info">
+        <h2 class="left-title" style="margin-bottom: 0.1em;">Barangay Market Area</h2>
+        <div class="left-title" style="margin-top: 0; margin-bottom: 0.1em; color: #bba591;">System Admin Access</div>
+        <div class="left-subtitle" style="color: #ffffff;">Protecting Our Community, One Report at a Time.</div>
+      </div>
+      <div class="login-container">
+        <form id="loginForm" autocomplete="on">
+    <!-- Barangay Market Area Seal above the LOGIN title -->
+    <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+      <img src="images/Barangay-Market-Area-Seal.png" alt="Barangay Market Area Seal" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12); background: #fff;">
     </div>
-    <div class="right">
-      <svg viewBox="0 0 320 300">
-        <defs>
-          <linearGradient
-                          inkscape:collect="always"
-                          id="linearGradient"
-                          x1="13"
-                          y1="193.49992"
-                          x2="307"
-                          y2="193.49992"
-                          gradientUnits="userSpaceOnUse">
-            <stop
-                  style="stop-color:#aaff89;"
-                  offset="0"
-                  id="stop876" />
-            <stop
-                  style="stop-color:#a2ffbe;"
-                  offset="1"
-                  id="stop878" />
-          </linearGradient>
-        </defs>
-        <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
-      </svg>
-      <form class="form">
-        <label for="email">Employee ID</label>
-        <input type="email" id="email">
-        <label for="password">Password</label>
-        <input type="password" id="password">
-        <input type="submit" id="submit" value="Submit">
-        </form>
+    <h3 style="color:#aa6000; font-weight: 900; margin-top: 0; margin-bottom: 10px;">Admin Login</h3><br>
+    <input type="text" id="employeeid" name="employeeid" placeholder="Employee ID" autocomplete="username" required>
+    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
+    <input type="submit" id="submit" value="Log In"> <br>
+        <!-- Centered info and forgot password link -->
+    <div style="text-align:center; margin-bottom: 10px;">
+      <div style="margin-bottom: 4px; color: #575757; font-size: 12px; font-weight: 400;">Please contact your local IT Manager if you have forgotten your password.</div>
     </div>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<script>
-var current = null;
-// Employee ID hover
-document.querySelector('#email').addEventListener('mouseenter', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: 0,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '240 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
+</form>
 
-// Password hover
-document.querySelector('#password').addEventListener('mouseenter', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: -336,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '240 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
-document.querySelector('#submit').addEventListener('focus', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: -730,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '530 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
 
-// Animate to Submit state on mouse hover
-document.querySelector('#submit').addEventListener('mouseenter', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: -730,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '530 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
-
-// --- Login functionality from login-employee-tanod.html ---
-document.querySelector('.form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  // Redirect to dashboard (adjust path as needed)
-  window.location.href = 'ADMIN_DASHBOARD/1dashboard.html';
-});
-
-</script>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Redirect to dashboard (adjust path as needed)
+        window.location.href = 'tanod/dashboard.html';
+      });
+    // Prevent form submission for demo
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = 'ADMIN_DASHBOARD/1dashboard.html';
+    });
+    </script>
 </body>
 </html>
