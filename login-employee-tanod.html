@@ -207,23 +207,56 @@
       </div>
       <div class="login-container">
         <form id="loginForm" autocomplete="on">
-            <!-- Barangay Market Area Seal above the LOGIN title -->
-            <div style="display: flex; justify-content: center; margin-bottom: 8px;">
-              <img src="images/Barangay-Market-Area-Seal.png" alt="Barangay Market Area Seal" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12); background: #fff;">
-            </div>
-            <h3 style="color:#65693b; font-weight: 900; margin-top: 0; margin-bottom: 10px;">Login</h3><br>
-            <input type="text" id="employeeid" name="employeeid" placeholder="Employee ID" autocomplete="username" required>
-            <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
-            <input type="submit" id="submit" value="Log In">
-        </form>
-      </div>
+    <!-- Barangay Market Area Seal above the LOGIN title -->
+    <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+      <img src="images/Barangay-Market-Area-Seal.png" alt="Barangay Market Area Seal" style="width: 150px; height: 150px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12); background: #fff;">
     </div>
+    <h3 style="color:#65693b; font-weight: 900; margin-top: 0; margin-bottom: 10px;">Login</h3>
+    <input type="text" id="employeeid" name="employeeid" placeholder="Employee ID" autocomplete="username" required>
+    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
+    <input type="submit" id="submit" value="Log In"> <br>
+        <!-- Centered info and forgot password link -->
+    <div style="text-align:center; margin-bottom: 10px;">
+      <div style="margin-bottom: 4px; color: #575757; font-size: 12px; font-weight: 400;">Please coordinate with your local Admin for account creation.</div>
+      <a id="forgotPasswordLink" href="#" style="color:#65693b; font-weight:900; text-decoration:underline; cursor:pointer;">Forgot Password?</a>
+    </div>
+</form>
+
+<!-- Forgot Password Modal -->
+<div id="forgotPasswordModal" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.35); align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:18px; box-shadow:0 4px 32px rgba(0,0,0,0.18); width:95vw; max-width:370px; padding:32px 24px 24px 24px; position:relative; display:flex; flex-direction:column; align-items:center;">
+    <!-- Exit button -->
+    <button id="closeForgotModal" style="position:absolute; top:12px; right:18px; background:none; border:none; font-size:1.7rem; color:#65693b; cursor:pointer; font-weight:bold;">&times;</button>
+    <div style="font-size:1.35rem; font-weight:700; color:#65693b; margin-bottom:18px; text-align:center;">Forgot Password</div>
+    <input id="recoveryEmail" type="email" placeholder="Email Address" style="width:100%; border:2px solid #65693b; border-radius:8px; padding:10px; font-size:1rem; margin-bottom:10px; outline:none;">
+    <div style="font-size:0.98rem; color:#65693b; margin-bottom:18px; text-align:center;">Enter your recovery email to reset your password.</div>
+    <button id="sendRecovery" style="width:100%; background:#65693b; color:#fff; border:none; border-radius:8px; padding:12px 0; font-size:1rem; font-weight:600; cursor:pointer;">Send Reset Link</button>
+  </div>
+</div>
+
     <script>
       document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         // Redirect to dashboard (adjust path as needed)
         window.location.href = 'tanod/dashboard.html';
       });
+        // Modal open/close logic
+    document.getElementById('forgotPasswordLink').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('forgotPasswordModal').style.display = 'flex';
+    };
+    document.getElementById('closeForgotModal').onclick = function() {
+      document.getElementById('forgotPasswordModal').style.display = 'none';
+    };
+    // Optional: close modal when clicking outside the modal box
+    document.getElementById('forgotPasswordModal').onclick = function(e) {
+      if (e.target === this) this.style.display = 'none';
+    };
+    // Prevent form submission for demo
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = 'tanod/dashboard.html';
+    });
     </script>
 </body>
 </html>
