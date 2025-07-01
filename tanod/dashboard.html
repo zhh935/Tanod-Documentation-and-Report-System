@@ -157,17 +157,45 @@
 
 
   <!--Main Container-->
-  <div class="flex flex-col lg:flex-row gap-4 p-4 lg:p-6 relative z-10">
+  <div class="flex flex-col lg:flex-row gap-4 p-4 lg:p-6 relative">
   <!-- Left Section -->
   <div class="flex flex-col gap-4 w-full lg:w-[30vw]">
-    <!-- Profile -->
-    <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center justify-center lg:h-[50%]">
-      <img src="../images/maloi.jpg" class="w-24 h-24 object-cover rounded-full border-2 border-gray-300 mb-4" />
-      <div class="flex items-center gap-2 mb-2">
-      <i class="fa fa-address-card" aria-hidden="true"></i>
-      <p class="text-lg font-bold text-gray-800">Maloi Ricalde</p>
+        <!-- Profile -->
+    <div class="profile-glass flex flex-row items-center justify-between lg:h-[50%]">
+      <!-- User Info Section -->
+      <div class="flex flex-col items-center justify-center flex-1">
+        <img src="../images/maloi.jpg" class="w-24 h-24 object-cover rounded-full border-2 border-gray-300 mb-4" />
+        <div class="flex items-center gap-2 mb-2">
+          <i class="fa fa-address-card" aria-hidden="true"></i>
+          <p class="text-lg font-bold text-gray-800">Maloi Ricalde</p>
+        </div>
+        <p class="text-sm text-gray-500">Barangay Tanod</p>
       </div>
-      <p class="text-sm text-gray-500">Barangay Tanod</p>
+      <!-- Action Buttons Section -->
+      <div class="flex flex-col gap-3 items-end ml-6">
+        <button
+          id="openLoginActivity"
+          class="rounded-lg shadow bg-[#f5f5f5] hover:bg-[#e1eacb] text-[#4B5320] font-semibold px-4 py-2 text-sm flex items-center gap-2 transition-colors duration-200 cursor-pointer"
+          type="button"
+        >
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          Recent Login Activity
+        </button>
+        <button
+          class="rounded-lg shadow bg-[#f5f5f5] hover:bg-[#e1eacb] text-[#4B5320] font-semibold px-4 py-2 text-sm flex items-center gap-2 transition-colors duration-200 cursor-pointer"
+          type="button"
+        >
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+          Manage Account Details
+        </button>
+        <button
+          class="rounded-lg shadow bg-[#f5f5f5] hover:bg-[#e1eacb] text-[#4B5320] font-semibold px-4 py-2 text-sm flex items-center gap-2 transition-colors duration-200 cursor-pointer"
+          type="button"
+        > 
+          <i class="fa fa-phone" aria-hidden="true"></i>
+          Barangay Quick Links
+        </button>
+      </div>
     </div>
 
     <!-- Announcements -->
@@ -222,9 +250,138 @@
     </div>
   </div>
 </div>
+        <!-- Modal for Recent Login Activity -->
+    <div id="loginActivityModal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 hidden">
+      <div class="bg-white rounded-2xl shadow-2xl modal-wide relative">
+        <!-- Close Button -->
+        <button id="closeLoginActivity" class="absolute text-gray-400 hover:text-gray-700 text-2xl">
+          <i class="fa fa-times"></i>
+        </button>
+        <!-- Modal Header -->
+        <div class="modal-header-fix">
+          <h2 class="text-xl font-bold mb-1 text-[#4B5320]">Recent Login Activity</h2>
+          <p class="text-sm text-gray-500 mb-4">Recent activity from 7 days ago.</p>
+        </div>
+        <!-- Activity List -->
+        <div class="login-activity-list">
+          <!-- Example Activity Box 1 -->
+          <div class="login-activity-row">
+            <div class="login-activity-icon">
+              <i class="fa fa-desktop text-2xl text-[#4B5320]"></i>
+            </div>
+            <div class="login-activity-details">
+              <div class="device-type">Windows PC</div>
+              <div class="device-location">Quezon City, PH</div>
+              <div class="device-browser">Chrome - Windows 10</div>
+            </div>
+            <div class="login-activity-time">2 hours ago</div>
+          </div>
+          <!-- Example Activity Box 2 -->
+          <div class="login-activity-row">
+            <div class="login-activity-icon">
+              <i class="fa fa-mobile text-2xl text-[#4B5320]"></i>
+            </div>
+            <div class="login-activity-details">
+              <div class="device-type">Android Phone</div>
+              <div class="device-location">Makati, PH</div>
+              <div class="device-browser">Chrome - Android 13</div>
+            </div>
+            <div class="login-activity-time">5 hours ago</div>
+          </div>
+          <!-- Example Activity Box 3 -->
+          <div class="login-activity-row">
+            <div class="login-activity-icon">
+              <i class="fa fa-laptop text-2xl text-[#4B5320]"></i>
+            </div>
+            <div class="login-activity-details">
+              <div class="device-type">MacBook Air</div>
+              <div class="device-location">Taguig, PH</div>
+              <div class="device-browser">Safari - macOS</div>
+            </div>
+            <div class="login-activity-time">1 day ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="manageAccountModal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 hidden">
+      <div class="bg-white rounded-2xl shadow-2xl modal-wide relative p-8">
+        <!-- Close Button -->
+        <button id="closeManageAccount" class="absolute top-4 right-6 text-gray-400 hover:text-gray-700 text-2xl z-10">
+          <i class="fa fa-times"></i>
+        </button>
+        <!-- Modal Header -->
+        <h2 class="text-xl font-bold mb-6 text-[#4B5320]">Manage Account Details</h2>
+        <form class="flex flex-col gap-5">
+          <div>
+            <label class="block font-semibold mb-2 text-[#4B5320]" for="address">Address</label>
+            <input id="address" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Enter new address">
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-[#4B5320]" for="mobile">Mobile Number</label>
+            <input id="mobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Enter new mobile number">
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-[#4B5320]" for="secondaryMobile">Secondary Mobile Number</label>
+            <input id="secondaryMobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Enter secondary mobile number">
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-[#4B5320]" for="socialMedia">Social Media Link</label>
+            <input id="socialMedia" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Enter social media link">
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-[#4B5320]" for="email">Email Address</label>
+            <input id="email" type="email" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Enter new email address">
+          </div>
+          <div class="flex justify-end mt-2">
+            <button type="button" class="bg-[#4B5320] text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-[#6F7F48] transition-colors duration-200">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-
-
+    <div id="quickLinksModal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 hidden">
+      <div class="bg-white rounded-2xl shadow-2xl modal-wide relative p-8 max-w-md w-[90vw]">
+        <!-- Close Button -->
+        <button id="closeQuickLinks" class="absolute top-4 right-6 text-gray-400 hover:text-gray-700 text-2xl z-10">
+          <i class="fa fa-times"></i>
+        </button>
+        <!-- Modal Header -->
+        <div class="modal-header-fix mb-4 flex items-center gap-2">
+          <i class="fa fa-phone text-[#4B5320]"></i>
+          <h2 class="text-xl font-bold text-[#4B5320] mb-2">Barangay Quick Links</h2>
+        </div>
+        <div class="space-y-4 text-gray-800 text-base">
+          <div>
+            <div class="font-semibold text-[#4B5320] mb-1">Emergency Services:</div>
+            <div class="mb-2">
+              <span class="font-semibold">PNP Sta. Rosa</span><br>
+              <span class="block">0999-483-5682</span>
+              <span class="block">0915-238-0013</span>
+              <span class="block">0905-550-5288</span>
+              <span class="block">Tel: 559-6393</span>
+              <span class="block">566-7312</span>
+            </div>
+            <div class="mb-2">
+              <span class="font-semibold">Fire</span><br>
+              <span class="block">534-1291</span>
+            </div>
+            <div class="mb-4">
+              <span class="font-semibold">CDRRMO Sta. Rosa</span><br>
+              <span class="block">0999-873-5431</span>
+            </div>
+            <div class="font-semibold text-[#4B5320] mb-1">Social Media:</div><br>
+            <div class="font-semibold mb-1">Santa Rosa Website:</div>
+            <a href="https://santarosacity.gov.ph/" target="_blank" class="block text-blue-700 underline break-all mb-2">https://santarosacity.gov.ph/</a>
+            <div class="font-semibold mb-1">Santa Rosa Facebook:</div>
+            <a href="https://www.facebook.com/santarosacitygovernment/" target="_blank" class="block text-blue-700 underline break-all mb-2">https://www.facebook.com/santarosacitygovernment/</a>
+            <div class="font-semibold mb-1">Santa Rosa Email:</div>
+            <a href="mailto:marketArea@gmail.com" class="block text-blue-700 underline break-all mb-2">marketArea@gmail.com</a>
+            <div class="font-semibold mb-1">Barangay Market Area:</div>
+            <a href="tel:+639217824136" class="block text-blue-700 underline break-all">+63 921 782 4136</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <script>
     const menuToggle = document.getElementById("menuToggle");
@@ -342,6 +499,103 @@
       });
 
       renderCalendar();
+      // Modal open/close logic
+  const openLoginActivity = document.getElementById('openLoginActivity');
+  const loginActivityModal = document.getElementById('loginActivityModal');
+  const closeLoginActivity = document.getElementById('closeLoginActivity');
+  openLoginActivity?.addEventListener('click', () => {
+  loginActivityModal.classList.remove('hidden');
+  setTimeout(() => loginActivityModal.classList.add('active'), 10);
+  document.body.classList.add('overflow-hidden');
+});
+closeLoginActivity?.addEventListener('click', () => {
+  loginActivityModal.classList.remove('active');
+  setTimeout(() => loginActivityModal.classList.add('hidden'), 300);
+  document.body.classList.remove('overflow-hidden');
+});
+// Optional: close modal when clicking outside the modal box
+loginActivityModal?.addEventListener('click', (e) => {
+  if (e.target === loginActivityModal) {
+    loginActivityModal.classList.remove('active');
+    setTimeout(() => loginActivityModal.classList.add('hidden'), 300);
+    document.body.classList.remove('overflow-hidden');
+  }
+});
+    const manageAccountBtn = document.querySelector('button i.fa-cogs')?.parentElement;
+    const manageAccountModal = document.getElementById('manageAccountModal');
+    const closeManageAccount = document.getElementById('closeManageAccount');
+
+    manageAccountBtn?.addEventListener('click', () => {
+      manageAccountModal.classList.remove('hidden');
+      setTimeout(() => manageAccountModal.classList.add('active'), 10);
+      document.body.classList.add('overflow-hidden');
+    });
+    closeManageAccount?.addEventListener('click', () => {
+      manageAccountModal.classList.remove('active');
+      setTimeout(() => manageAccountModal.classList.add('hidden'), 300);
+      document.body.classList.remove('overflow-hidden');
+    });
+    manageAccountModal?.addEventListener('click', (e) => {
+      if (e.target === manageAccountModal) {
+        manageAccountModal.classList.remove('active');
+        setTimeout(() => manageAccountModal.classList.add('hidden'), 300);
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+    manageAccountBtn?.addEventListener('click', () => {
+    manageAccountModal.classList.remove('hidden');
+    setTimeout(() => manageAccountModal.classList.add('active'), 10);
+    document.body.classList.add('overflow-hidden');
+  });
+  closeManageAccount?.addEventListener('click', () => {
+    manageAccountModal.classList.remove('active');
+    setTimeout(() => manageAccountModal.classList.add('hidden'), 300);
+    document.body.classList.remove('overflow-hidden');
+  });
+  manageAccountModal?.addEventListener('click', (e) => {
+    if (e.target === manageAccountModal) {
+      manageAccountModal.classList.remove('active');
+      setTimeout(() => manageAccountModal.classList.add('hidden'), 300);
+      document.body.classList.remove('overflow-hidden');
+    }
+  });
+  const quickLinksBtn = document.querySelector('button i.fa-phone')?.parentElement;
+  const quickLinksModal = document.getElementById('quickLinksModal');
+  const closeQuickLinks = document.getElementById('closeQuickLinks');
+
+  quickLinksBtn?.addEventListener('click', () => {
+    quickLinksModal.classList.remove('hidden');
+    setTimeout(() => quickLinksModal.classList.add('active'), 10);
+    document.body.classList.add('overflow-hidden');
+  });
+  closeQuickLinks?.addEventListener('click', () => {
+    quickLinksModal.classList.remove('active');
+    setTimeout(() => quickLinksModal.classList.add('hidden'), 300);
+    document.body.classList.remove('overflow-hidden');
+  });
+  quickLinksModal?.addEventListener('click', (e) => {
+    if (e.target === quickLinksModal) {
+      quickLinksModal.classList.remove('active');
+      setTimeout(() => quickLinksModal.classList.add('hidden'), 300);
+      document.body.classList.remove('overflow-hidden');
+    }
+  });
+  document.querySelector('#manageAccountModal button[type="button"]')?.addEventListener('click', () => {
+    const address = document.getElementById('address').value;
+    const mobile = document.getElementById('mobile').value;
+    const email = document.getElementById('email').value;
+
+    // Save to localStorage
+    localStorage.setItem('profile_address', address);
+    localStorage.setItem('profile_mobile', mobile);
+    localStorage.setItem('profile_email', email);
+
+    // Optionally, close the modal after saving
+    manageAccountModal.classList.remove('active');
+    setTimeout(() => manageAccountModal.classList.add('hidden'), 300);
+    document.body.classList.remove('overflow-hidden');
+  });
+  
   </script>
 
 

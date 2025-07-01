@@ -8,95 +8,82 @@
     <link rel="icon" href="../images/Barangay-Market-Area-Seal.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
     <title>Tanod Dashboard</title>
 </head>
 <body class="bg-[#E1EACD] overflow-x-hidden relative dashboard-bg-blur">
-  <!--Header-->
-<!-- MOBILE HEADER from template_v1 (visible on small screens) -->
-<header id="topHeaderMobile" class="sticky top-0 flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
-  <div class="text-3xl">
-      <button id="menuToggle" class="cursor-pointer text-white">
-          <i class="fa-solid fa-bars"></i>
-      </button>
-  </div>
-  <div class="transform flex items-center gap-2">
-    <img src="../images/Barangay-Market-Area-Seal.png" class="w-[60px] h-[60px]" />
-    <span class="text-white font-bold text-[clamp(16px,2vw,20px)] hidden sm:inline-block">
-        TANOD DOCUMENTATION <br />
-        AND REPORTING SYSTEM
-    </span>
-  </div>
-  <div class="flex items-center gap-6">
-  <!-- Notification Icon -->
-  <a href="notifications.html"
-     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
-    <i class="fas fa-bell icon-responsive text-white"></i>
-  </a>
+  <!-- MOBILE HEADER -->
+  <header id="topHeaderMobile" class="sticky top-0 flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
+    <div class="text-3xl">
+        <button id="menuToggle" class="cursor-pointer text-white">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+    <div class="transform flex items-center gap-2">
+      <img src="../images/Barangay-Market-Area-Seal.png" class="w-[60px] h-[60px]" />
+      <span class="text-white font-bold text-[clamp(16px,2vw,20px)] hidden sm:inline-block">
+          TANOD DOCUMENTATION <br />
+          AND REPORTING SYSTEM
+      </span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="notifications.html"
+         class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+        <i class="fas fa-bell icon-responsive text-white"></i>
+      </a>
+      <a href="" class="flex-shrink-0">
+        <img src="../images/maloi.jpg" alt="Profile"
+            class="w-[50px] h-[50px] rounded-full border-2 border-[#C8D75A]" />
+      </a>
+    </div>   
+  </header>
 
-  <!-- Profile Photo -->
-    <a href="" class="flex-shrink-0">
-      <img src="../images/maloi.jpg" alt="Profile"
-          class="w-[50px] h-[50px] rounded-full border-2 border-[#C8D75A]" />
-    </a>
-  </div>   
-</header>
-
-<!-- DESKTOP HEADER from template_v2 (visible on md and up) -->
-<header id="topHeaderDesktop" class="sticky top-0 hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
-  <div class="flex items-center gap-2">
-    <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
-    <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
-        TANOD DOCUMENTATION <br />
-        AND REPORTING SYSTEM
-    </span>
-  </div>
-  <nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
-    <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
-      Dashboard
-    </a>
-    <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
-      Incident Report
-    </a>
-    <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
-      Leave Application
-    </a>
-  </nav>
-  <div class="flex items-center gap-6">
-  <!-- Notification Icon -->
-  <a href="notifications.html"
-     class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
-    <i class="fas fa-bell icon-responsive text-white"></i>
-  </a>
-
-  <!-- Profile Photo -->
-    <a href="" class="flex-shrink-0">
-      <img src="../images/maloi.jpg" alt="Profile"
-          class="w-[50px] h-[50px] rounded-full border-2 border-[#C8D75A]" />
-    </a>
-  </div>
-</header>
-
-  
+  <!-- DESKTOP HEADER -->
+  <header id="topHeaderDesktop" class="sticky top-0 hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
+    <div class="flex items-center gap-2">
+      <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
+      <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
+          TANOD DOCUMENTATION <br />
+          AND REPORTING SYSTEM
+      </span>
+    </div>
+    <nav id="header-nav-text" class="flex text-[clamp(10px,_1.5vw,_14px)] font-bold h-full divide-x divide-[#4B5320]">
+      <a href="dashboard.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+        Dashboard
+      </a>
+      <a href="incident-report.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+        Incident Report
+      </a>
+      <a href="leave-application.html" class="flex-1 flex items-center justify-center px-4 py-3 border-b-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-all duration-300 text-center">
+        Leave Application
+      </a>
+    </nav>
+    <div class="flex items-center gap-6">
+      <a href="notifications.html"
+         class="flex-shrink-0 hover:drop-shadow-[0_0_5px_#FFFFFF] transition-all duration-300 text-2xl">
+        <i class="fas fa-bell icon-responsive text-white"></i>
+      </a>
+      <a href="" class="flex-shrink-0">
+        <img src="../images/maloi.jpg" alt="Profile"
+            class="w-[50px] h-[50px] rounded-full border-2 border-[#C8D75A]" />
+      </a>
+    </div>
+  </header>
 
   <!-- SIDEBAR -->
   <div id="sidebar" data-open="false" class=" pt-3 fixed top-0 left-0 z-[1000] w-[250px] bg-[#4B5320] text-white shadow-md flex flex-col min-h-screen transition-transform duration-300">
-
-    <!-- Close Button (Mobile Only) -->
     <div class="w-full flex justify-start">
       <button id="closeSidebar" class="hidden text-2xl text-white px-4 pt-4">
         <i class="fas fa-times"></i>
       </button>
     </div>
-
-      <!-- Logo + Title -->
     <div class="flex flex-col items-center text-center space-y-3 mt-4 pt-4 px-4">
       <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[120px] h-[120px] rounded-full bg-white" loading="lazy"/>
       <div class="font-bold text-sm leading-[1.3]">
         TANOD DOCUMENTATION AND REPORTING SYSTEM
       </div>
     </div>
-
-    <!-- User Profile -->
     <div class="flex items-center w-full py-3 mt-4 bg-[#6F7F48] border-l-[5px] border-[#C8D75A]">
       <img src="../images/maloi.jpg" alt="Profile"
           class="w-[50px] h-[50px] rounded-full bg-[#ddd] border-2 border-[#C8D75A] mr-4 ml-3" />
@@ -105,40 +92,35 @@
         <div class="text-[13px] text-[#ccc] leading-tight">Tanod</div>
       </div>
     </div>
-
-    <!-- Menu -->
-  <nav class="w-full mt-2">
-    <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
-    <ul class="list-none m-0 p-0">
-      <li class="mb-1">
-        <a href="dashboard.html"
-           class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
-        </a>
+    <nav class="w-full mt-2">
+      <div class="px-5 py-2 text-[12px] uppercase text-[#f0f0f0] mb-2">Main Menu</div>
+      <ul class="list-none m-0 p-0">
+        <li class="mb-1">
+          <a href="dashboard.html"
+             class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-th-large mr-2 ml-3 text-lg"></i> <p class="">Dashboard</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="incident-report.html"
+             class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="leave-application.html"
+             class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-colors duration-300">
+            <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a href="notifications.html"
+          class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-b-[#FFD700] transition-colors duration-300">
+          <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
+          </a>
       </li>
-      <li class="mb-1">
-        <a href="incident-report.html"
-           class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-exclamation-triangle mr-2 ml-3 text-lg"></i> <p class="">Incident Report</p>
-        </a>
-      </li>
-      <li class="mb-1">
-        <a href="leave-application.html"
-           class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-          <i class="fas fa-sign-out-alt mr-2 ml-3 text-lg"></i> <p class="">Leave Application</p>
-        </a>
-      </li>
-      <li class="mb-1">
-        <a href="notifications.html"
-        class="flex items-center py-3 border-l-[5px] border-transparent hover:bg-[#8A9A5B] hover:border-[#FFD700] transition-colors duration-300">
-        <i class="fas fa-bell mr-2 ml-3 text-lg"></i> <p class="">Notifications</p>
-        </a>
-    </li>
-    </ul>
-
-  </nav>
-
-    <!-- Logout Button -->
+      </ul>
+    </nav>
     <div class="w-full px-5 py-2">
       <button onclick="confirmLogout()" class="w-full py-3 bg-white text-[#7A0A0A] font-bold text-[16px] rounded transition-colors duration-300 hover:bg-[#eee]">
         Log Out
@@ -148,132 +130,549 @@
 
   <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40"></div>
 
-
   <!-- Main Container -->
-  <div class="w-[90vw] mx-auto mt-5 mb-4 flex flex-col pt-2 relative z-10">
-
-    <!-- Wrapper Section -->
-    <section class="w-[90vw]">
-
-      <!-- Title -->
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4B5320] text-center p-2"> User Profile </h1>
-
-
-      <!-- Profile Card -->
-      <main class="mx-auto bg-white rounded-[30px] shadow-lg p-6 text-center flex flex-col gap-6">
-
-        <!-- Profile Header -->
-        <div class="flex flex-col items-center gap-2">
-          <img src="../images/maloi.jpg" alt="User Profile Picture"
-              class="w-[120px] h-[120px] rounded-full object-cover border-[3px] border-[#4B5320] shadow-sm">
-          <h3 class="text-[#4B5320] text-xl font-semibold">Maloi Ricalde</h3>
-          <p class="text-gray-600 text-sm">maloi.ricalde@example.com</p>
+<div class="w-[90vw] mx-auto mt-5 mb-4 flex flex-col pt-2 relative z-10">
+  <div class="profile-settings-row">
+    <!-- Profile Box (Left, Shortened) -->
+    <main class="profile-box flex flex-col gap-5 items-center md:items-start">
+      <!-- Profile Header -->
+      <div class="flex flex-col items-center gap-2 w-full">
+        <img id="profilePic" src="../images/maloi.jpg" alt="User Profile Picture"
+            class="w-[54px] h-[54px] rounded-full object-cover border-[2px] border-[#4B5320] shadow-sm">
+        <h3 class="text-[#4B5320] text-lg font-semibold">Maloi Ricalde</h3>
+        <p class="text-gray-600 text-xs profile-email">maloi.ricalde@example.com</p>
+      </div>
+      <!-- Info Grid -->
+      <div class="grid gap-3 text-left w-full">
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Birthday:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-birthday">January 15, 1999</span>
+          </div>
         </div>
-
-        <!-- User Info Grid (Only 1 or 2 Columns) -->
-        <div class="grid gap-4 text-left sm:grid-cols-2 w-full overflow-hidden">
-
-          <!-- Info Items -->
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">User ID:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">TANOD-001</span>
-            </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Age:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-age">25</span>
           </div>
-
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Gender:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">Female</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Age:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">25</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Birthday:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">January 15, 1999</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Contact Info:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">0912-345-6789</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Marital Status:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">Single</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col sm:col-span-2">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Employment Date:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm h-full">
-              <span class="text-gray-800 text-base">March 1, 2023</span>
-            </div>
-          </div>
-
-          <!-- Full width address -->
-          <div class="flex flex-col sm:col-span-2">
-            <label class="font-semibold text-[#4B5320] text-sm pl-1 mb-1">Address:</label>
-            <div class="bg-gray-50 border border-gray-200 rounded-md p-3 shadow-sm">
-              <span class="text-gray-800 text-base">
-                123 Main St, Barangay Market Area, Santa Rosa, Calabarzon, Philippines
-              </span>
-            </div>
-          </div>
-
         </div>
-      </main>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Contact Info:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-mobile">0912-345-6789</span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Secondary Mobile Number:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-mobile2">N/A</span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Marital Status:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-marital">Single</span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Address:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-address">
+              123 Main St, Barangay Market Area, Santa Rosa, Calabarzon, Philippines
+            </span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Social Media Link:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-social">N/A</span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Account Recovery Email:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-recovery">N/A</span>
+          </div>
+        </div>
+        <div>
+          <label class="font-semibold text-[#4B5320] text-xs pl-1 mb-1">Employee ID:</label>
+          <div class="bg-gray-50 border border-gray-200 rounded-md p-2 shadow-sm">
+            <span class="text-gray-800 text-sm profile-empid">EMP-0001</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Settings & Details (Right, Larger, Optimized) -->
+    <section class="settings-box flex flex-col gap-5">
+      <h2 class="text-xl font-bold text-[#4B5320] mb-2">Account Settings &amp; Details</h2>
+      <form id="profile-settings-form" class="flex flex-col gap-4">
+        <!-- Change Profile Picture -->
+        <div>
+          <label for="input-profilepic" class="block font-semibold text-[#4B5320] text-sm mb-1">Change Profile Picture</label>
+          <div class="flex items-center gap-3">
+            <label for="input-profilepic" class="cursor-pointer bg-orange-500 text-white font-semibold px-4 py-2 rounded-lg shadow transition duration-200 hover:bg-orange-600 hover:shadow-orange-400/70 hover:shadow-glow focus:outline-none">
+              Choose File
+              <input id="input-profilepic" type="file" accept="image/*" class="hidden" />
+            </label>
+            <div id="profilepic-filename" class="flex-1 min-w-0 bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-gray-700 text-sm overflow-x-auto whitespace-nowrap">
+              No file chosen
+            </div>
+          </div>
+        </div>
+        <!-- Address -->
+        <div>
+          <label for="input-address" class="block font-semibold text-[#4B5320] text-sm mb-1">Address</label>
+          <input id="input-address" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        </div>
+        <!-- Contact Info & Secondary Mobile Number (side by side) -->
+        <div class="flex flex-col md:flex-row gap-3">
+          <div class="flex-1">
+            <label for="input-mobile" class="block font-semibold text-[#4B5320] text-sm mb-1">Contact Info</label>
+            <input id="input-mobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+          </div>
+          <div class="flex-1">
+            <label for="input-mobile2" class="block font-semibold text-[#4B5320] text-sm mb-1">Secondary Mobile Number</label>
+            <input id="input-mobile2" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Optional" />
+          </div>
+        </div>
+        <!-- Email -->
+        <div>
+          <label for="input-email" class="block font-semibold text-[#4B5320] text-sm mb-1">Email</label>
+          <input id="input-email" type="email" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        </div>
+        <!-- Birthday -->
+        <div>
+          <label for="input-birthday" class="block font-semibold text-[#4B5320] text-sm mb-1">Birthday</label>
+          <input id="input-birthday" type="date" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+        </div>
+        <!-- Marital Status -->
+        <div>
+          <label for="input-marital" class="block font-semibold text-[#4B5320] text-sm mb-1">Marital Status</label>
+          <select id="input-marital" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]">
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widowed">Widowed</option>
+            <option value="Separated">Separated</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+        </div>
+        <!-- Social Media Link -->
+        <div>
+          <label for="input-social" class="block font-semibold text-[#4B5320] text-sm mb-1">Social Media Link</label>
+          <input id="input-social" type="url" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="https://facebook.com/yourprofile" />
+        </div>
+        <!-- Hidden input for recovery email (for JS compatibility) -->
+        <input id="input-recovery" type="hidden" />
+        <!-- Save Changes Button -->
+        <div class="flex justify-end">
+          <button type="submit" class="bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-orange-600 hover:shadow-orange-400/70 hover:shadow-glow transition-colors duration-200">Save Changes</button>
+        </div>
+      </form>
+      <!-- Modal Buttons -->
+      <div class="w-full flex flex-col md:flex-row gap-3 mt-4">
+        <!-- Account Recovery Button -->
+        <button id="openRecoveryModal"
+          class="md:w-auto flex-1 md:flex-none flex items-center justify-center px-5 py-2 bg-[#4B5320] text-white font-semibold rounded-lg shadow glow-btn focus:outline-none text-center transition-all duration-300"
+          style="height:44px; max-width:350px;">
+          Account Recovery
+        </button>
+        <!-- Change Password Button -->
+        <button id="openPasswordModal"
+          class="md:w-auto flex-1 md:flex-none flex items-center justify-center px-5 py-2 bg-[#4B5320] text-white font-semibold rounded-lg shadow glow-btn focus:outline-none text-center transition-all duration-300"
+          style="height:44px; max-width:350px;">
+          Change Password
+        </button>
+        <!-- Log Out Button -->
+        <button id="openLogoutModal"
+          class="logout-btn flex-1 md:flex-none"
+          type="button"
+          style="height:44px; max-width:180px; min-width:100px;">
+          Log Out
+        </button>
+      </div>
     </section>
+    </div>
   </div>
+  </div>
+</div>
 
-<button onclick="confirmLogout()" 
-  class="block w-[90vw] p-6 mx-auto bg-[#b20a0a] text-white px-8 py-3 rounded-full text-[1.1em] font-bold 
-         border-2 border-[#b20a0a] transition duration-300 hover:bg-[#a30505] hover:-translate-y-[1px]">
-  Log Out
-</button>
+<!-- Alert Modal (always on top) -->
+<div id="alertModal" class="fixed inset-0 flex items-center justify-center z-[1000000] pointer-events-auto hidden">
+  <div
+    id="alertModalBox"
+    class="bg-white border-4 border-red-500 rounded-2xl shadow-lg px-50 py-50 text-center text-[#7A0A0A] text-lg font-bold transition-all duration-300 opacity-0"
+    style="box-shadow: 0 0 24px 4px #ff0000, 0 0 8px 2px #ff6a6a;">
+    <i class="fa fa-exclamation-triangle text-red-500 text-3xl" aria-hidden="true"></i>
+    <span id="alertModalMessage"></span>
+  </div>
+</div>
 
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const closeBtn = document.getElementById("closeSidebar");
+<!-- Account Recovery Modal -->
+<div id="recoveryModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[99999] hidden">
+  <div class="bg-white rounded-xl shadow-lg p-6 w-[90vw] max-w-[400px] relative">
+    <button id="closeRecoveryModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold" style="right: 1.5rem;">&times;</button>
+    <h3 class="text-lg font-bold text-[#4B5320] mb-4">Account Recovery</h3>
+    <div class="mb-4">
+      <label class="block font-semibold text-[#4B5320] text-sm mb-1">Current Recovery Email</label>
+      <input id="current-recovery-email" type="email" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-100 text-gray-700" readonly />
+    </div>
+    <div class="mb-4">
+      <label for="modal-input-recovery" class="block font-semibold text-[#4B5320] text-sm mb-1">New Recovery Email</label>
+      <input id="modal-input-recovery" type="email"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]"
+        placeholder="Enter new recovery email" />
+    </div>
+    <div class="mb-4">
+      <label class="block font-semibold text-[#4B5320] text-sm mb-1">Mobile Number</label>
+      <input id="current-mobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-100 text-gray-700" readonly />
+    </div>
+    <div class="flex justify-end mt-6">
+      <button id="saveRecoveryModal" class="bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">Save</button>
+    </div>
+  </div>
+</div>
 
-    function openSidebar() {
-      sidebar.dataset.open = "true";
-      overlay.classList.remove("hidden");
-    }
+<!-- Change Password Modal -->
+<div id="passwordModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-[99999] hidden">
+  <div class="bg-white rounded-xl shadow-lg p-6 w-[90vw] max-w-[400px] relative">
+    <button id="closePasswordModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold" style="right: 1.5rem;">&times;</button>
+    <h3 class="text-lg font-bold text-[#4B5320] mb-4">Change Password</h3>
+    <div class="mb-4">
+      <label for="current-password" class="block font-semibold text-[#4B5320] text-sm mb-1">Current Password</label>
+      <input id="current-password" type="password"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]"
+        placeholder="Enter current password" />
+    </div>
+    <div class="mb-4">
+      <label for="new-password" class="block font-semibold text-[#4B5320] text-sm mb-1">New Password</label>
+      <input id="new-password" type="password"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]"
+        placeholder="Enter new password" />
+    </div>
+    <div class="mb-4">
+      <label for="confirm-password" class="block font-semibold text-[#4B5320] text-sm mb-1">Confirm Password</label>
+      <input id="confirm-password" type="password"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]"
+        placeholder="Confirm new password" />
+    </div>
+    <div class="flex justify-end mt-6">
+      <button id="savePasswordModal" class="bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-orange-600 transition-colors duration-200">Save</button>
+    </div>
+  </div>
+</div>
 
-    function closeSidebar() {
-      sidebar.dataset.open = "false";
-      overlay.classList.add("hidden");
-    }
+<!-- Cropper Modal -->
+<div id="cropperModal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-[2147483647] hidden">
+  <div class="bg-white rounded-lg p-4 shadow-lg flex flex-col items-center">
+    <img id="cropperImage" style="max-width:300px;max-height:300px;" />
+    <div class="flex gap-3 mt-4">
+      <button id="cropperCancel" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
+      <button id="cropperApply" class="px-4 py-2 rounded bg-orange-500 text-white hover:bg-orange-600 hover:shadow-glow">Crop &amp; Save</button>
+    </div>
+  </div>
+</div>
 
-    menuToggle?.addEventListener("click", openSidebar);
-    overlay?.addEventListener("click", closeSidebar);
-    closeBtn?.addEventListener("click", closeSidebar);
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="logout-modal">
+      <div class="logout-modal-content">
+        <h3>Are you sure you want to log out?</h3>
+        <div class="logout-modal-actions">
+          <button id="logoutConfirm" class="logout-confirm-btn" type="button">Yes</button>
+          <button id="logoutCancel" class="logout-cancel-btn" type="button">No</button>
+        </div>
+      </div>
+    </div>
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("closeSidebar");
+
+function openSidebar() {
+  sidebar.dataset.open = "true";
+  overlay.classList.remove("hidden");
+}
+function closeSidebar() {
+  sidebar.dataset.open = "false";
+  overlay.classList.add("hidden");
+}
+menuToggle?.addEventListener("click", openSidebar);
+overlay?.addEventListener("click", closeSidebar);
+closeBtn?.addEventListener("click", closeSidebar);
 
 function confirmLogout() {
   if (confirm("Are you sure you want to log out?")) {
-    // Example action: redirect to logout page
-    window.location.href = "../index.html"; // or whatever your logout URL is
+    window.location.href = "../index.html";
   }
 }
-  </script>
 
+function calculateAge(birthdayStr) {
+  if (!birthdayStr) return '';
+  const today = new Date();
+  const birthDate = new Date(birthdayStr);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+}
 
+function loadProfileData() {
+  const birthday = localStorage.getItem('profile_birthday');
+  const mobile = localStorage.getItem('profile_mobile');
+  const mobile2 = localStorage.getItem('profile_mobile2');
+  const marital = localStorage.getItem('profile_marital');
+  const address = localStorage.getItem('profile_address');
+  const email = localStorage.getItem('profile_email');
+  const social = localStorage.getItem('profile_social');
+  const recovery = localStorage.getItem('profile_recovery');
+  const empid = localStorage.getItem('profile_empid') || 'EMP-0001';
+  const profilePic = localStorage.getItem('profile_pic');
+
+  if (birthday) {
+    document.querySelector('.profile-birthday').textContent = new Date(birthday).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    document.querySelector('.profile-age').textContent = calculateAge(birthday);
+    document.getElementById('input-birthday').value = birthday;
+  }
+  if (mobile) {
+    document.querySelector('.profile-mobile').textContent = mobile;
+    document.getElementById('input-mobile').value = mobile;
+  }
+  if (mobile2) {
+    document.querySelector('.profile-mobile2').textContent = mobile2;
+    document.getElementById('input-mobile2').value = mobile2;
+  }
+  if (marital) {
+    document.querySelector('.profile-marital').textContent = marital;
+    document.getElementById('input-marital').value = marital;
+  }
+  if (address) {
+    document.querySelector('.profile-address').textContent = address;
+    document.getElementById('input-address').value = address;
+  }
+  if (email) {
+    document.querySelector('.profile-email').textContent = email;
+    document.getElementById('input-email').value = email;
+  }
+  if (social) {
+    document.querySelector('.profile-social').textContent = social;
+    document.getElementById('input-social').value = social;
+  }
+  if (recovery) {
+    document.querySelector('.profile-recovery').textContent = recovery;
+    const inputRecovery = document.getElementById('input-recovery');
+    if (inputRecovery) inputRecovery.value = recovery;
+  }
+  if (empid) {
+    document.querySelector('.profile-empid').textContent = empid;
+  }
+  if (profilePic) {
+    document.getElementById('profilePic').src = profilePic;
+    document.querySelectorAll('img[alt="Profile"]').forEach(img => img.src = profilePic);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadProfileData();
+
+  document.getElementById('profile-settings-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const birthday = document.getElementById('input-birthday').value;
+    const mobile = document.getElementById('input-mobile').value;
+    const mobile2 = document.getElementById('input-mobile2').value;
+    const marital = document.getElementById('input-marital').value;
+    const address = document.getElementById('input-address').value;
+    const email = document.getElementById('input-email').value;
+    const social = document.getElementById('input-social').value;
+    const recovery = document.getElementById('input-recovery').value;
+
+    localStorage.setItem('profile_birthday', birthday);
+    localStorage.setItem('profile_mobile', mobile);
+    localStorage.setItem('profile_mobile2', mobile2);
+    localStorage.setItem('profile_marital', marital);
+    localStorage.setItem('profile_address', address);
+    localStorage.setItem('profile_email', email);
+    localStorage.setItem('profile_social', social);
+    localStorage.setItem('profile_recovery', recovery);
+
+    loadProfileData();
+  });
+
+  // Cropper.js logic
+  let cropper;
+  const cropperModal = document.getElementById('cropperModal');
+  const cropperImage = document.getElementById('cropperImage');
+  const cropperCancel = document.getElementById('cropperCancel');
+  const cropperApply = document.getElementById('cropperApply');
+  const profilePicInput = document.getElementById('input-profilepic');
+
+  profilePicInput.addEventListener('change', function(e) {
+    console.log('File input changed');
+    const file = this.files && this.files[0];
+    const fileNameBox = document.getElementById('profilepic-filename');
+    fileNameBox.textContent = file ? file.name : 'No file chosen';
+    if (file) {
+      cropperImage.src = ''; // Clear previous image
+      cropperModal.classList.remove('hidden'); // Show modal immediately
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          cropperImage.src = evt.target.result;
+          if (cropper) cropper.destroy();
+          cropper = new Cropper(cropperImage, {
+            aspectRatio: 1,
+            viewMode: 1,
+            autoCropArea: 1,
+          });
+        };
+        reader.readAsDataURL(file);
+      }, 10);
+    }
+  });
+
+  cropperCancel.addEventListener('click', function() {
+    cropperModal.classList.add('hidden');
+    if (cropper) cropper.destroy();
+    profilePicInput.value = '';
+    document.getElementById('profilepic-filename').textContent = 'No file chosen';
+  });
+
+  cropperApply.addEventListener('click', function() {
+    if (cropper) {
+      const canvas = cropper.getCroppedCanvas({ width: 200, height: 200 });
+      const croppedDataUrl = canvas.toDataURL('image/png');
+      localStorage.setItem('profile_pic', croppedDataUrl);
+      document.getElementById('profilePic').src = croppedDataUrl;
+      document.querySelectorAll('img[alt="Profile"]').forEach(img => img.src = croppedDataUrl);
+      cropperModal.classList.add('hidden');
+      cropper.destroy();
+    }
+  });
+
+  // Account Recovery Modal logic
+  const openRecoveryModal = document.getElementById('openRecoveryModal');
+  const recoveryModal = document.getElementById('recoveryModal');
+  const closeRecoveryModal = document.getElementById('closeRecoveryModal');
+  const saveRecoveryModal = document.getElementById('saveRecoveryModal');
+  const currentRecoveryEmail = document.getElementById('current-recovery-email');
+  const currentMobile = document.getElementById('current-mobile');
+  const inputRecovery = document.getElementById('modal-input-recovery'); 
+
+  openRecoveryModal.addEventListener('click', () => {
+    currentRecoveryEmail.value = localStorage.getItem('profile_recovery') || '';
+    currentMobile.value = localStorage.getItem('profile_mobile') || '';
+    inputRecovery.value = '';
+    recoveryModal.classList.add('active');
+    recoveryModal.classList.remove('hidden');
+  });
+  closeRecoveryModal.addEventListener('click', () => {
+    recoveryModal.classList.remove('active');
+    setTimeout(() => recoveryModal.classList.add('hidden'), 300);
+  });
+  recoveryModal.addEventListener('click', (e) => {
+    if (e.target === recoveryModal) {
+      recoveryModal.classList.remove('active');
+      setTimeout(() => recoveryModal.classList.add('hidden'), 300);
+    }
+  });
+  saveRecoveryModal.addEventListener('click', () => {
+    if (inputRecovery.value) {
+      localStorage.setItem('profile_recovery', inputRecovery.value);
+      currentRecoveryEmail.value = inputRecovery.value;
+      document.querySelector('.profile-recovery').textContent = inputRecovery.value;
+      const hiddenRecovery = document.getElementById('input-recovery');
+      if (hiddenRecovery) hiddenRecovery.value = inputRecovery.value;
+    }
+    recoveryModal.classList.remove('active');
+    setTimeout(() => recoveryModal.classList.add('hidden'), 300);
+  });
+
+  // Alert Modal logic
+  function showAlertModal(message) {
+    const alertModal = document.getElementById('alertModal');
+    const alertModalBox = document.getElementById('alertModalBox');
+    const alertModalMessage = document.getElementById('alertModalMessage');
+    alertModalMessage.textContent = message;
+    alertModal.classList.remove('hidden');
+    setTimeout(() => {
+      alertModalBox.classList.remove('opacity-0');
+      alertModalBox.classList.add('opacity-100');
+    }, 10);
+    setTimeout(() => {
+      alertModalBox.classList.remove('opacity-100');
+      alertModalBox.classList.add('opacity-0');
+      setTimeout(() => {
+        alertModal.classList.add('hidden');
+      }, 300);
+    }, 1500);
+  }
+
+  // Password Modal logic
+  const openPasswordModal = document.getElementById('openPasswordModal');
+  const passwordModal = document.getElementById('passwordModal');
+  const closePasswordModal = document.getElementById('closePasswordModal');
+  const savePasswordModal = document.getElementById('savePasswordModal');
+
+  openPasswordModal.addEventListener('click', () => {
+    document.getElementById('current-password').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('confirm-password').value = '';
+    passwordModal.classList.add('active');
+    passwordModal.classList.remove('hidden');
+  });
+  closePasswordModal.addEventListener('click', () => {
+    passwordModal.classList.remove('active');
+    setTimeout(() => passwordModal.classList.add('hidden'), 300);
+  });
+  passwordModal.addEventListener('click', (e) => {
+    if (e.target === passwordModal) {
+      passwordModal.classList.remove('active');
+      setTimeout(() => passwordModal.classList.add('hidden'), 300);
+    }
+  });
+  savePasswordModal.addEventListener('click', () => {
+    const current = document.getElementById('current-password').value.trim();
+    const newPass = document.getElementById('new-password').value.trim();
+    const confirm = document.getElementById('confirm-password').value.trim();
+
+    if (!current || !newPass || !confirm) {
+      showAlertModal('Please fill in all password fields.');
+      return;
+    }
+    if (newPass !== confirm) {
+      showAlertModal('New Password and Confirm Password do not match.');
+      return;
+    }
+    localStorage.setItem('profile_password', newPass);
+    showAlertModal('Password changed successfully!');
+    passwordModal.classList.remove('active');
+    setTimeout(() => passwordModal.classList.add('hidden'), 300);
+  });
+});
+
+// Logout Modal logic
+const openLogoutModal = document.getElementById('openLogoutModal');
+const logoutModal = document.getElementById('logoutModal');
+const logoutConfirm = document.getElementById('logoutConfirm');
+const logoutCancel = document.getElementById('logoutCancel');
+
+openLogoutModal.addEventListener('click', () => {
+  logoutModal.classList.add('active');
+});
+logoutCancel.addEventListener('click', () => {
+  logoutModal.classList.remove('active');
+});
+logoutModal.addEventListener('click', (e) => {
+  if (e.target === logoutModal) {
+    logoutModal.classList.remove('active');
+  }
+});
+logoutConfirm.addEventListener('click', () => {
+  window.location.href = "../index.html";
+});
+</script>
+</script>
 </body>
-
-
 </html>
