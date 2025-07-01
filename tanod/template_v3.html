@@ -13,7 +13,7 @@
 <body class="bg-[#E1EACD] overflow-x-hidden">
   <!--Header-->
 <!-- MOBILE HEADER from template_v1 (visible on small screens) -->
-<header id="topHeaderMobile" class="flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
+<header id="topHeaderMobile" class="sticky top-0 flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-50 md:hidden">
   <div class="text-3xl">
       <button id="menuToggle" class="cursor-pointer text-white">
           <i class="fa-solid fa-bars"></i>
@@ -43,7 +43,7 @@
 </header>
 
 <!-- DESKTOP HEADER from template_v2 (visible on md and up) -->
-<header id="topHeaderDesktop" class="hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
+<header id="topHeaderDesktop" class="sticky top-0 hidden md:flex items-center justify-between w-full h-[100px] px-5 bg-[#4B5320] text-white z-[50]">
   <div class="flex items-center gap-2">
     <img src="../images/Barangay-Market-Area-Seal.png" alt="Logo" class="w-[60px] h-[60px]" />
     <span class="text-white font-bold text-[clamp(12px,_2vw,_16px)] hidden sm:inline-block">
