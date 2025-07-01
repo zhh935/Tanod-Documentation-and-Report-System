@@ -224,6 +224,15 @@
             color: #ffffff;
             margin-bottom: 15px;
         }
+        .card-desc {
+            font-size: 0.75em;
+            color: #f5f5f5;
+            opacity: 0.85;
+            margin-bottom: 10px;
+            margin-top: -8px;
+            font-style: italic;
+            letter-spacing: 0.1px;
+        }
 
         .more-info-btn {
             background-color: rgba(0, 0, 0, 0.1); /* Semi-transparent for a subtle look */
@@ -437,7 +446,52 @@
         .submit-announcement-btn:hover {
             background-color: #45a049;
         }
-        /* --- END NEW MODAL STYLES --- */
+        /* Label box for form headers */
+        .label-box {
+            display: block;
+            width: 450px;
+            background: var(--label-bg, #f0f0f0);
+            color: var(--label-color, #333);
+            padding: 6px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            margin-bottom: 6px;
+            margin-top: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            border: 1.5px solid #e0e0e0;
+            box-sizing: border-box;
+        }
+        .label-text {
+            color: inherit;
+        }
+
+        /* Emphasized border and placeholder for inputs */
+        .announcement-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2.5px solid #4B5320;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            font-size: 1em;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        .announcement-input:focus {
+            border-color: #b97a00;
+            outline: none;
+        }
+        #closeAnnouncementModal {
+            color: #ff3b3b !important; /* Bright red */
+            transition: color 0.2s;
+        }
+        #closeAnnouncementModal:hover,
+        #closeAnnouncementModal:focus {
+            color: #b70000 !important; /* Even deeper red on hover */
+            cursor: pointer;
+        }
 
     </style>
 </head>
@@ -462,7 +516,7 @@
                     <li><a href="2Employee.html"><i class="fas fa-users"></i> Employee Management</a></li>
                     <li><a href="3schedule.html"><i class="fas fa-calendar-alt"></i> Schedule Management</a></li>
                     <li><a href="4incident.html"><i class="fas fa-exclamation-triangle"></i> Incident Report</a></li>
-                    <li><a href="5leave.html"><i class="fas fa-sign-out-alt"></i> Leave Management</a></li>
+                    <li><a href="5leave.html"><i class="fa fa-calendar-times"></i> Leave Management</a></li>
                 </ul>
             </nav>
             <div class="logout-section">
@@ -488,11 +542,13 @@
                 <div class="card">
                     <div class="card-value">5</div>
                     <div class="card-title">Incident Report</div>
+                    <div class="card-desc">For the past 7 days.</div>
                     <button class="more-info-btn" onclick="window.location.href='4incident.html'">More Info</button>
                 </div>
                 <div class="card">
                     <div class="card-value">2</div>
-                    <div class="card-title">Leave Application</div>
+                    <div class="card-title">Leave Application</div>    
+                    <div class="card-desc">For the past 7 days.</div>
                     <button class="more-info-btn" onclick="window.location.href='5leave.html'">More Info</button>
                 </div>
             </div>
@@ -512,139 +568,219 @@
             </div>
         </div>
     </div>
+<div id="announcementModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" id="closeAnnouncementModal">&times;</span>
+    <form id="announcementForm">
+      <!-- Title Label Box -->
+      <div class="label-box" style="--label-bg:#D0B564; --label-color:#ffffff;">
+        <span class="label-text">Title:</span>
+      </div>
+      <input
+        type="text"
+        id="announcementTitle"
+        required
+        placeholder="Enter announcement title"
+        class="announcement-input"
+      >
 
-    <div id="announcementModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Add New Announcement</h2>
-            <form id="announcementForm">
-                <label for="announcementTitle">Title:</label>
-                <input type="text" id="announcementTitle" required>
+      <!-- Announcement Label Box -->
+      <div class="label-box" style="--label-bg:#BD8F42; --label-color:#ffffff;">
+        <span class="label-text">Announcement:</span>
+      </div>
+      <textarea
+        id="announcementText"
+        rows="5"
+        required
+        placeholder="Write your announcement here..."
+        class="announcement-input"
+      ></textarea>
 
-                <label for="announcementText">Announcement:</label>
-                <textarea id="announcementText" rows="5" required></textarea>
-
-                <button type="submit" class="submit-announcement-btn">Post Announcement</button>
-            </form>
+      <button type="submit" class="submit-announcement-btn">Post Announcement</button>
+    </form>
+  </div>
+</div>
         </div>
     </div>
+    <!-- Success Feedback Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content" style="max-width: 340px; text-align: center;">
+                <span class="close-button" id="closeSuccessModal" style="top: 5px; right: 15px;">&times;</span>
+                <h2 style="color: #4B5320; margin-bottom: 18px; margin-top: 10px; font-size: 1.3em;">Your announcement has been posted!</h2>
+                <button id="dismissSuccessModal" style="margin-top: 18px; background: #4B5320; color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 1em; font-weight: 600; cursor: pointer;">
+                    Dismiss
+                </button>
+            </div>
+        </div>
 
-    <script>
-        // Get all sidebar links
-        const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+        <div id="deleteAnnouncementModal" class="modal">
+            <div class="modal-content" style="max-width: 340px; text-align: center;">
+                <span class="close-button" id="closeDeleteModal" style="top: 5px; right: 15px;">&times;</span>
+                <h2 style="color: #7A0A0A; margin-bottom: 18px; margin-top: 10px; font-size: 1.1em;">Delete Announcement</h2>
+                <div style="margin-bottom: 18px;">Are you sure you want to delete this announcement?</div>
+                <button id="confirmDeleteAnnouncement" style="background: #7A0A0A; color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 1em; font-weight: 600; cursor: pointer; margin-right: 10px;">
+                    Delete
+                </button>
+                <button id="cancelDeleteAnnouncement" style="background: #4B5320; color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 1em; font-weight: 600; cursor: pointer;">
+                    Cancel
+                </button>
+            </div>
+        </div>
 
-        // Get the current page's filename
-        const currentPage = window.location.pathname.split('/').pop();
+<script>
+    // Sidebar active link logic
+    const sidebarLinks = document.querySelectorAll('.main-menu ul li a');
+    const currentPage = window.location.pathname.split('/').pop();
+    sidebarLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        if (linkPage === currentPage) {
+            link.closest('li').classList.add('active');
+        } else {
+            link.closest('li').classList.remove('active');
+        }
+    });
 
-        // Loop through each link and check if its href matches the current page
-        sidebarLinks.forEach(link => {
-            // Get the filename from the link's href
-            const linkPage = link.getAttribute('href').split('/').pop();
+    // Announcement modal and list logic
+    const addAnnouncementIcon = document.querySelector('.add-announcement-icon i');
+    const announcementModal = document.getElementById('announcementModal');
+    const closeAnnouncementModal = document.getElementById('closeAnnouncementModal');
+    const announcementForm = document.getElementById('announcementForm');
+    const announcementsListDiv = document.getElementById('announcementsList');
+    const deleteAnnouncementModal = document.getElementById('deleteAnnouncementModal');
+    const closeDeleteModal = document.getElementById('closeDeleteModal');
+    const confirmDeleteAnnouncement = document.getElementById('confirmDeleteAnnouncement');
+    const cancelDeleteAnnouncement = document.getElementById('cancelDeleteAnnouncement');
+    const successModal = document.getElementById('successModal');
+    const closeSuccessModal = document.getElementById('closeSuccessModal');
+    const dismissSuccessModal = document.getElementById('dismissSuccessModal');
 
-            if (linkPage === currentPage) {
-                // Add the 'active' class to the parent <li> element
-                link.closest('li').classList.add('active');
-            } else {
-                // Ensure no other links have the active class if navigating back/forth
-                link.closest('li').classList.remove('active');
-            }
-        });
+    // Announcements array (client-side only)
+    let announcements = [];
+    let announcementToDeleteIndex = null;
 
-        // --- JAVASCRIPT FOR ANNOUNCEMENT MODAL AND LIST ---
-        const addAnnouncementIcon = document.querySelector('.add-announcement-icon i');
-        const announcementModal = document.getElementById('announcementModal');
-        const closeButton = document.querySelector('.close-button');
-        const announcementForm = document.getElementById('announcementForm');
-        const announcementsListDiv = document.getElementById('announcementsList'); // The new container
+    // Render announcements
+    function renderAnnouncements() {
+        announcementsListDiv.innerHTML = '';
 
-        // Array to hold announcements (client-side only, clears on refresh)
-        let announcements = [];
-
-        // Function to render/update the announcements list
-        function renderAnnouncements() {
-            announcementsListDiv.innerHTML = ''; // Clear existing content
-
-            if (announcements.length === 0) {
-                announcementsListDiv.innerHTML = '<p>No announcements yet. Click + to add one.</p>';
-                return;
-            }
-
-            announcements.forEach((ann, index) => {
-                const announcementDiv = document.createElement('div');
-                announcementDiv.classList.add('posted-announcement'); // Re-using existing style
-                announcementDiv.setAttribute('data-index', index); // Store index for deletion
-
-                announcementDiv.innerHTML = `
-                    <div class="announcement-item-header">
-                        <h4>${ann.title}</h4>
-                        <button class="delete-announcement-btn" data-index="${index}">&times;</button>
-                    </div>
-                    <p>${ann.text}</p>
-                    <span class="announcement-date">${ann.date}</span>
-                `;
-                announcementsListDiv.appendChild(announcementDiv);
-            });
-
-            // Attach event listeners to new delete buttons
-            // (Re-attaching every render ensures newly added elements get listeners)
-            document.querySelectorAll('.delete-announcement-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const indexToDelete = parseInt(event.target.dataset.index);
-                    deleteAnnouncement(indexToDelete);
-                });
-            });
+        if (announcements.length === 0) {
+            announcementsListDiv.innerHTML = '<p>No announcements yet. Click + to add one.</p>';
+            return;
         }
 
-        // Function to delete an announcement
-        function deleteAnnouncement(index) {
-            if (confirm('Are you sure you want to delete this announcement?')) {
-                announcements.splice(index, 1); // Remove 1 element at the given index
-                renderAnnouncements(); // Re-render the list
-            }
+        announcements.forEach((ann, index) => {
+            const announcementDiv = document.createElement('div');
+            announcementDiv.classList.add('posted-announcement');
+            announcementDiv.setAttribute('data-index', index);
+
+            announcementDiv.innerHTML = `
+                <div class="announcement-item-header">
+                    <h4>${ann.title}</h4>
+                    <button class="delete-announcement-btn" data-index="${index}">&times;</button>
+                </div>
+                <p>${ann.text}</p>
+                <span class="announcement-date">${ann.date}</span>
+            `;
+            announcementsListDiv.appendChild(announcementDiv);
+        });
+
+        // Attach event listeners to new delete buttons
+        document.querySelectorAll('.delete-announcement-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                announcementToDeleteIndex = parseInt(event.target.dataset.index);
+                deleteAnnouncementModal.style.display = 'flex';
+            });
+        });
+    }
+
+    // Show success modal
+    function showSuccessModal() {
+        successModal.style.display = 'flex';
+    }
+
+    // Event listeners for modals
+
+    // Open announcement modal
+    addAnnouncementIcon.addEventListener('click', () => {
+        announcementModal.style.display = 'flex';
+    });
+
+    // Close announcement modal
+    closeAnnouncementModal.addEventListener('click', () => {
+        announcementModal.style.display = 'none';
+    });
+
+    // Close announcement modal when clicking outside content
+    announcementModal.addEventListener('click', (event) => {
+        if (event.target === announcementModal) {
+            announcementModal.style.display = 'none';
         }
+    });
 
-        // Open modal when plus icon is clicked
-        addAnnouncementIcon.addEventListener('click', () => {
-            announcementModal.style.display = 'flex'; // Use flex to center the modal
-        });
+    // Announcement form submit
+    announcementForm.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-        // Close modal when 'x' is clicked
-        closeButton.addEventListener('click', () => {
-            announcementModal.style.display = 'none';
-        });
+        const title = document.getElementById('announcementTitle').value;
+        const text = document.getElementById('announcementText').value;
+        const date = new Date().toLocaleDateString();
 
-        // Close modal when clicking outside of it
-        window.addEventListener('click', (event) => {
-            if (event.target == announcementModal) {
-                announcementModal.style.display = 'none';
-            }
-        });
+        const newAnnouncement = {
+            title: title,
+            text: text,
+            date: date
+        };
 
-        // Handle form submission
-        announcementForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent default form submission (page reload)
-
-            const title = document.getElementById('announcementTitle').value;
-            const text = document.getElementById('announcementText').value;
-            const date = new Date().toLocaleDateString(); // Get current date
-
-            const newAnnouncement = {
-                title: title,
-                text: text,
-                date: date
-            };
-
-            announcements.push(newAnnouncement); // Add new announcement to array
-            renderAnnouncements(); // Re-render the list with the new announcement
-
-            // Clear the form
-            announcementForm.reset();
-            // Close the modal
-            announcementModal.style.display = 'none';
-        });
-
-        // Initial render when the page loads (to show "No announcements yet" or any pre-existing)
+        announcements.push(newAnnouncement);
         renderAnnouncements();
-    </script>
+
+        announcementForm.reset();
+        announcementModal.style.display = 'none';
+
+        // Show feedback modal
+        showSuccessModal();
+    });
+
+    // Success modal close logic
+    closeSuccessModal.addEventListener('click', () => {
+        successModal.style.display = 'none';
+    });
+    dismissSuccessModal.addEventListener('click', () => {
+        successModal.style.display = 'none';
+    });
+    // Optional: close success modal when clicking outside content
+    successModal.addEventListener('click', (event) => {
+        if (event.target === successModal) {
+            successModal.style.display = 'none';
+        }
+    });
+
+    // Delete modal logic
+    closeDeleteModal.addEventListener('click', () => {
+        deleteAnnouncementModal.style.display = 'none';
+        announcementToDeleteIndex = null;
+    });
+    cancelDeleteAnnouncement.addEventListener('click', () => {
+        deleteAnnouncementModal.style.display = 'none';
+        announcementToDeleteIndex = null;
+    });
+    confirmDeleteAnnouncement.addEventListener('click', () => {
+        if (announcementToDeleteIndex !== null) {
+            announcements.splice(announcementToDeleteIndex, 1);
+            renderAnnouncements();
+        }
+        deleteAnnouncementModal.style.display = 'none';
+        announcementToDeleteIndex = null;
+    });
+    // Close delete modal when clicking outside content
+    deleteAnnouncementModal.addEventListener('click', (e) => {
+        if (e.target === deleteAnnouncementModal) {
+            deleteAnnouncementModal.style.display = 'none';
+            announcementToDeleteIndex = null;
+        }
+    });
+
+    // Initial render
+    renderAnnouncements();
+</script>
 </body>
 </html>
