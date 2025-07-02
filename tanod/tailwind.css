@@ -2717,3 +2717,48 @@
   border: 1px solid #e5e7eb !important;
   opacity: 1;
 }
+.choose-file-label {
+  cursor: pointer;
+  background: #fd7e14; /* orange-500 */
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px 0 #fdba74;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+  display: inline-block;
+}
+.choose-file-label:hover,
+.choose-file-label:focus {
+  background: #e8590c; /* orange-600 */
+  box-shadow: 0 0 0 4px #fdba74, 0 2px 8px 0 #fdba7480;
+}
+label[for="attached-document"] {
+  cursor: pointer;
+  background: #fd7e14; /* orange-500 */
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px 0 #fdba74;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+  display: inline-block;
+  padding-top: 0.25rem !important;   /* py-1 */
+  padding-bottom: 0.25rem !important;
+  padding-left: 1rem !important;     /* px-4 */
+  padding-right: 1rem !important;
+  font-size: 0.95rem !important;
+  min-width: 90px;
+  line-height: 1.2;
+}
+label[for="attached-document"]:hover,
+label[for="attached-document"]:focus {
+  background: #e8590c; /* orange-600 */
+  box-shadow: 0 0 0 4px #fdba74, 0 2px 8px 0 #fdba7480;
+}
+/* Incomplete Modal fallback for Tailwind utility classes */
+#incompleteModal {
+  z-index: 2147483647 !important;
+}

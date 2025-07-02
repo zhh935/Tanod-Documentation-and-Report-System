@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Tanod Dashboard</title>
+    <style>
+      .submit-button:disabled {
+        background-color: #bbb !important;
+        cursor: not-allowed !important;
+        opacity: 0.7 !important;
+      }
+    </style>
 </head>
 <body class="bg-[#E1EACD] overflow-x-hidden">
 <!--Header-->
@@ -163,7 +170,6 @@
         </div>
         <h2 class="text-center text-[clamp(1.2em,4vw,2em)] font-bold text-[#4B5320]">INCIDENT REPORT</h2>
       </div>
-
       <p class="text-xs italic text-center text-gray-500 mt-[-10px] mb-6">(*) Required fields must be filled to apply for leave.</p>
     </div>
   <!-- SECTION HEADER -->
@@ -204,10 +210,11 @@
     </div>
 
     <!-- File Upload -->
-    <div>
-      <label for="attached-document" class="block font-bold text-[#444] mb-1">Attach Document<span class="text-xs italic text-gray-500"> (*)</span></label>
+      <div>
+        <label class="block font-bold text-[#444] mb-1">Attach Document<span class="text-xs italic text-gray-500"> (*)</span></label>
+      </div>
       <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-        <input type="file" id="attached-document" name="attached-document" class="hidden" />
+        <input type="file" id="attached-document" name="attached-document" class="hidden" multiple />
         <label for="attached-document"
           class="bg-[#D0B564] border border-gray-300 rounded-md px-4 py-2 text-sm text-[#F5F5F5] cursor-pointer hover:bg-[#BD8F42] transition text-center sm:w-auto w-full">
           Choose File
@@ -215,7 +222,6 @@
         <input type="text" readonly placeholder="No file chosen"
           class="flex-grow min-w-0 bg-[#fcfcfc] border border-[#eee] rounded-md px-3 py-2 text-sm text-[#777] cursor-default w-full" />
       </div>
-    </div>
 
     <!-- Section Header -->
     <div class="bg-[#4B5320] text-[#F5F5F5] text-sm font-semibold uppercase px-8 md:px-12 py-3 rounded-md shadow-sm tracking-wider flex items-center gap-2">
@@ -290,11 +296,11 @@
   </div>
 </div>
 
-
   <!-- Buttons -->
   <div class="mt-3 flex flex-col sm:flex-row justify-center gap-5 w-full px-4 sm:px-6 md:px-[50px] pb-10">
     <button type="submit"
-      class="submit-button bg-[#4CAF50] text-white px-8 py-3 rounded-full text-[1.1em] font-bold transition duration-300 hover:bg-[#45a049] hover:-translate-y-[1px]">
+      class="submit-button bg-gray-400 text-white px-8 py-3 rounded-full text-[1.1em] font-bold transition duration-300 cursor-not-allowed"
+      disabled>
       Submit
     </button>
     <button type="button" class="reset-button bg-[#707070] text-[#F5F5F5] px-8 py-3 rounded-full text-[1.1em] font-bold border-2 border-[#c00707] transition duration-300 hover:bg-[#e0e0e0] hover:-translate-y-[1px]">
@@ -346,98 +352,82 @@
 
 
 
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const closeBtn = document.getElementById("closeSidebar");
+<script>
+// Sidebar logic
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const closeBtn = document.getElementById("closeSidebar");
 
-    function openSidebar() {
-      sidebar.dataset.open = "true";
-      overlay.classList.remove("hidden");
-    }
+function openSidebar() {
+  sidebar.dataset.open = "true";
+  overlay.classList.remove("hidden");
+}
 
-    function closeSidebar() {
-      sidebar.dataset.open = "false";
-      overlay.classList.add("hidden");
-    }
+function closeSidebar() {
+  sidebar.dataset.open = "false";
+  overlay.classList.add("hidden");
+}
 
-    menuToggle?.addEventListener("click", openSidebar);
-    overlay?.addEventListener("click", closeSidebar);
-    closeBtn?.addEventListener("click", closeSidebar);
-    
-    window.addEventListener("resize", () => {
-        if (window.innerWidth >= 768) {
-          closeSidebar();
-        }
-    });
+menuToggle?.addEventListener("click", openSidebar);
+overlay?.addEventListener("click", closeSidebar);
+closeBtn?.addEventListener("click", closeSidebar);
 
-    function confirmLogout() {
-      if (confirm("Are you sure you want to log out?")) {
-        // Example action: redirect to logout page
-        window.location.href = "../index.html"; // or whatever your logout URL is
-      }
-    }
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 768) {
+    closeSidebar();
+  }
+});
 
+function confirmLogout() {
+  if (confirm("Are you sure you want to log out?")) {
+    window.location.href = "../index.html";
+  }
+}
 
-    /*-- Modals --*/
-
-    // Modal handling
+// Success Modal logic
 const modal = document.getElementById("successModal");
-const submitButtons = document.querySelectorAll(".submit-button");
+const submitBtn = document.querySelector(".submit-button");
 const closeButton = document.querySelector(".close-button");
 const modalCloseBtn = document.querySelector(".modal-close-button");
 
-// Show modal
 function showModal(event) {
   event.preventDefault();
   modal.classList.add("opacity-100", "pointer-events-auto");
   modal.classList.remove("opacity-0", "pointer-events-none");
-
-  // Animate modal content
   const content = modal.querySelector(".modal-content");
   content.classList.remove("-translate-y-5");
   content.classList.add("translate-y-0");
 }
 
-// Hide modal
-    function hideModal() {
-      modal.classList.remove("opacity-100", "pointer-events-auto");
-      modal.classList.add("opacity-0", "pointer-events-none");
+function hideModal() {
+  modal.classList.remove("opacity-100", "pointer-events-auto");
+  modal.classList.add("opacity-0", "pointer-events-none");
+  const content = modal.querySelector(".modal-content");
+  content.classList.remove("translate-y-0");
+  content.classList.add("-translate-y-5");
+}
 
-      const content = modal.querySelector(".modal-content");
-      content.classList.remove("translate-y-0");
-      content.classList.add("-translate-y-5");
-    }
+submitBtn.addEventListener("click", showModal);
+closeButton.addEventListener("click", hideModal);
+modalCloseBtn.addEventListener("click", hideModal);
+window.addEventListener("click", (e) => {
+  if (e.target === modal) hideModal();
+});
 
-    // Event bindings
-    submitButtons.forEach((btn) => btn.addEventListener("click", showModal));
-    closeButton.addEventListener("click", hideModal);
-    modalCloseBtn.addEventListener("click", hideModal);
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) hideModal();
-    });
-
-        //ADD ANOTHER PERSON
-
+// Add Another Person logic
 function addOtherPerson() {
   const container = document.getElementById("otherPersonsContainer");
-
   const row = document.createElement("div");
   row.className = "person-row mb-8";
-
   row.innerHTML = `
-    <!-- Input Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Name Field -->
       <div>
         <label class="block font-bold text-[#444] mb-1">Name: (Other person involved)</label>
         <input type="text" name="other-name[]" placeholder="Enter name"
           class="w-full bg-[#F5F5F5] border border-[#bbb] rounded-md px-4 py-2
                  focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
       </div>
-
-      <!-- Contact Field -->
       <div>
         <label class="block font-bold text-[#444] mb-1">Contact: (Other person involved)</label>
         <input type="text" name="other-contact[]" placeholder="Enter contact"
@@ -445,8 +435,6 @@ function addOtherPerson() {
                  focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
       </div>
     </div>
-
-    <!-- Bottom Divider + Remove Button -->
     <div class="flex items-center justify-center gap-2 mt-4">
       <hr class="flex-grow border-gray-300" />
       <button type="button" onclick="removeOtherPerson(this)" title="Remove"
@@ -457,24 +445,21 @@ function addOtherPerson() {
       <hr class="flex-grow border-gray-300" />
     </div>
   `;
-
   container.appendChild(row);
   updateRemoveButtons();
+  updateSubmitButtonState();
 }
 
 function removeOtherPerson(button) {
   const row = button.closest(".person-row");
   row.remove();
   updateRemoveButtons();
+  updateSubmitButtonState();
 }
 
 function updateRemoveButtons() {
   const personRows = document.querySelectorAll("#otherPersonsContainer .person-row");
-
-  // hide all remove buttons by default
   document.querySelectorAll(".remove-btn").forEach(btn => btn.classList.add("hidden"));
-
-  // show remove buttons only if 2 or more other persons exist
   if (personRows.length >= 1) {
     document.querySelectorAll(".remove-btn").forEach(btn => btn.classList.remove("hidden"));
   }
@@ -482,60 +467,234 @@ function updateRemoveButtons() {
 
 document.addEventListener("DOMContentLoaded", updateRemoveButtons);
 
-  const radios = document.querySelectorAll("input[name='incident-type']");
-  const otherInput = document.getElementById('other-type-text');
-  const form = document.querySelector('form');
+// Enable/disable "Other" incident type text
+const radios = document.querySelectorAll("input[name='incident-type']");
+const otherInput = document.getElementById('other-type-text');
+const form = document.getElementById('incidentForm');
 
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      otherInput.disabled = !(radio.value === 'other' && radio.checked);
-    });
+radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    otherInput.disabled = !(radio.value === 'other' && radio.checked);
+    updateSubmitButtonState();
   });
+});
 
-  if (form) {
-    form.addEventListener('reset', () => {
-      setTimeout(() => {
-        otherInput.disabled = true;
-      }, 0);
-    });
-  }
-  // Get elements
+if (form) {
+  form.addEventListener('reset', () => {
+    setTimeout(() => {
+      otherInput.disabled = true;
+      updateSubmitButtonState();
+    }, 0);
+  });
+}
+
+// File input display for multiple files
+document.addEventListener("DOMContentLoaded", function() {
+  const fileInput = document.getElementById("attached-document");
+  const fileNameInput = fileInput
+    .closest("div.flex")
+    .querySelector('input[type="text"][readonly]');
+
+  fileInput.addEventListener("change", function () {
+    if (fileInput.files && fileInput.files.length > 0) {
+      const names = Array.from(fileInput.files).map(f => f.name).join(", ");
+      fileNameInput.value = names;
+    } else {
+      fileNameInput.value = "No file chosen";
+    }
+    updateSubmitButtonState();
+  });
+});
+
+// Clear modal logic
 const clearBtn = document.querySelector(".reset-button");
 const clearModal = document.getElementById("clearConfirmModal");
 const closeClearModal = document.getElementById("closeClearModal");
 const cancelClearBtn = document.getElementById("cancelClearBtn");
 const confirmClearBtn = document.getElementById("confirmClearBtn");
-const formEl = document.querySelector("incidentForm");
 
-// Show modal on clear button click
 clearBtn.addEventListener("click", function(e) {
   e.preventDefault();
   clearModal.classList.add("opacity-100", "pointer-events-auto");
   clearModal.classList.remove("opacity-0", "pointer-events-none");
 });
 
-// Hide modal function
 function hideClearModal() {
   clearModal.classList.remove("opacity-100", "pointer-events-auto");
   clearModal.classList.add("opacity-0", "pointer-events-none");
 }
 
-// Cancel/close modal
 closeClearModal.addEventListener("click", hideClearModal);
 cancelClearBtn.addEventListener("click", hideClearModal);
 
-// Confirm clear
 confirmClearBtn.addEventListener("click", function() {
-  if (formEl) {
-    formEl.reset();
-    // Also clear dynamic fields if needed
+  if (form) {
+    form.reset();
     document.getElementById("otherPersonsContainer").innerHTML = "";
-    // Optionally, reset other custom UI here
+    updateSubmitButtonState();
   }
   hideClearModal();
 });
-</script>
 
+// --- Validation for required fields ---
+function showAlertModal(msg) {
+  alert(msg); // Replace with your custom modal if needed
+}
+
+function showIncompleteModal() {
+  const incompleteModal = document.getElementById('incompleteModal');
+  if (incompleteModal) {
+    incompleteModal.style.display = 'flex';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const closeBtn = document.getElementById('closeIncompleteModal');
+  if (closeBtn) {
+    closeBtn.onclick = function() {
+      const modal = document.getElementById('incompleteModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    };
+  }
+});
+
+function isIncidentFormValid() {
+  const date = document.getElementById('incident-date').value.trim();
+  const time = document.getElementById('incident-time').value.trim();
+  const location = document.getElementById('incident-location').value.trim();
+  const description = document.getElementById('incident-description').value.trim();
+  const incidentType = document.querySelector("input[name='incident-type']:checked");
+  const filerName = document.getElementById('filer-name').value.trim();
+  const filerContact = document.getElementById('filer-contact').value.trim();
+  
+  // File input required
+  const fileInput = document.getElementById('attached-document');
+  const hasFile = fileInput && fileInput.files && fileInput.files.length > 0;
+
+
+  // At least one involved individual (filer) is always required
+  let involvedValid = filerName && filerContact;
+
+  // If there are additional persons, check their fields
+  const otherPersons = document.querySelectorAll('#otherPersonsContainer .person-row');
+  if (otherPersons.length > 0) {
+    involvedValid = true;
+    for (const row of otherPersons) {
+      const name = row.querySelector('input[name="other-name[]"]')?.value.trim();
+      const contact = row.querySelector('input[name="other-contact[]"]')?.value.trim();
+      if (!name || !contact) {
+        involvedValid = false;
+        break;
+      }
+    }
+  }
+
+  // If "Other" is selected, require the text input
+  let otherTypeValid = true;
+  if (incidentType && incidentType.value === 'other') {
+    const otherType = document.getElementById('other-type-text').value.trim();
+    otherTypeValid = !!otherType;
+  }
+
+  return (
+    date &&
+    time &&
+    location &&
+    description &&
+    hasFile && 
+    incidentType &&
+    otherTypeValid &&
+    involvedValid
+  );
+}
+
+function updateSubmitButtonState() {
+  const submitBtn = document.querySelector('.submit-button');
+  if (!submitBtn) return;
+  if (isIncidentFormValid()) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+    submitBtn.classList.add('bg-green-600', 'shadow-[0_0_10px_2px_#22c55e]', 'hover:bg-green-700', 'cursor-pointer');
+  } else {
+    submitBtn.disabled = true;
+    submitBtn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+    submitBtn.classList.remove('bg-green-600', 'shadow-[0_0_10px_2px_#22c55e]', 'hover:bg-green-700', 'cursor-pointer');
+  }
+}
+
+// Attach listeners to all relevant fields
+document.addEventListener('DOMContentLoaded', function() {
+  const fields = [
+    'incident-date',
+    'incident-time',
+    'incident-location',
+    'incident-description',
+    'filer-name',
+    'filer-contact',
+    'other-type-text'
+  ];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updateSubmitButtonState);
+  });
+
+  // Listen for changes on incident type radios
+  document.querySelectorAll('input[name="incident-type"]').forEach(radio => {
+    radio.addEventListener('change', updateSubmitButtonState);
+  });
+
+  // Listen for changes in involved individuals
+  const container = document.getElementById('otherPersonsContainer');
+  const observer = new MutationObserver(updateSubmitButtonState);
+  observer.observe(container, { childList: true, subtree: true });
+
+  // Also listen for input on dynamically added fields
+  container.addEventListener('input', updateSubmitButtonState);
+
+  // Initial state
+  updateSubmitButtonState();
+});
+
+// Main form validation on submit
+form.addEventListener('submit', function(e) {
+  const date = document.getElementById('incident-date').value.trim();
+  const time = document.getElementById('incident-time').value.trim();
+  const location = document.getElementById('incident-location').value.trim();
+  const description = document.getElementById('incident-description').value.trim();
+  const incidentType = document.querySelector("input[name='incident-type']:checked");
+  const filerName = document.getElementById('filer-name').value.trim();
+  const filerContact = document.getElementById('filer-contact').value.trim();
+
+  if (!date || !time || !location || !description || !incidentType || !filerName || !filerContact) {
+    e.preventDefault();
+    showIncompleteModal();
+    return false;
+  }
+  if (incidentType.value === 'other') {
+    const otherType = document.getElementById('other-type-text').value.trim();
+    if (!otherType) {
+      e.preventDefault();
+      showAlertModal('Please specify the type of incident.');
+      document.getElementById('other-type-text').focus();
+      return false;
+    }
+  }
+  // Check all involved individuals
+  const otherPersons = document.querySelectorAll('#otherPersonsContainer .person-row');
+  for (const row of otherPersons) {
+    const name = row.querySelector('input[name="other-name[]"]')?.value.trim();
+    const contact = row.querySelector('input[name="other-contact[]"]')?.value.trim();
+    if (!name || !contact) {
+      e.preventDefault();
+      showIncompleteModal();
+      return false;
+    }
+  }
+  // If all required fields are filled, allow submit (modal will show)
+});
+</script>
 
 </body>
 
