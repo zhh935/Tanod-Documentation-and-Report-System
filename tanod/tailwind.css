@@ -2707,3 +2707,13 @@
   border-color: #16a34a; /* Tailwind green-600 */
   z-index: 2147483647 !important; /* Maximum safe z-index */
 }
+.profile-settings-row .profile-box .bg-gray-50,
+.profile-settings-row .profile-box [readonly],
+.profile-settings-row .profile-box .uneditable-cell {
+  background-color: #f3f4f6 !important; /* Tailwind's gray-100 */
+  color: #797979 !important;
+  cursor: not-allowed;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb !important;
+  opacity: 1;
+}
