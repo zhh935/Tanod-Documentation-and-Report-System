@@ -165,8 +165,8 @@
         .logout-btn {
             width: 100%;
             padding: 12px;
-            background-color: white;
-            color: #7A0A0A;
+            background-color: #7A0A0A; /* Red background */
+            color: white; /* White text */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -176,7 +176,7 @@
         }
 
         .logout-btn:hover {
-            background-color: #eee;
+            background-color: #5a0808; /* Darker red on hover */
         }
 
         /* Main Content Styling for Leave Management */
@@ -209,74 +209,56 @@
             font-size: 1.8em;
         }
 
-        /* Styles for buttons in page header */
-        .header-buttons {
+        /* Header Actions for Archive Button */
+        .header-actions {
             display: flex;
-            gap: 10px; /* Space between buttons */
+            gap: 10px;
             align-items: center;
-        }
-
-        /* Style for the "Apply Leave" button (if you add one, this is a suggestion) */
-        .action-button.primary-button {
-            padding: 8px 12px;
-            background-color: #4B5320; /* Example primary color */
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.8em;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: background-color 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .action-button.primary-button:hover {
-            background-color: #3C421A; /* Darker shade on hover */
         }
 
         /* Style for the "View Archive" button */
         .view-archive-button {
-            padding: 8px 12px;
-            background-color: #6c757d; /* A neutral color like gray */
+            background-color: #6c757d; /* A neutral grey */
             color: white;
-            border-radius: 5px;
-            text-decoration: none; /* For <a> tag to look like a button */
-            font-size: 0.8em;
+            padding: 6px 12px; /* Smaller padding */
+            font-size: 0.8em; /* Smaller font size */
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: background-color 0.3s ease;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px; /* Smaller space between icon and text */
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .view-archive-button i {
+            font-size: 0.9em; /* Smaller icon */
         }
 
         .view-archive-button:hover {
             background-color: #5a6268; /* Darker gray on hover */
         }
 
-        .view-archive-button i {
-            font-size: 1em;
-        }
-
         .search-filter-section {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Distribute items horizontally */
             align-items: center;
-            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 15px; /* Adjust gap between search bar and report count */
         }
 
         .search-bar {
+            /* Reduced width for the search bar */
+            flex-basis: 60%; /* Take 60% of available space */
+            min-width: 300px; /* Ensure it doesn't get too small */
             position: relative;
-            width: 600px; /* Minimized width for the search bar */
-            margin-right: 20px;
         }
 
         .search-bar input {
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 10px 15px 10px 35px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -297,6 +279,7 @@
             font-weight: bold;
             color: #555;
             padding: 10px 0;
+            flex-shrink: 0; /* Prevent it from shrinking */
         }
 
         /* Leave List Table */
@@ -331,8 +314,8 @@
         .leave-table th:nth-child(3), .leave-table td:nth-child(3) { width: 130px; } /* Start Date */
         .leave-table th:nth-child(4), .leave-table td:nth-child(4) { width: 130px; } /* End Date */
         .leave-table th:nth-child(5), .leave-table td:nth-child(5) { width: 100px; } /* Type */
-        .leave-table th:nth-child(6), .leave-table td:nth-child(6) { width: 150px; } /* Actions - Adjusted to fit buttons tightly */
-
+        .leave-table th:nth-child(6), .leave-table td:nth-child(6) { width: 100px; } /* Status */
+        .leave-table th:nth-child(7), .leave-table td:nth-child(7) { width: 120px; } /* Actions */
 
         .leave-table th {
             background-color: #f2f2f2;
@@ -342,38 +325,89 @@
             font-size: 0.9em;
         }
 
-        .leave-table tbody tr:hover {
-            background-color: #f5f5f5;
+        /* Row background colors based on status - adapted from incident.html */
+        .leave-table tbody tr.status-new {
+            background-color: #ffffff; /* Default white background */
+        }
+
+        .leave-table tbody tr.status-approved {
+            background-color: #8dc299; /* Light green background */
+        }
+
+        .leave-table tbody tr.status-declined {
+            background-color: #ffcba1; /* Light orange background */
+        }
+
+        /* Override hover effect to maintain status colors */
+        .leave-table tbody tr.status-new:hover {
+            background-color: #f5f5f5; /* Light gray on hover for new reports */
+        }
+
+        .leave-table tbody tr.status-approved:hover {
+            background-color: #609e2e; /* Slightly darker green on hover */
+            color: white;
+        }
+
+        .leave-table tbody tr.status-declined:hover {
+            background-color: #ff661f; /* Slightly darker orange on hover */
+            color: white;
+        }
+
+        /* Status button styling - adapted from incident.html */
+        .leave-table .status-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            cursor: default;
+            pointer-events: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .leave-table .status-btn.approved {
+            background-color: #496400; /* Olive background */
+        }
+
+        .leave-table .status-btn.declined {
+            background-color: #ff8c00; /* Orange background */
         }
 
         .leave-table td.actions {
             white-space: nowrap;
             display: flex; /* Use flexbox for button alignment */
-            gap: 8px; /* Space between buttons */
+            gap: 10px; /* Space between buttons */
             align-items: center;
+            /* Adjust padding slightly for vertical centering within flex container */
             padding-top: 5px; 
-            padding-bottom: 5px;
+            padding-bottom: 11px;
         }
 
-        /* Table Action Buttons - Fixed Width and Icon Sizing */
+        /* Update action button styling - adapted from incident.html */
         .leave-table .action-btn {
             padding: 6px 10px;
             border: none;
             border-radius: 4px;
-            font-size: 0.85em; /* Base font size for text */
+            font-size: 0.85em;
             cursor: pointer;
             transition: background-color 0.2s ease, opacity 0.2s ease;
-            flex-shrink: 0; /* Prevent buttons from shrinking */
-            width: 100px; /* Fixed width for text buttons */
+            flex-shrink: 0;
+            width: auto;
             text-align: center;
-            display: flex;
             justify-content: center;
             align-items: center;
-            gap: 5px; /* Space for text and icon */
+            gap: 5px;
+            background-color: #6f7786; /* Blue background for all "View Details" buttons */
+            color: white;
+            text-decoration: none; /* Remove underline */
         }
 
-        .leave-table .action-btn i {
-            font-size: 1.1em; /* Slightly larger icon for text buttons */
+        .leave-table .action-btn:hover {
+            background-color: #3f434b; /* Darker blue on hover */
+            text-decoration: none; /* Remove underline on hover */
         }
 
         /* Specific style for icon-only delete button */
@@ -381,41 +415,22 @@
             background-color: transparent; /* No background */
             color: #dc3545; /* Red color for the icon */
             border: none; /* No border */
-            width: 32px; /* Adjusted width for icon only */
-            height: 32px; /* Adjusted height for icon only */
+            width: 36px; /* Width for icon only */
+            height: 36px; /* Height for icon only */
             padding: 0; /* Remove padding as content is icon */
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Added margin-left to separate it slightly from other buttons */
-            margin-left: 5px; 
         }
+        
         .leave-table .delete-btn i {
-            font-size: 1.3em; /* Adjusted icon size */
+            font-size: 1.5em; /* Significantly larger icon size */
         }
 
         .leave-table .delete-btn:hover {
             color: #c82333; /* Darker red on hover */
             background-color: transparent; /* Ensure no background on hover */
         }
-
-        .leave-table .status-new {
-            background-color: #ffc107; /* Yellow for "View Details" */
-            color: #333;
-        }
-        .leave-table .status-new:hover { background-color: #e0a800; }
-
-        .leave-table .status-approved {
-            background-color: #28a745; /* Green for "Approved" */
-            color: white;
-        }
-        .leave-table .status-approved:hover { background-color: #218838; }
-
-        .leave-table .status-declined {
-            background-color: #dc3545; /* Red for "Declined" */
-            color: white;
-        }
-        .leave-table .status-declined:hover { background-color: #c82333; }
 
         /* MODAL STYLES (General) */
         .modal {
@@ -500,6 +515,7 @@
             font-family: sans-serif;
             font-size: 0.9em;
         }
+        
         /* Make select element look read-only */
         .leave-form select[readonly] {
             background-color: #e9ecef;
@@ -593,6 +609,14 @@
         }
         .modal-footer-buttons .btn-declined:hover:not(:disabled) { background-color: #c82333; }
 
+        .modal-footer-buttons .btn-unresolve {
+            background-color: #6c757d; /* Gray background */
+            color: white;
+        }
+        .modal-footer-buttons .btn-unresolve:hover:not(:disabled) { 
+            background-color: #5a6268; /* Darker gray on hover */
+        }
+
         .modal-footer-buttons button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -612,16 +636,6 @@
             font-size: 1em;
             color: #555;
         }
-        /* New or modified style for centering buttons in confirmation modal */
-        .custom-alert-confirm .modal-footer-buttons {
-            display: flex;
-            justify-content: center; /* This centers the buttons horizontally */
-            gap: 10px; /* Provides space between the buttons */
-            margin-top: 20px; /* Keep consistent with other modal footers if desired */
-            padding-top: 15px; /* Keep consistent with other modal footers if desired */
-            border-top: 1px solid #eee; /* Keep consistent with other modal footers if desired */
-        }
-
         .custom-alert-confirm .modal-content button {
             padding: 10px 20px;
             border-radius: 5px;
@@ -629,6 +643,7 @@
             font-size: 1em;
             font-weight: bold;
             transition: background-color 0.2s ease;
+            margin: 0 5px;
         }
     </style>
 </head>
@@ -664,7 +679,7 @@
         <div class="main-content">
             <div class="page-header">
                 <h2>Leave Management</h2>
-                <div class="header-buttons">
+                <div class="header-actions">
                     <a href="leave-archive.html" class="view-archive-button">
                         <i class="fas fa-archive"></i> View Archive
                     </a>
@@ -673,7 +688,8 @@
 
             <div class="search-filter-section">
                 <div class="search-bar">
-                    <i class="fas fa-search"></i> <input type="text" placeholder="Search by employee, type, or status..." id="leaveSearchInput">
+                    <i class="fas fa-search"></i> 
+                    <input type="text" placeholder="Search by employee, type, or status..." id="leaveSearchInput">
                 </div>
                 <div class="report-count">
                     Total Leave Applications: <span id="totalLeaveCount">0</span>
@@ -689,12 +705,13 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Type</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="leaveTableBody">
                         <tr>
-                            <td colspan="6" style="text-align: center; color: #777;">No leave applications yet.</td>
+                            <td colspan="7" style="text-align: center; color: #777;">No leave applications yet.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -750,20 +767,25 @@
                 <div class="modal-footer-buttons">
                     <button type="button" class="btn-approved" id="btnApproveLeave">Approved</button>
                     <button type="button" class="btn-declined" id="btnDeclineLeave">Decline</button>
+                    <button type="button" class="btn-unresolve" id="btnUnresolveLeave">Unresolve</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div id="customAlertConfirmModal" class="modal custom-alert-confirm">
-        <div class="modal-content">
-            <span class="close-button" id="closeCustomAlertConfirmBtn">&times;</span>
-            <h2 id="customAlertConfirmTitle"></h2>
-            <p id="customAlertConfirmMessage"></p>
-            <div class="modal-footer-buttons">
-                <button id="confirmCancelBtn" class="btn-declined" style="display: none;">Cancel</button>
-                <button id="confirmProceedBtn" class="btn-approved">OK</button>
+    <div id="logoutConfirmationModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close-button" id="closeLogoutModal" style="top: 5px; right: 15px;">&times;</span>
+            <h2 style="color: #7A0A0A; margin-bottom: 18px; margin-top: 10px; font-size: 1.2em;">Confirm Logout</h2>
+            <div style="margin-bottom: 25px; font-size: 16px; color: #555;">
+                Are you sure you want to log out?
             </div>
+            <button id="confirmLogout" style="background: #7A0A0A; color: #fff; border: none; border-radius: 6px; padding: 12px 24px; font-size: 1em; font-weight: 600; cursor: pointer; margin-right: 15px;">
+                Yes, Log Out
+            </button>
+            <button id="cancelLogout" style="background: #4B5320; color: #fff; border: none; border-radius: 6px; padding: 12px 24px; font-size: 1em; font-weight: 600; cursor: pointer;">
+                Cancel
+            </button>
         </div>
     </div>
 
@@ -797,20 +819,11 @@
     const attachedDocumentDisplay = document.getElementById('attachedDocumentDisplay');
     const btnApproveLeave = document.getElementById('btnApproveLeave');
     const btnDeclineLeave = document.getElementById('btnDeclineLeave');
+    const btnUnresolveLeave = document.getElementById('btnUnresolveLeave');
 
     const leaveTableBody = document.getElementById('leaveTableBody');
     const leaveSearchInput = document.getElementById('leaveSearchInput');
     const totalLeaveCountSpan = document.getElementById('totalLeaveCount');
-
-    // Custom Alert/Confirm Modal elements
-    const customAlertConfirmModal = document.getElementById('customAlertConfirmModal');
-    const closeCustomAlertConfirmBtn = document.getElementById('closeCustomAlertConfirmBtn');
-    const customAlertConfirmTitle = document.getElementById('customAlertConfirmTitle');
-    const customAlertConfirmMessage = document.getElementById('customAlertConfirmMessage');
-    const confirmCancelBtn = document.getElementById('confirmCancelBtn');
-    const confirmProceedBtn = document.getElementById('confirmProceedBtn');
-
-    let confirmCallback = null; // To store the callback for the confirm action
 
     // Helper function to format date to Month Day, Year
     function formatDateToMonthDayYear(dateString) {
@@ -835,47 +848,34 @@
         return `${diffDays + 1} day(s)`; // +1 to include start day
     }
 
-    // --- Local Storage Functions ---
-    function getLeavesFromLocalStorage() {
-        const leaves = localStorage.getItem('leaveApplications');
-        return leaves ? JSON.parse(leaves) : [
-            // Sample Data - Only populate if localStorage is empty
-            {
-                id: 1, employee: 'Gwen Apuli', duration: '2 day(s)', startDate: '2025-06-15', endDate: '2025-06-16',
-                type: 'Sick Leave', reason: 'Fever and body aches.', document: 'Medical_Cert.pdf', status: 'New'
-            },
-            {
-                id: 2, employee: 'Mikha Lim', duration: '5 day(s)', startDate: '2025-07-01', endDate: '2025-07-05',
-                type: 'Vacation Leave', reason: 'Family trip to Palawan.', document: 'Flight_Details.jpg', status: 'Declined'
-            },
-            {
-                id: 3, employee: 'Sheena Catacutan', duration: '3 day(s)', startDate: '2025-06-10', endDate: '2025-06-12',
-                type: 'Emergency Leave', reason: 'Urgent family matter.', document: 'Police_Report.docx', status: 'New'
-            },
-            {
-                id: 4, employee: 'Jhoanna Robles', duration: '7 day(s)', startDate: '2025-05-20', endDate: '2025-05-26',
-                type: 'Maternity Leave', reason: 'Childbirth.', document: 'Birth_Cert.pdf', status: 'Approved'
-            }
-        ];
-    }
-
-    function saveLeavesToLocalStorage(leaves) {
-        localStorage.setItem('leaveApplications', JSON.stringify(leaves));
-    }
-
-    function getArchivedLeavesFromLocalStorage() {
-        const archivedLeaves = localStorage.getItem('archivedLeaveApplications');
-        return archivedLeaves ? JSON.parse(archivedLeaves) : [];
-    }
-
-    function saveArchivedLeavesToLocalStorage(archivedLeaves) {
-        localStorage.setItem('archivedLeaveApplications', JSON.stringify(archivedLeaves));
-    }
-    // --- END Local Storage Functions ---
-
     // Client-side storage for leave applications
-    let leaveApplications = getLeavesFromLocalStorage();
-    let archivedLeaveApplications = getArchivedLeavesFromLocalStorage();
+    let leaveApplications = JSON.parse(localStorage.getItem('leaveApplications')) || [
+        // Sample Data - Only populate if localStorage is empty
+        {
+            id: 1, employee: 'Gwen Apuli', duration: '2 day(s)', startDate: '2025-06-15', endDate: '2025-06-16',
+            type: 'Sick Leave', reason: 'Fever and body aches.', document: 'Medical_Cert.pdf', status: 'New'
+        },
+        {
+            id: 2, employee: 'Mikha Lim', duration: '5 day(s)', startDate: '2025-07-01', endDate: '2025-07-05',
+            type: 'Vacation Leave', reason: 'Family trip to Palawan.', document: 'Flight_Details.jpg', status: 'Declined'
+        },
+        {
+            id: 3, employee: 'Sheena Catacutan', duration: '3 day(s)', startDate: '2025-06-10', endDate: '2025-06-12',
+            type: 'Emergency Leave', reason: 'Urgent family matter.', document: 'Police_Report.docx', status: 'New'
+        },
+        {
+            id: 4, employee: 'Jhoanna Robles', duration: '7 day(s)', startDate: '2025-05-20', endDate: '2025-05-26',
+            type: 'Maternity Leave', reason: 'Childbirth.', document: 'Birth_Cert.pdf', status: 'Approved'
+        }
+    ];
+
+    let archivedLeaveApplications = JSON.parse(localStorage.getItem('archivedLeaveApplications')) || [];
+
+    // Function to save data to localStorage
+    function saveData() {
+        localStorage.setItem('leaveApplications', JSON.stringify(leaveApplications));
+        localStorage.setItem('archivedLeaveApplications', JSON.stringify(archivedLeaveApplications));
+    }
 
     // Function to define custom sorting order for leave applications
     function sortLeaveApplications(a, b) {
@@ -889,7 +889,7 @@
 
         // If statuses are the same, sort by start date (earliest first)
         const dateA = new Date(a.startDate);
-        const dateB = new Date(b.endDate); // Sort by end date for consistent grouping with duration
+        const dateB = new Date(b.startDate);
         return dateA.getTime() - dateB.getTime(); // Ascending (earliest first)
     }
 
@@ -909,11 +909,20 @@
         filteredApplications.sort(sortLeaveApplications);
 
         if (filteredApplications.length === 0) {
-            leaveTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #777;">No matching leave applications found.</td></tr>';
+            leaveTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #777;">No matching leave applications found.</td></tr>';
         } else {
             filteredApplications.forEach((app) => {
                 const row = leaveTableBody.insertRow();
                 row.setAttribute('data-id', app.id);
+
+                // Add status class to the entire row for background color
+                if (app.status === 'New') {
+                    row.classList.add('status-new');
+                } else if (app.status === 'Approved') {
+                    row.classList.add('status-approved');
+                } else if (app.status === 'Declined') {
+                    row.classList.add('status-declined');
+                }
 
                 row.insertCell().textContent = app.employee;
                 row.insertCell().textContent = app.duration;
@@ -921,43 +930,59 @@
                 row.insertCell().textContent = formatDateToMonthDayYear(app.endDate);
                 row.insertCell().textContent = app.type;
 
+                // Status cell with status button
+                const statusCell = row.insertCell();
+                statusCell.style.textAlign = 'center';
+                
+                if (app.status === 'Approved') {
+                    const statusBtn = document.createElement('button');
+                    statusBtn.classList.add('status-btn', 'approved');
+                    statusBtn.textContent = 'Approved';
+                    statusCell.appendChild(statusBtn);
+                } else if (app.status === 'Declined') {
+                    const statusBtn = document.createElement('button');
+                    statusBtn.classList.add('status-btn', 'declined');
+                    statusBtn.textContent = 'Declined';
+                    statusCell.appendChild(statusBtn);
+                } else {
+                    // For 'New' status, show empty cell or dash
+                    statusCell.textContent = '-';
+                    statusCell.style.color = '#999';
+                    statusCell.style.textAlign = 'center';
+                }
+
                 const actionsCell = row.insertCell();
                 actionsCell.classList.add('actions');
 
-                // Status-specific action button
+                // All action buttons now show "View Details"
                 const actionButton = document.createElement('button');
                 actionButton.classList.add('action-btn');
+                actionButton.textContent = 'View Details';
+                actionButton.addEventListener('click', () => viewLeaveDetails(app.id));
+                actionsCell.appendChild(actionButton);
 
-                if (app.status === 'New') {
-                    actionButton.classList.add('status-new');
-                    actionButton.textContent = 'View Details';
-                    actionButton.onclick = () => viewLeaveDetails(app.id);
-                    actionsCell.appendChild(actionButton); // Add View Details button
-                } else if (app.status === 'Approved') {
-                    actionButton.classList.add('status-approved');
-                    actionButton.textContent = 'Approved';
-                    actionButton.disabled = true; // Disable if already approved
-                    actionsCell.appendChild(actionButton); // Add Approved button
-                } else if (app.status === 'Declined') {
-                    actionButton.classList.add('status-declined');
-                    actionButton.textContent = 'Declined';
-                    actionButton.disabled = true; // Disable if already declined
-                    actionsCell.appendChild(actionButton); // Add Declined button
-                }
-
-                // Delete button - only visible for 'Approved' and 'Declined' statuses
-                if (app.status === 'Approved' || app.status === 'Declined') {
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('delete-btn');
-                    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Changed to fas fa-trash
-                    deleteButton.title = 'Delete Leave Application';
-                    deleteButton.onclick = () => showConfirm('Delete Leave', 'Are you sure you want to delete this leave application? It will be moved to the archive.', () => deleteLeaveApplication(app.id));
-                    actionsCell.appendChild(deleteButton);
-                }
+                // Archive button now visible for ALL applications
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('action-btn', 'delete-btn');
+                deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                deleteButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    displayCustomConfirm(`Are you sure you want to archive this ${app.status.toUpperCase()} leave application? It will be moved to the Archive.`, () => {
+                        const appIndex = leaveApplications.findIndex(application => application.id === app.id);
+                        if (appIndex > -1) {
+                            const deletedApp = leaveApplications.splice(appIndex, 1)[0];
+                            archivedLeaveApplications.push(deletedApp);
+                            saveData();
+                            renderLeaveApplications();
+                            displayCustomAlert('Leave application moved to archive!');
+                        }
+                    });
+                });
+                actionsCell.appendChild(deleteButton);
             });
         }
         totalLeaveCountSpan.textContent = filteredApplications.length;
-        saveLeavesToLocalStorage(leaveApplications); // Save current state to local storage
+        saveData(); // Save current state to local storage
     }
 
     // Function to show leave details in modal
@@ -972,18 +997,28 @@
             leaveReasonInput.value = leave.reason;
             attachedDocumentDisplay.textContent = leave.document || 'No document attached.';
 
-            // Enable/disable action buttons based on status
+            // Show/hide status buttons based on application status
+            btnApproveLeave.style.display = 'inline-block';
+            btnDeclineLeave.style.display = 'inline-block';
+            btnUnresolveLeave.style.display = 'inline-block';
+
             if (leave.status === 'New') {
-                btnApproveLeave.style.display = 'inline-block';
-                btnDeclineLeave.style.display = 'inline-block';
+                leaveModalTitle.textContent = `Leave Application - ${leave.employee} (New)`;
                 btnApproveLeave.disabled = false;
                 btnDeclineLeave.disabled = false;
-            } else {
-                btnApproveLeave.style.display = 'none';
-                btnDeclineLeave.style.display = 'none';
+                btnUnresolveLeave.disabled = true; // Cannot unresolve a new application
+            } else if (leave.status === 'Approved') {
+                leaveModalTitle.textContent = `Leave Application - ${leave.employee} (Approved)`;
+                btnApproveLeave.disabled = true; // Cannot approve again
+                btnDeclineLeave.disabled = false; // Can decline
+                btnUnresolveLeave.disabled = false; // Can unresolve to neutral
+            } else if (leave.status === 'Declined') {
+                leaveModalTitle.textContent = `Leave Application - ${leave.employee} (Declined)`;
+                btnApproveLeave.disabled = false; // Can approve
+                btnDeclineLeave.disabled = true; // Cannot decline again
+                btnUnresolveLeave.disabled = false; // Can unresolve to neutral
             }
 
-            leaveModalTitle.textContent = `Leave Application - ${leave.employee}`;
             leaveModal.style.display = 'flex';
         }
     }
@@ -993,88 +1028,111 @@
         const leaveIndex = leaveApplications.findIndex(app => app.id === id);
         if (leaveIndex > -1) {
             leaveApplications[leaveIndex].status = status;
-            saveLeavesToLocalStorage(leaveApplications);
+            saveData();
             renderLeaveApplications();
-            hideModal(leaveModal);
-            showAlert('Success', `Leave application for ${leaveApplications[leaveIndex].employee} has been ${status.toLowerCase()}.`);
-        }
-    }
-
-    // Function to delete a leave application (moves to archive)
-    function deleteLeaveApplication(id) {
-        const leaveIndex = leaveApplications.findIndex(app => app.id === id);
-        if (leaveIndex > -1) {
-            const [deletedLeave] = leaveApplications.splice(leaveIndex, 1); // Remove from current list
-            archivedLeaveApplications.push(deletedLeave); // Add to archived list
-
-            saveLeavesToLocalStorage(leaveApplications); // Save updated current list
-            saveArchivedLeavesToLocalStorage(archivedLeaveApplications); // Save updated archived list
-
-            renderLeaveApplications(); // Re-render the table
-            showAlert('Deleted', 'Leave application has been moved to the archive.');
+            leaveModal.style.display = 'none';
+            displayCustomAlert(`Leave application for ${leaveApplications[leaveIndex].employee} has been ${status.toLowerCase()}.`);
         }
     }
 
     // --- Custom Alert/Confirm Functions ---
-    function showAlert(title, message) {
-        customAlertConfirmTitle.textContent = title;
-        customAlertConfirmMessage.textContent = message;
-        confirmCancelBtn.style.display = 'none'; // Hide cancel button for alerts
-        confirmProceedBtn.textContent = 'OK';
-        confirmProceedBtn.onclick = () => hideModal(customAlertConfirmModal);
-        customAlertConfirmModal.style.display = 'flex';
-    }
+    function displayCustomAlert(message) {
+        const alertModal = document.createElement('div');
+        alertModal.classList.add('modal', 'custom-alert-confirm');
+        alertModal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Alert</h2>
+                <p>${message}</p>
+                <button style="background-color: #007bff; color: white;">OK</button>
+            </div>
+        `;
+        document.body.appendChild(alertModal);
+        alertModal.style.display = 'flex';
 
-    function showConfirm(title, message, onConfirm) {
-        customAlertConfirmTitle.textContent = title;
-        customAlertConfirmMessage.textContent = message;
-        confirmCancelBtn.style.display = 'inline-block'; // Show cancel button for confirms
-        confirmProceedBtn.textContent = 'Proceed';
+        const closeBtn = alertModal.querySelector('.close-button');
+        const okBtn = alertModal.querySelector('button');
 
-        confirmCallback = onConfirm; // Store the function to call on confirm
+        const closeModal = () => {
+            alertModal.style.display = 'none';
+            alertModal.remove();
+        };
 
-        confirmProceedBtn.onclick = () => {
-            hideModal(customAlertConfirmModal);
-            if (confirmCallback) {
-                confirmCallback();
-                confirmCallback = null; // Clear callback after execution
+        closeBtn.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+        alertModal.addEventListener('click', (event) => {
+            if (event.target === alertModal) {
+                closeModal();
             }
-        };
-        confirmCancelBtn.onclick = () => {
-            hideModal(customAlertConfirmModal);
-            confirmCallback = null; // Clear callback
-        };
-        customAlertConfirmModal.style.display = 'flex';
+        });
     }
 
-    function hideModal(modalElement) {
-        modalElement.style.display = 'none';
+    function displayCustomConfirm(message, onConfirm) {
+        const confirmModal = document.createElement('div');
+        confirmModal.classList.add('modal', 'custom-alert-confirm');
+        confirmModal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Confirm Action</h2>
+                <p>${message}</p>
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+                    <button class="confirm-yes-btn" style="background-color: #dc3545; color: white;">Yes</button>
+                    <button class="confirm-no-btn" style="background-color: #6c757d; color: white;">No</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(confirmModal);
+        confirmModal.style.display = 'flex';
+
+        const closeBtn = confirmModal.querySelector('.close-button');
+        const yesBtn = confirmModal.querySelector('.confirm-yes-btn');
+        const noBtn = confirmModal.querySelector('.confirm-no-btn');
+
+        const closeModal = () => {
+            confirmModal.style.display = 'none';
+            confirmModal.remove();
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        noBtn.addEventListener('click', closeModal);
+        yesBtn.addEventListener('click', () => {
+            onConfirm();
+            closeModal();
+        });
+        confirmModal.addEventListener('click', (event) => {
+            if (event.target === confirmModal) {
+                closeModal();
+            }
+        });
     }
 
     // --- Event Listeners ---
-    closeLeaveModalBtn.onclick = () => hideModal(leaveModal);
-    closeCustomAlertConfirmBtn.onclick = () => hideModal(customAlertConfirmModal);
+    closeLeaveModalBtn.onclick = () => leaveModal.style.display = 'none';
 
     window.onclick = (event) => {
         if (event.target == leaveModal) {
-            hideModal(leaveModal);
-        }
-        if (event.target == customAlertConfirmModal) {
-            hideModal(customAlertConfirmModal);
+            leaveModal.style.display = 'none';
         }
     };
 
     btnApproveLeave.onclick = () => {
         const leaveId = parseInt(leaveIdInput.value);
-        showConfirm('Approve Leave', 'Are you sure you want to approve this leave application?', () => {
+        displayCustomConfirm('Are you sure you want to approve this leave application?', () => {
             updateLeaveStatus(leaveId, 'Approved');
         });
     };
 
     btnDeclineLeave.onclick = () => {
         const leaveId = parseInt(leaveIdInput.value);
-        showConfirm('Decline Leave', 'Are you sure you want to decline this leave application?', () => {
+        displayCustomConfirm('Are you sure you want to decline this leave application?', () => {
             updateLeaveStatus(leaveId, 'Declined');
+        });
+    };
+
+    btnUnresolveLeave.onclick = () => {
+        const leaveId = parseInt(leaveIdInput.value);
+        displayCustomConfirm('Are you sure you want to reset this leave application to neutral status?', () => {
+            updateLeaveStatus(leaveId, 'New');
         });
     };
 
@@ -1082,6 +1140,44 @@
 
     // Initial render on page load
     document.addEventListener('DOMContentLoaded', renderLeaveApplications);
+
+    // Logout functionality with modal
+    const logoutBtn = document.querySelector('.logout-btn');
+    const logoutConfirmationModal = document.getElementById('logoutConfirmationModal');
+    const closeLogoutModal = document.getElementById('closeLogoutModal');
+    const confirmLogout = document.getElementById('confirmLogout');
+    const cancelLogout = document.getElementById('cancelLogout');
+
+    // Show logout confirmation modal
+    logoutBtn.addEventListener('click', () => {
+        logoutConfirmationModal.style.display = 'flex';
+    });
+
+    // Close logout modal
+    closeLogoutModal.addEventListener('click', () => {
+        logoutConfirmationModal.style.display = 'none';
+    });
+
+    cancelLogout.addEventListener('click', () => {
+        logoutConfirmationModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside content
+    logoutConfirmationModal.addEventListener('click', (e) => {
+        if (e.target === logoutConfirmationModal) {
+            logoutConfirmationModal.style.display = 'none';
+        }
+    });
+
+    // Confirm logout action
+    confirmLogout.addEventListener('click', () => {
+        // Clear any stored session data
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Redirect to login page
+        window.location.href = '../login-admin.html';
+    });
 </script>
 </body>
 </html>

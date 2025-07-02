@@ -142,22 +142,22 @@
         box-sizing: border-box;
     }
 
-    .logout-btn {
-        width: 100%;
-        padding: 12px;
-        background-color: white;
-        color: #7A0A0A;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
+.logout-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #df0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
 
-    .logout-btn:hover {
-        background-color: #eee;
-    }
+        .logout-btn:hover {
+            background-color: #530000;
+        }
 
     /* Main Content Styling for Leave Archive */
     .main-content {
@@ -691,6 +691,21 @@
             </div>
         </div>
     </div>
+    <div id="logoutConfirmationModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close-button" id="closeLogoutModal" style="top: 5px; right: 15px;">&times;</span>
+            <h2 style="color: #7A0A0A; margin-bottom: 18px; margin-top: 10px; font-size: 1.2em;">Confirm Logout</h2>
+            <div style="margin-bottom: 25px; font-size: 16px; color: #555;">
+                Are you sure you want to log out?
+            </div>
+            <button id="confirmLogout" style="background: #7A0A0A; color: #fff; border: none; border-radius: 6px; padding: 12px 24px; font-size: 1em; font-weight: 600; cursor: pointer; margin-right: 15px;">
+                Yes, Log Out
+            </button>
+            <button id="cancelLogout" style="background: #4B5320; color: #fff; border: none; border-radius: 6px; padding: 12px 24px; font-size: 1em; font-weight: 600; cursor: pointer;">
+                Cancel
+            </button>
+        </div>
+    </div>
 
     <script>
     // --- Sidebar Active Link Script ---
@@ -989,6 +1004,43 @@ function processIncomingDeletedLeaves() {
 
 // Initial render and processing of deleted leaves on page load
 document.addEventListener('DOMContentLoaded', processIncomingDeletedLeaves);
+// Logout functionality with modal
+const logoutBtn = document.querySelector('.logout-btn');
+const logoutConfirmationModal = document.getElementById('logoutConfirmationModal');
+const closeLogoutModal = document.getElementById('closeLogoutModal');
+const confirmLogout = document.getElementById('confirmLogout');
+const cancelLogout = document.getElementById('cancelLogout');
+
+// Show logout confirmation modal
+logoutBtn.addEventListener('click', () => {
+    logoutConfirmationModal.style.display = 'flex';
+});
+
+// Close logout modal
+closeLogoutModal.addEventListener('click', () => {
+    logoutConfirmationModal.style.display = 'none';
+});
+
+cancelLogout.addEventListener('click', () => {
+    logoutConfirmationModal.style.display = 'none';
+});
+
+// Close modal when clicking outside content
+logoutConfirmationModal.addEventListener('click', (e) => {
+    if (e.target === logoutConfirmationModal) {
+        logoutConfirmationModal.style.display = 'none';
+    }
+});
+
+// Confirm logout action
+confirmLogout.addEventListener('click', () => {
+    // Clear any stored session data
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Redirect to login page
+    window.location.href = '../login-admin.html';
+});
     </script>
 </body>
 </html>
