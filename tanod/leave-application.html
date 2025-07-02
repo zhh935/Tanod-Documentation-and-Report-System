@@ -220,8 +220,7 @@
 
     <!-- Buttons -->
     <div class="flex justify-center gap-5 w-full py-5 px-12">
-      <button type="submit"
-        class="px-6 py-3 bg-green-600 text-white font-bold rounded-full text-base hover:bg-green-700 transition ease-in-out duration-200 transform hover:-translate-y-0.5 submit-button">
+      <button type="submit" class="submit-button bg-[#707070] opacity-100 cursor-not-allowed text-[#F5F5F5] px-6 py-3 font-bold rounded-full text-base border-2" disabled>
         Submit
       </button>
       <button type="reset"
@@ -384,6 +383,69 @@
           }
         });
       });
+      function isLeaveFormValid() {
+      const leaveType = document.getElementById('leave-type').value.trim();
+      const startDate = document.getElementById('start-date').value.trim();
+      const endDate = document.getElementById('end-date').value.trim();
+      const reason = document.getElementById('reason-for-leave').value.trim();
+      const fileInput = document.getElementById('attached-document-leave');
+      const hasFile = fileInput && fileInput.files && fileInput.files.length > 0;
+
+      return (
+        leaveType &&
+        startDate &&
+        endDate &&
+        reason &&
+        hasFile
+      );
+    }
+    function updateLeaveSubmitButtonState() {
+      const submitBtn = document.querySelector('.submit-button');
+      if (!submitBtn) return;
+      if (isLeaveFormValid()) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+        submitBtn.classList.add('bg-green-600', 'shadow-[0_0_10px_2px_#22c55e]', 'hover:bg-green-700', 'cursor-pointer');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('bg-gray-400', 'opacity-100', 'cursor-not-allowed');
+        submitBtn.classList.remove('bg-green-600', 'shadow-[0_0_10px_2px_#22c55e]', 'hover:bg-green-700', 'cursor-pointer');
+      }
+    }
+          // Attach listeners to all relevant fields
+      document.addEventListener('DOMContentLoaded', function() {
+        const fields = [
+          'leave-type',
+          'start-date',
+          'end-date',
+          'reason-for-leave'
+        ];
+        fields.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateLeaveSubmitButtonState);
+        });
+
+        // Listen for file input changes
+        const fileInput = document.getElementById('attached-document-leave');
+        if (fileInput) {
+          fileInput.addEventListener('change', updateLeaveSubmitButtonState);
+        }
+
+        // Initial state
+        updateLeaveSubmitButtonState();
+      });
+
+      // Prevent form submission if not valid (safety)
+      const leaveForm = document.getElementById('leaveform');
+      if (leaveForm) {
+        leaveForm.addEventListener('submit', function(e) {
+          if (!isLeaveFormValid()) {
+            e.preventDefault();
+            updateLeaveSubmitButtonState();
+            return false;
+          }
+        });
+      }
       </script>
 
 
