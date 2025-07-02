@@ -2692,3 +2692,18 @@
 #prevMonth:hover, #nextMonth:hover {
   background: #dce6cc;
 }
+#successModal {
+  z-index: 2147483647 !important; /* Maximum safe z-index */
+}
+#successModalBox {
+  min-width: 380px;
+  min-height: 110px;
+  padding-left: 4.5rem;   /* px-18 */
+  padding-right: 4.5rem;
+  padding-top: 2.5rem;    /* py-10 */
+  padding-bottom: 2.5rem;
+  font-size: 1.35rem;     /* slightly larger text */
+  border-width: 5px;
+  border-color: #16a34a; /* Tailwind green-600 */
+  z-index: 2147483647 !important; /* Maximum safe z-index */
+}

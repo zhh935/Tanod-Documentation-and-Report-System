@@ -229,11 +229,11 @@
         <div class="flex flex-col md:flex-row gap-3">
           <div class="flex-1">
             <label for="input-mobile" class="block font-semibold text-[#4B5320] text-sm mb-1">Contact Info</label>
-            <input id="input-mobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" />
+            <input id="input-mobile" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="+63" />
           </div>
           <div class="flex-1">
             <label for="input-mobile2" class="block font-semibold text-[#4B5320] text-sm mb-1">Secondary Mobile Number</label>
-            <input id="input-mobile2" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="Optional" />
+            <input id="input-mobile2" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#C8D75A]" placeholder="+63" />
           </div>
         </div>
         <!-- Email -->
@@ -266,7 +266,9 @@
         <input id="input-recovery" type="hidden" />
         <!-- Save Changes Button -->
         <div class="flex justify-end">
-          <button type="submit" class="bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-orange-600 hover:shadow-orange-400/70 hover:shadow-glow transition-colors duration-200">Save Changes</button>
+          <button type="submit" class="bg-orange-500 text-white font-semibold px-6 py-2 rounded-lg shadow hover:bg-orange-600 hover:shadow-orange-400/70 hover:shadow-glow transition-colors duration-200 cursor-pointer">
+          Save Changes
+            </button>
         </div>
       </form>
       <!-- Modal Buttons -->
@@ -305,6 +307,16 @@
     style="box-shadow: 0 0 24px 4px #ff0000, 0 0 8px 2px #ff6a6a;">
     <i class="fa fa-exclamation-triangle text-red-500 text-3xl" aria-hidden="true"></i>
     <span id="alertModalMessage"></span>
+  </div>
+</div>
+<!-- Success Modal (always on top) -->
+<div id="successModal" class="fixed inset-0 flex items-center justify-center z-[1000000] pointer-events-auto hidden">
+  <div
+    id="successModalBox"
+    class="bg-white border-4 border-green-500 rounded-2xl shadow-lg px-12 py-10 text-center text-green-700 text-lg font-bold transition-all duration-300 opacity-0"
+    style="box-shadow: 0 0 24px 4px #4CAF50, 0 0 8px 2px #b6e7c9;">
+    <i class="fa fa-check-circle text-green-500 text-3xl mb-2" style="color: #4CAF50;" aria-hidden="true"></i>
+    <div id="successModalMessage">Changes have been saved!</div>
   </div>
 </div>
 
@@ -477,28 +489,55 @@ function loadProfileData() {
 document.addEventListener('DOMContentLoaded', function() {
   loadProfileData();
 
+  // Only allow numbers in Contact Info and Secondary Mobile Number
+  const inputMobile = document.getElementById('input-mobile');
+  const inputMobile2 = document.getElementById('input-mobile2');
+
+  function allowOnlyNumbers(e) {
+    // Remove any non-digit characters
+    e.target.value = e.target.value.replace(/\D/g, '');
+  }
+
+  inputMobile.addEventListener('input', allowOnlyNumbers);
+  inputMobile2.addEventListener('input', allowOnlyNumbers);
+
   document.getElementById('profile-settings-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const birthday = document.getElementById('input-birthday').value;
-    const mobile = document.getElementById('input-mobile').value;
-    const mobile2 = document.getElementById('input-mobile2').value;
-    const marital = document.getElementById('input-marital').value;
-    const address = document.getElementById('input-address').value;
-    const email = document.getElementById('input-email').value;
-    const social = document.getElementById('input-social').value;
-    const recovery = document.getElementById('input-recovery').value;
+  const birthday = document.getElementById('input-birthday').value;
+  const mobile = inputMobile.value;
+  const mobile2 = inputMobile2.value;
+  const marital = document.getElementById('input-marital').value;
+  const address = document.getElementById('input-address').value;
+  const email = document.getElementById('input-email').value;
+  const social = document.getElementById('input-social').value;
+  const recovery = document.getElementById('input-recovery').value;
 
-    localStorage.setItem('profile_birthday', birthday);
-    localStorage.setItem('profile_mobile', mobile);
-    localStorage.setItem('profile_mobile2', mobile2);
-    localStorage.setItem('profile_marital', marital);
-    localStorage.setItem('profile_address', address);
-    localStorage.setItem('profile_email', email);
-    localStorage.setItem('profile_social', social);
-    localStorage.setItem('profile_recovery', recovery);
+  // Validation: Only numbers allowed
+  if (mobile && /\D/.test(mobile)) {
+    showAlertModal('Contact Info must contain numbers only.');
+    inputMobile.focus();
+    return;
+  }
+  if (mobile2 && /\D/.test(mobile2)) {
+    showAlertModal('Secondary Mobile Number must contain numbers only.');
+    inputMobile2.focus();
+    return;
+  }
 
-    loadProfileData();
-  });
+  localStorage.setItem('profile_birthday', birthday);
+  localStorage.setItem('profile_mobile', mobile);
+  localStorage.setItem('profile_mobile2', mobile2);
+  localStorage.setItem('profile_marital', marital);
+  localStorage.setItem('profile_address', address);
+  localStorage.setItem('profile_email', email);
+  localStorage.setItem('profile_social', social);
+  localStorage.setItem('profile_recovery', recovery);
+
+  loadProfileData();
+
+  // Show confirmation modal for 2 seconds
+  showSuccessModal('Changes have been saved!');
+});
 
   // Cropper.js logic
   let cropper;
@@ -577,17 +616,25 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => recoveryModal.classList.add('hidden'), 300);
     }
   });
-  saveRecoveryModal.addEventListener('click', () => {
-    if (inputRecovery.value) {
-      localStorage.setItem('profile_recovery', inputRecovery.value);
-      currentRecoveryEmail.value = inputRecovery.value;
-      document.querySelector('.profile-recovery').textContent = inputRecovery.value;
-      const hiddenRecovery = document.getElementById('input-recovery');
-      if (hiddenRecovery) hiddenRecovery.value = inputRecovery.value;
-    }
-    recoveryModal.classList.remove('active');
-    setTimeout(() => recoveryModal.classList.add('hidden'), 300);
-  });
+saveRecoveryModal.addEventListener('click', () => {
+  const email = inputRecovery.value.trim();
+  // Simple email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showAlertModal('Invalid Email!');
+    inputRecovery.focus();
+    return;
+  }
+  if (email) {
+    localStorage.setItem('profile_recovery', email);
+    currentRecoveryEmail.value = email;
+    document.querySelector('.profile-recovery').textContent = email;
+    const hiddenRecovery = document.getElementById('input-recovery');
+    if (hiddenRecovery) hiddenRecovery.value = email;
+  }
+  recoveryModal.classList.remove('active');
+  setTimeout(() => recoveryModal.classList.add('hidden'), 300);
+});
 
   // Alert Modal logic
   function showAlertModal(message) {
@@ -608,6 +655,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
     }, 1500);
   }
+  // Success Modal logic
+  function showSuccessModal(message) {
+  const successModal = document.getElementById('successModal');
+  const successModalBox = document.getElementById('successModalBox');
+  const successModalMessage = document.getElementById('successModalMessage');
+  successModalMessage.textContent = message;
+  successModal.classList.remove('hidden');
+  setTimeout(() => {
+    successModalBox.classList.remove('opacity-0');
+    successModalBox.classList.add('opacity-100');
+  }, 10);
+  setTimeout(() => {
+    successModalBox.classList.remove('opacity-100');
+    successModalBox.classList.add('opacity-0');
+    setTimeout(() => {
+      successModal.classList.add('hidden');
+    }, 300);
+  }, 2000);
+}
 
   // Password Modal logic
   const openPasswordModal = document.getElementById('openPasswordModal');
